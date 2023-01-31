@@ -15,6 +15,9 @@ PODS:
     - hermes-engine/Pre-built (= 0.71.0)
   - hermes-engine/Pre-built (0.71.0)
   - libevent (2.1.12)
+  - MMKV (1.2.15):
+    - MMKVCore (~> 1.2.15)
+  - MMKVCore (1.2.15)
   - RCT-Folly (2021.07.22.00):
     - boost
     - DoubleConversion
@@ -234,6 +237,11 @@ PODS:
   - React-jsinspector (0.71.0)
   - React-logger (0.71.0):
     - glog
+  - react-native-blur (4.3.0):
+    - React-Core
+  - react-native-mmkv (2.6.1):
+    - MMKV (>= 1.2.13)
+    - React-Core
   - React-perflogger (0.71.0)
   - React-RCTActionSheet (0.71.0):
     - React-Core/RCTActionSheetHeaders (= 0.71.0)
@@ -315,6 +323,42 @@ PODS:
     - React-jsi (= 0.71.0)
     - React-logger (= 0.71.0)
     - React-perflogger (= 0.71.0)
+  - RNDeviceInfo (10.3.0):
+    - React-Core
+  - RNFS (2.20.0):
+    - React-Core
+  - RNPermissions (3.6.1):
+    - React-Core
+  - RNReanimated (2.14.4):
+    - DoubleConversion
+    - FBLazyVector
+    - FBReactNativeSpec
+    - glog
+    - RCT-Folly
+    - RCTRequired
+    - RCTTypeSafety
+    - React-callinvoker
+    - React-Core
+    - React-Core/DevSupport
+    - React-Core/RCTWebSocket
+    - React-CoreModules
+    - React-cxxreact
+    - React-jsi
+    - React-jsiexecutor
+    - React-jsinspector
+    - React-RCTActionSheet
+    - React-RCTAnimation
+    - React-RCTBlob
+    - React-RCTImage
+    - React-RCTLinking
+    - React-RCTNetwork
+    - React-RCTSettings
+    - React-RCTText
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNScreens (3.19.0):
+    - React-Core
+    - React-RCTImage
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -340,6 +384,8 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
+  - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -353,12 +399,19 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNFS (from `../node_modules/react-native-fs`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - fmt
     - libevent
+    - MMKV
+    - MMKVCore
 
 EXTERNAL SOURCES:
   boost:
@@ -401,6 +454,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-blur:
+    :path: "../node_modules/@react-native-community/blur"
+  react-native-mmkv:
+    :path: "../node_modules/react-native-mmkv"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -427,6 +484,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -439,6 +506,8 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: f6e715aa6c8bd38de6c13bc85e07b0a337edaa89
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  MMKV: 7f34558bbb5a33b0eaefae2de4b6a20a2ffdad6f
+  MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: dea3e4163184ea57c50288c15c32c1529265c58f
   RCTTypeSafety: a0834ab89159a346731e8aae55ad6e2cce61c327
@@ -453,6 +522,8 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 060dd495f1e2af3d87216f7ca8a94c55ec885b4f
   React-jsinspector: 5061fcbec93fd672183dfb39cc2f65e55a0835db
   React-logger: a6c0b3a807a8e81f6d7fea2e72660766f55daa50
+  react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
+  react-native-mmkv: 28af0c2a3dc9495c2cea80f9d41444e096c2a1ef
   React-perflogger: e5fc4149e9bbb972b8520277f3b23141faa47a36
   React-RCTActionSheet: 991de88216bf03ab9bb1d213d73c62ecbe64ade7
   React-RCTAnimation: b74e3d1bf5280891a573e447b487fa1db0713b5b
@@ -466,6 +537,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 55c91eccdbd435d7634efbe847086944389475b0
   React-runtimeexecutor: ac80782d9d76ba2b0f709f4de0c427fe33c352dc
   ReactCommon: 20e38a9be5fe1341b5e422220877cc94034776ba
+  RNDeviceInfo: 4701f0bf2a06b34654745053db0ce4cb0c53ada7
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
+  RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
+  RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
+  RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
   Yoga: c618b544ff8bd8865cdca602f00cbcdb92fd6d31
 
 PODFILE CHECKSUM: 40ae073dbb3e9d42b235a95db8d88d501b10d7b6
