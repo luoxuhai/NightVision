@@ -1,4 +1,5 @@
-export const HomeScreen = () => {
+import { observer } from 'mobx-react-lite';
 
-    return
-}
+export const HomeScreen = observer(() => {
+  return null;
+});

@@ -1,15 +1,5 @@
-import { Linking } from 'react-native';
-import {
-  observable,
-  runInAction,
-  makeObservable,
-  action,
-} from 'mobx';
-import {
-  hydrateStore,
-  makePersistable,
-  clearPersistedStore,
-} from 'mobx-persist-store';
+import { observable, makeObservable, action } from 'mobx';
+import { hydrateStore, makePersistable, clearPersistedStore } from 'mobx-persist-store';
 
 export class GlobalStore {
   @observable debug = false;
@@ -26,16 +16,13 @@ export class GlobalStore {
     this.debug = enabled;
   }
 
-  async hydrate(): PVoid {
+  async hydrate() {
     return hydrateStore(this);
   }
 
-  async clearPersisted(): PVoid {
+  async clearPersisted() {
     return clearPersistedStore(this);
   }
 }
 
-const globalStore = new GlobalStore();
-
-export default globalStore;
-
+export const globalStore = new GlobalStore();
