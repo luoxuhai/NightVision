@@ -1,0 +1,3 @@
+CFBundleDisplayName = "Night Vision";
+NSCameraUsageDescription = "The app will access your camera permissions when you use the import pictures and videos from camera function, in order to import pictures and videos";
+NSPhotoLibraryAddUsageDescription = "To save pictures and videos to the album";

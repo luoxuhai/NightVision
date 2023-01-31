@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "extends": "@tsconfig/react-native/tsconfig.json"
 }
