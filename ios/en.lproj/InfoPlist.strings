@@ -1,0 +1,5 @@
+CFBundleDisplayName = "Night Vision";
+NSCameraUsageDescription = "App will access your camera permissions when you use the night vision device, in order to obtain the data scanned by the lidar";
+NSPhotoLibraryUsageDescription = "App will access your album permissions when you use the function of importing pictures from the album, in order to import pictures";
+NSAppleMusicUsageDescription = "In order to delete the pictures in the system album";
+NSPhotoLibraryAddUsageDescription = "To save pictures and videos to the album";
