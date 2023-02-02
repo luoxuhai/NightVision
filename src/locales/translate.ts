@@ -25,7 +25,7 @@ import { TextKeyPath } from './i18n';
  * // => "Hello world!"
  * ```
  */
-export function translate(key: TextKeyPath, options?: TOptions) {
+export function translate(key: TextKeyPath, options: TOptions = {}) {
   return i18n.t(key, options);
 }
 

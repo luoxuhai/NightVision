@@ -7,7 +7,7 @@ import {
   IOSPermission,
 } from 'react-native-permissions';
 
-import { translate as t } from '@/locales';
+import { t } from '@/locales';
 
 export class PermissionManager {
   private static permissionMapTitle: { [key: string]: string } = {

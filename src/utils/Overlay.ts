@@ -23,7 +23,7 @@ function toast(options: ToastOptions) {
     ...options,
     title: options.title ?? '',
     message: options.message ?? '',
-    haptic: HapticFeedback.enabled ? options.haptic ?? 'none' : 'none',
+    haptic: options.haptic ?? 'none',
   });
 }
 
