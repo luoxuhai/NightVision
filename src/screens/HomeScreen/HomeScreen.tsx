@@ -1,44 +1,57 @@
 import { observer } from 'mobx-react-lite';
 import { ViewStyle, View, PlatformColor, StatusBar, Share } from 'react-native';
 import { SafeAreaView, useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { StackScreenProps } from '@react-navigation/stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import KeepAwake from '@sayem314/react-native-keep-awake';
 
 import { TopButton } from './components/TopButton';
 import config from '../../config';
 import { BottomButton } from './components/BottomButton';
 import { AppStackParamList } from '@/navigators';
+import { useEffect, useState } from 'react';
 
-export const HomeScreen = observer<StackScreenProps<AppStackParamList>>((props) => {
+export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
+  const [appMaskVisible, setAppMaskVisible] = useState(false);
 
   return (
-    <View style={$container}>
-      <View
-        style={[
-          $topContainer,
-          {
-            top: safeAreaInsets.top,
-          },
-        ]}
-      >
-        <TopButton
-          iconName="gearshape"
-          onPress={() => {
-            props.navigation.navigate('Settings');
-          }}
-        />
-        <TopButton
-          iconName="square.and.arrow.up"
-          onPress={() => Share.share({ url: config.appUrl })}
-        />
+    <>
+      <StatusBar hidden />
+      <KeepAwake />
+      <View style={$container}>
+        <View
+          style={[
+            $topContainer,
+            {
+              top: safeAreaInsets.top,
+            },
+          ]}
+        >
+          <TopButton
+            iconName="gearshape"
+            onPress={() => {
+              props.navigation.navigate('Settings');
+            }}
+          />
+          <TopButton
+            iconName="square.and.arrow.up"
+            onPress={() => Share.share({ url: config.appUrl })}
+          />
+        </View>
+        <View style={{ backgroundColor: '#999', flex: 1 }} />
+        <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
+          <BottomButton iconName="camera.filters" />
+          <BottomButton iconName="ruler" iconSize={40} size={80} />
+          <BottomButton
+            iconName="moon.fill"
+            onPress={() => {
+              props.navigation.navigate('AppMask');
+              // setAppMaskVisible(true);
+            }}
+          />
+        </View>
       </View>
-      <View style={{ backgroundColor: '#F00', flex: 1 }} />
-      <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
-        <BottomButton iconName="moon.fill" />
-        <BottomButton iconName="ruler" iconSize={40} size={80} />
-        <BottomButton iconName="camera.filters" />
-      </View>
-    </View>
+    </>
   );
 });
 
@@ -50,7 +63,7 @@ const $topContainer: ViewStyle = {
   position: 'absolute',
   zIndex: 1,
   width: '100%',
-  paddingTop: 20,
+  paddingTop: 10,
   paddingHorizontal: 26,
   flexDirection: 'row',
   alignItems: 'center',

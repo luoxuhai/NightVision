@@ -1,18 +1,18 @@
 import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackScreenProps } from '@react-navigation/stack';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
 import { useColorScheme } from 'react-native';
 
-import { HomeScreen, SettingsScreen } from '../screens';
+import { HomeScreen, SettingsScreen, AppMaskScreen } from '../screens';
 
 export type AppStackParamList = {
   Home: undefined;
   Settings: undefined;
+  AppMask: undefined;
 };
 
-export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreenProps<
+export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
   AppStackParamList,
   T
 >;
@@ -44,6 +44,15 @@ const AppStack = observer(function AppStack() {
         component={SettingsScreen}
         options={{
           presentation: 'modal',
+        }}
+      />
+      <Stack.Screen
+        name="AppMask"
+        component={AppMaskScreen}
+        options={{
+          animation: 'none',
+          presentation: 'fullScreenModal',
+          autoHideHomeIndicator: true,
         }}
       />
     </Stack.Navigator>
