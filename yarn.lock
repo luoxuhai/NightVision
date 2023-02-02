@@ -6168,6 +6168,11 @@ react-native-screens@^3.19.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-sfsymbols@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/react-native-sfsymbols/-/react-native-sfsymbols-1.2.1.tgz#53422d432dca1e028cfd95a283d69a590d3e3f84"
+  integrity sha512-G8TLcTJwUsVhDQV/yatoltWF+BWrEyb5Grmrhzdrc0gH9TgXnjfoJ9QxaWwC/3D6QVuaugosnbmlL69EurgM/w==
+
 react-native@0.71.0:
   version "0.71.0"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.71.0.tgz#ce47c3cb6239484fcd686d1f45b363b7014b6c62"

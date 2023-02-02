@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator 'iPhone 14 Pro Max'",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
@@ -27,7 +26,8 @@
     "react-native-permissions": "^3.6.1",
     "react-native-reanimated": "^2.14.4",
     "react-native-safe-area-context": "^4.5.0",
-    "react-native-screens": "^3.19.0"
+    "react-native-screens": "^3.19.0",
+    "react-native-sfsymbols": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

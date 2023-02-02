@@ -32,12 +32,18 @@ const AppStack = observer(function AppStack() {
         // },
       }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Home"
+        options={{
+          headerShown: false,
+        }}
+        component={HomeScreen}
+      />
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
-          presentation: 'formSheet',
+          presentation: 'modal',
         }}
       />
     </Stack.Navigator>
