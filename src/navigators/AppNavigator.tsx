@@ -1,3 +1,4 @@
+import { t } from '@/locales';
 import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
@@ -44,12 +45,14 @@ const AppStack = observer(function AppStack() {
         component={SettingsScreen}
         options={{
           presentation: 'modal',
+          title: t('settingsScreen.title'),
         }}
       />
       <Stack.Screen
         name="AppMask"
         component={AppMaskScreen}
         options={{
+          headerShown: false,
           animation: 'none',
           presentation: 'fullScreenModal',
           autoHideHomeIndicator: true,

@@ -1,3 +1,5 @@
+import '@/store/_persist';
+
 import React from 'react';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 

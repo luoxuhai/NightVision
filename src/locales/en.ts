@@ -27,6 +27,9 @@ const en: Translations = {
     save: 'Save',
   },
   homeScreen: {},
+  settingsScreen: {
+    title: 'Settings',
+  },
   permissionManager: {
     camera: 'Camera',
     photoLibrary: 'Photo Library',

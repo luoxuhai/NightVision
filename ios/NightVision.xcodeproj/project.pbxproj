@@ -13,6 +13,8 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		35745D6F2989559C00208D03 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35745D712989559C00208D03 /* InfoPlist.strings */; };
+		35745D7F298C02B400208D03 /* RNDepthCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745D7E298C02B400208D03 /* RNDepthCameraView.m */; };
+		35745D81298C02F200208D03 /* RNDepthCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745D80298C02F100208D03 /* RNDepthCameraView.swift */; };
 		7699B88040F8A987B510C191 /* libPods-NightVision-NightVisionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-NightVision-NightVisionTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,9 @@
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-NightVision-NightVisionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NightVision-NightVisionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35745D702989559C00208D03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35745D72298955A000208D03 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		35745D75298C01C400208D03 /* NightVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NightVision-Bridging-Header.h"; sourceTree = "<group>"; };
+		35745D7E298C02B400208D03 /* RNDepthCameraView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNDepthCameraView.m; path = NightVision/RNDepthCameraView.m; sourceTree = "<group>"; };
+		35745D80298C02F100208D03 /* RNDepthCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RNDepthCameraView.swift; path = NightVision/RNDepthCameraView.swift; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-NightVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision.debug.xcconfig"; path = "Target Support Files/Pods-NightVision/Pods-NightVision.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-NightVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision.release.xcconfig"; path = "Target Support Files/Pods-NightVision/Pods-NightVision.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-NightVision-NightVisionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision-NightVisionTests.debug.xcconfig"; path = "Target Support Files/Pods-NightVision-NightVisionTests/Pods-NightVision-NightVisionTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +96,9 @@
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
+				35745D80298C02F100208D03 /* RNDepthCameraView.swift */,
+				35745D7E298C02B400208D03 /* RNDepthCameraView.m */,
+				35745D75298C01C400208D03 /* NightVision-Bridging-Header.h */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
@@ -211,7 +219,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1400;
 					};
 				};
 			};
@@ -420,6 +428,8 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				35745D7F298C02B400208D03 /* RNDepthCameraView.m in Sources */,
+				35745D81298C02F200208D03 /* RNDepthCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +460,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-NightVision-NightVisionTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -477,6 +488,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-NightVision-NightVisionTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = NightVisionTests/Info.plist;
@@ -523,6 +535,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "NightVision-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -555,6 +568,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "NightVision-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

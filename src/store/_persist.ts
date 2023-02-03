@@ -1,12 +1,15 @@
 import { configurePersistable } from 'mobx-persist-store';
+import { MMKV } from 'react-native-mmkv';
 
-import { set, get, remove } from '@/storage';
+export const mmkv = new MMKV({
+  id: 'settings',
+});
 
 configurePersistable({
   debugMode: __DEV__,
   storage: {
-    setItem: (key, data) => set(key, data),
-    getItem: (key) => get(key) as string | null,
-    removeItem: (key) => remove(key),
+    setItem: (key, data) => mmkv.set(key, data),
+    getItem: (key) => mmkv.getString(key) as string | null,
+    removeItem: (key) => mmkv.delete(key),
   },
 });

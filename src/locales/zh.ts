@@ -25,6 +25,9 @@ const zh = {
     save: '保存',
   },
   homeScreen: {},
+  settingsScreen: {
+    title: '设置',
+  },
   permissionManager: {
     camera: '相机',
     photoLibrary: '相册',

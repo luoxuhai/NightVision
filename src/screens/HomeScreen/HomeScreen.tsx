@@ -8,11 +8,9 @@ import { TopButton } from './components/TopButton';
 import config from '../../config';
 import { BottomButton } from './components/BottomButton';
 import { AppStackParamList } from '@/navigators';
-import { useEffect, useState } from 'react';
 
-export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList>>((props) => {
+export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
-  const [appMaskVisible, setAppMaskVisible] = useState(false);
 
   return (
     <>
