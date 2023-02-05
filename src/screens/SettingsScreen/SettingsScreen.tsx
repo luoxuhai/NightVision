@@ -16,6 +16,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { human } from 'react-native-typography';
 import { SFSymbol } from 'react-native-sfsymbols';
 import Mailer from 'react-native-mail';
+import Slider from '@react-native-community/slider';
 
 import { AppStackParamList } from '@/navigators';
 import { ListCell, ListSection, SafeAreaScrollView, TextButton } from '@/components';
@@ -24,6 +25,7 @@ import Config from '@/config';
 import { openPrivacyPolicy, openRecommendAppStore, openUserAgreement } from './helpers/openUri';
 import { useColorScheme } from 'react-native';
 import { Application, Device } from '@/utils';
+import { useStore } from '@/store';
 
 const AppIcon = require('@/assets/app-icon.png');
 
@@ -86,6 +88,7 @@ export const SettingsScreen = observer<NativeStackScreenProps<AppStackParamList,
               }}
             />
           </ListSection>
+          <DistanceSliderSection />
           <ListSection headerText={t('settingsScreen.agreement')}>
             <ListCell
               text={t('settingsScreen.privacyPolicy')}
@@ -105,29 +108,66 @@ export const SettingsScreen = observer<NativeStackScreenProps<AppStackParamList,
               onPress={openDeveloperEmail}
             />
           </ListSection>
-          <ListSection headerText={t('settingsScreen.recommend.title')}>
-            <ListCell style={$recommend} bottomSeparator={false} onPress={openRecommendAppStore}>
-              <Image style={$appIcon} source={AppIcon} />
-              <View style={{ flex: 1 }}>
-                <Text style={[human.body, $appName]}>{t('settingsScreen.recommend.appName')}</Text>
-                <Text style={[human.subhead, $desc]}>{t('settingsScreen.recommend.desc')}</Text>
-              </View>
-              <SFSymbol
-                style={{
-                  width: 18,
-                  height: 18,
-                }}
-                name="chevron.right"
-                weight="medium"
-                color={PlatformColor('opaqueSeparator')}
-              />
-            </ListCell>
-          </ListSection>
+          <AppRecommendSection />
         </SafeAreaScrollView>
       </>
     );
   },
 );
+
+const DistanceSliderSection = observer(() => {
+  const store = useStore();
+
+  return (
+    <ListSection headerText={t('settingsScreen.advanced.title')}>
+      <ListCell
+        text={`距离检测: ${store?.maxDistance} m`}
+        bottomSeparator={false}
+        rightIcon={null}
+      />
+      <ListCell style={$sliderCell} rightIcon={null} bottomSeparator={false}>
+        <View style={$slider}>
+          <Text style={$sliderIcon}>0.1 m</Text>
+          <Slider
+            style={{ flex: 1 }}
+            value={store?.maxDistance}
+            minimumValue={0.1}
+            maximumValue={5}
+            step={0.1}
+            tapToSeek
+            onValueChange={(value) => {
+              store?.setMaxDistance(Number(value.toFixed(1)));
+            }}
+          />
+          <Text style={$sliderIcon}>5 m</Text>
+        </View>
+      </ListCell>
+    </ListSection>
+  );
+});
+
+function AppRecommendSection() {
+  return (
+    <ListSection headerText={t('settingsScreen.recommend.title')}>
+      <ListCell style={$recommend} bottomSeparator={false} onPress={openRecommendAppStore}>
+        <Image style={$appIcon} source={AppIcon} />
+        <View style={{ flex: 1 }}>
+          <Text style={[human.body, $appName]}>{t('settingsScreen.recommend.appName')}</Text>
+          <Text style={[human.subhead, $desc]}>{t('settingsScreen.recommend.desc')}</Text>
+        </View>
+        <SFSymbol
+          style={{
+            width: 18,
+            height: 18,
+          }}
+          name="chevron.right"
+          weight="medium"
+          color={PlatformColor('opaqueSeparator')}
+        />
+      </ListCell>
+    </ListSection>
+  );
+}
 
 const $contentContainer: ViewStyle = {
   paddingTop: 20,
@@ -155,4 +195,20 @@ const $appName: TextStyle = {
 
 const $desc: TextStyle = {
   color: PlatformColor('secondaryLabel'),
+};
+
+const $sliderCell: ViewStyle = {
+  paddingHorizontal: 16,
+};
+
+const $slider: ViewStyle = {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  columnGap: 8,
+};
+
+const $sliderIcon: TextStyle = {
+  ...StyleSheet.flatten(human.body),
+  color: PlatformColor('label'),
 };

@@ -38,6 +38,9 @@ const zh = {
     agreement: '协议',
     privacyPolicy: '隐私政策',
     userAgreement: '用户协议',
+    advanced: {
+      title: '高级设置',
+    },
   },
   permissionManager: {
     camera: '相机',

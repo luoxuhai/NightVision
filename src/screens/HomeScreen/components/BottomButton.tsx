@@ -26,7 +26,7 @@ export function BottomButton(props: BottomButtonProps) {
   const isDark = useColorScheme() === 'dark';
   const size = props.size ?? 60;
   const iconSize = props.iconSize ?? 26;
-  const color = props.color ?? PlatformColor('systemGray5');
+  const color = props.color ?? PlatformColor('systemGray');
 
   return (
     <TouchableOpacity
@@ -44,7 +44,7 @@ export function BottomButton(props: BottomButtonProps) {
     >
       <VibrancyView
         style={StyleSheet.absoluteFill}
-        blurType={isDark ? 'ultraThinMaterialDark' : 'chromeMaterialLight'}
+        blurType={isDark ? 'ultraThinMaterial' : 'ultraThinMaterialLight'}
         blurAmount={50}
       />
       <SFSymbol name={props.iconName} size={iconSize} color={color} />

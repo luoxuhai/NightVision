@@ -2,18 +2,19 @@ import { observable, makeObservable, action } from 'mobx';
 import { hydrateStore, makePersistable, clearPersistedStore } from 'mobx-persist-store';
 
 export class GlobalStore {
-  @observable debug = false;
+  // 最大距离
+  @observable maxDistance = 1;
 
   constructor() {
     makeObservable(this);
     makePersistable(this, {
       name: 'Global',
-      properties: ['debug'],
+      properties: ['maxDistance'],
     });
   }
 
-  @action setDebug(enabled: boolean): void {
-    this.debug = enabled;
+  @action setMaxDistance(value: number): void {
+    this.maxDistance = value;
   }
 
   async hydrate() {

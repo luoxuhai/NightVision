@@ -1,12 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import { ViewStyle, View, PlatformColor, StatusBar, Share } from 'react-native';
-import { SafeAreaView, useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import KeepAwake from '@sayem314/react-native-keep-awake';
 
 import { TopButton } from './components/TopButton';
-import config from '../../config';
 import { BottomButton } from './components/BottomButton';
+import config from '@/config';
+import { DeepCameraView } from '@/components';
 import { AppStackParamList } from '@/navigators';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
@@ -36,7 +37,9 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
             onPress={() => Share.share({ url: config.appStoreUrl.global })}
           />
         </View>
-        <View style={{ backgroundColor: '#999', flex: 1 }} />
+
+        <DeepCameraView />
+
         <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
           <BottomButton iconName="camera.filters" color={PlatformColor('systemPurple')} />
           <BottomButton iconName="ruler" iconSize={40} size={80} />
@@ -44,7 +47,6 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
             iconName="moon.fill"
             onPress={() => {
               props.navigation.navigate('AppMask');
-              // setAppMaskVisible(true);
             }}
           />
         </View>
@@ -77,7 +79,7 @@ const $bottomContainer: ViewStyle = {
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  columnGap: 40,
+  columnGap: 50,
 };
 
 const $bottomCenterButton: ViewStyle = {};

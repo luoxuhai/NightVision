@@ -25,10 +25,10 @@ export function TopButton(props: TopButtonProps) {
     <TouchableOpacity style={[$container, props.style]} activeOpacity={0.5} onPress={props.onPress}>
       <VibrancyView
         style={StyleSheet.absoluteFill}
-        blurType={isDark ? 'ultraThinMaterialDark' : 'chromeMaterialLight'}
+        blurType={isDark ? 'ultraThinMaterial' : 'ultraThinMaterialLight'}
         blurAmount={50}
       />
-      <SFSymbol name={props.iconName} size={24} color={PlatformColor('systemGray4')} />
+      <SFSymbol name={props.iconName} size={24} color={PlatformColor('systemGray')} />
     </TouchableOpacity>
   );
 }
