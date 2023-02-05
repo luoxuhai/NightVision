@@ -7,6 +7,7 @@ import {
   PlatformColor,
   useColorScheme,
   StyleProp,
+  ColorValue,
 } from 'react-native';
 
 import { VibrancyView } from '@react-native-community/blur';
@@ -17,6 +18,7 @@ interface BottomButtonProps {
   iconName: string;
   size?: number;
   iconSize?: number;
+  color?: ColorValue;
   onPress?: () => void;
 }
 
@@ -24,6 +26,7 @@ export function BottomButton(props: BottomButtonProps) {
   const isDark = useColorScheme() === 'dark';
   const size = props.size ?? 60;
   const iconSize = props.iconSize ?? 26;
+  const color = props.color ?? PlatformColor('systemGray5');
 
   return (
     <TouchableOpacity
@@ -44,7 +47,7 @@ export function BottomButton(props: BottomButtonProps) {
         blurType={isDark ? 'ultraThinMaterialDark' : 'chromeMaterialLight'}
         blurAmount={50}
       />
-      <SFSymbol name={props.iconName} size={iconSize} color={PlatformColor('systemGray5')} />
+      <SFSymbol name={props.iconName} size={iconSize} color={color} />
     </TouchableOpacity>
   );
 }

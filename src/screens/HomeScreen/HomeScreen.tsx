@@ -33,12 +33,12 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
           />
           <TopButton
             iconName="square.and.arrow.up"
-            onPress={() => Share.share({ url: config.appUrl })}
+            onPress={() => Share.share({ url: config.appStoreUrl.global })}
           />
         </View>
         <View style={{ backgroundColor: '#999', flex: 1 }} />
         <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
-          <BottomButton iconName="camera.filters" />
+          <BottomButton iconName="camera.filters" color={PlatformColor('systemPurple')} />
           <BottomButton iconName="ruler" iconSize={40} size={80} />
           <BottomButton
             iconName="moon.fill"

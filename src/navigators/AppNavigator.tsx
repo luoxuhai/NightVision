@@ -1,8 +1,9 @@
 import { t } from '@/locales';
-import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
-import React, { useMemo } from 'react';
+import React from 'react';
+import { PlatformColor } from 'react-native';
 import { useColorScheme } from 'react-native';
 
 import { HomeScreen, SettingsScreen, AppMaskScreen } from '../screens';
@@ -28,9 +29,6 @@ const AppStack = observer(function AppStack() {
       screenOptions={{
         headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
         headerTransparent: true,
-        // headerStyle: {
-        //   backgroundColor: colors.background,
-        // },
       }}
     >
       <Stack.Screen
@@ -65,25 +63,22 @@ const AppStack = observer(function AppStack() {
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
-  // const { colors, isDark } = useTheme();
+  const isDark = useColorScheme() === 'dark';
 
-  // const theme: typeof DefaultTheme = useMemo(
-  //   () => ({
-  //     dark: isDark,
-  //     colors: {
-  //       primary: colors.palette.primary6,
-  //       card: colors.background,
-  //       background: colors.background,
-  //       text: colors.label,
-  //       border: colors.separator,
-  //       notification: colors.palette.red,
-  //     },
-  //   }),
-  //   [isDark],
-  // );
+  const theme = {
+    dark: isDark,
+    colors: {
+      primary: PlatformColor('systemBlue'),
+      card: PlatformColor('systemBackground'),
+      background: PlatformColor('systemBackground'),
+      text: PlatformColor('label'),
+      border: PlatformColor('separator'),
+      notification: PlatformColor('systemRed'),
+    },
+  };
 
   return (
-    <NavigationContainer {...props}>
+    <NavigationContainer {...props} theme={theme}>
       <AppStack />
     </NavigationContainer>
   );

@@ -247,6 +247,8 @@ PODS:
     - React-Core
   - react-native-keep-awake (1.1.0):
     - React-Core
+  - react-native-mail (6.1.1):
+    - React-Core
   - react-native-mmkv (2.6.1):
     - MMKV (>= 1.2.13)
     - React-Core
@@ -343,6 +345,8 @@ PODS:
     - React-Core
   - RNFS (2.20.0):
     - React-Core
+  - RNGestureHandler (2.9.0):
+    - React-Core
   - RNInAppBrowser (3.7.0):
     - React-Core
   - RNLocalize (2.2.4):
@@ -381,6 +385,7 @@ PODS:
   - RNScreens (3.19.0):
     - React-Core
     - React-RCTImage
+  - SPIndicator (1.6.4)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -411,6 +416,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - "react-native-keep-awake (from `../node_modules/@sayem314/react-native-keep-awake`)"
+  - react-native-mail (from `../node_modules/react-native-mail`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-sfsymbols (from `../node_modules/react-native-sfsymbols`)
@@ -429,12 +435,14 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFS (from `../node_modules/react-native-fs`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - SPIndicator
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -443,6 +451,7 @@ SPEC REPOS:
     - libevent
     - MMKV
     - MMKVCore
+    - SPIndicator
 
 EXTERNAL SOURCES:
   boost:
@@ -495,6 +504,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/blur"
   react-native-keep-awake:
     :path: "../node_modules/@sayem314/react-native-keep-awake"
+  react-native-mail:
+    :path: "../node_modules/react-native-mail"
   react-native-mmkv:
     :path: "../node_modules/react-native-mmkv"
   react-native-safe-area-context:
@@ -531,6 +542,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-device-info"
   RNFS:
     :path: "../node_modules/react-native-fs"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   RNInAppBrowser:
     :path: "../node_modules/react-native-inappbrowser-reborn"
   RNLocalize:
@@ -576,6 +589,7 @@ SPEC CHECKSUMS:
   React-logger: a6c0b3a807a8e81f6d7fea2e72660766f55daa50
   react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
   react-native-keep-awake: acbee258db16483744910f0da3ace39eb9ab47fd
+  react-native-mail: 8fdcd3aef007c33a6877a18eb4cf7447a1d4ce4a
   react-native-mmkv: 28af0c2a3dc9495c2cea80f9d41444e096c2a1ef
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
@@ -594,14 +608,16 @@ SPEC CHECKSUMS:
   ReactCommon: 20e38a9be5fe1341b5e422220877cc94034776ba
   RNDeviceInfo: 4701f0bf2a06b34654745053db0ce4cb0c53ada7
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
+  RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: 0df7970cfc60389f00eb62fd7c097dc75af3fb4f
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReactNativeHapticFeedback: 1e3efeca9628ff9876ee7cdd9edec1b336913f8c
   RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
   RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
+  SPIndicator: 93e0a4fb23de51294ac48e874c0f081a5e293e4f
   Yoga: c618b544ff8bd8865cdca602f00cbcdb92fd6d31
 
-PODFILE CHECKSUM: ff5a3a849b56b700d103176aa2c0ff0e1fc56f17
+PODFILE CHECKSUM: fc7203de7c7e80edacf8ad95a0af5a8e82c3ac95
 
 COCOAPODS: 1.11.2

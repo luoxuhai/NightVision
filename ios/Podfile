@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '14.0'
+platform :ios, '15.0'
 prepare_react_native_project!
 
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
@@ -33,6 +33,7 @@ target 'NightVision' do
   pod 'Permission-PhotoLibraryAddOnly', :path => "#{permissions_path}/PhotoLibraryAddOnly"
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary"
+  pod 'SPIndicator'
 
   target 'NightVisionTests' do
     inherit! :complete
