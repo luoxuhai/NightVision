@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle, View, PlatformColor, StatusBar, Share } from 'react-native';
+import { ViewStyle, View, PlatformColor, StatusBar, Share, InteractionManager } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import KeepAwake from '@sayem314/react-native-keep-awake';
+import { requestReview } from 'react-native-store-review';
 
 import { TopButton } from './components/TopButton';
 import { BottomButton } from './components/BottomButton';
@@ -12,6 +14,12 @@ import { AppStackParamList } from '@/navigators';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
+
+  useEffect(() => {
+    setTimeout(() => {
+      InteractionManager.runAfterInteractions(requestReview);
+    }, 3000);
+  }, []);
 
   return (
     <>

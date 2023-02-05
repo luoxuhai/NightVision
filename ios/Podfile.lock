@@ -387,6 +387,8 @@ PODS:
   - RNScreens (3.19.0):
     - React-Core
     - React-RCTImage
+  - RNStoreReview (0.3.0):
+    - React-Core
   - SPIndicator (1.6.4)
   - Yoga (1.14.0)
 
@@ -445,6 +447,7 @@ DEPENDENCIES:
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNStoreReview (from `../node_modules/react-native-store-review`)
   - SPIndicator
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -561,6 +564,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNStoreReview:
+    :path: "../node_modules/react-native-store-review"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -621,6 +626,7 @@ SPEC CHECKSUMS:
   RNReactNativeHapticFeedback: 1e3efeca9628ff9876ee7cdd9edec1b336913f8c
   RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
   RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
+  RNStoreReview: 18cf6adbd193eadb049d2f6c37ef2ab3d5a28706
   SPIndicator: 93e0a4fb23de51294ac48e874c0f081a5e293e4f
   Yoga: c618b544ff8bd8865cdca602f00cbcdb92fd6d31
 

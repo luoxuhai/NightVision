@@ -45,8 +45,8 @@
 		35745D702989559C00208D03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35745D72298955A000208D03 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		35745D75298C01C400208D03 /* NightVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NightVision-Bridging-Header.h"; sourceTree = "<group>"; };
-		35745D7E298C02B400208D03 /* RNDepthCameraView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNDepthCameraView.m; path = NightVision/RNDepthCameraView.m; sourceTree = "<group>"; };
-		35745D80298C02F100208D03 /* RNDepthCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RNDepthCameraView.swift; path = NightVision/RNDepthCameraView.swift; sourceTree = "<group>"; };
+		35745D7E298C02B400208D03 /* RNDepthCameraView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNDepthCameraView.m; sourceTree = "<group>"; };
+		35745D80298C02F100208D03 /* RNDepthCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNDepthCameraView.swift; sourceTree = "<group>"; };
 		35745D9C298FE28E00208D03 /* RNToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNToast.swift; sourceTree = "<group>"; };
 		35745D9E298FE29D00208D03 /* RNToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNToast.m; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-NightVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision.debug.xcconfig"; path = "Target Support Files/Pods-NightVision/Pods-NightVision.debug.xcconfig"; sourceTree = "<group>"; };
@@ -101,8 +101,6 @@
 				35745D9B298FE27800208D03 /* RNModules */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
-				35745D80298C02F100208D03 /* RNDepthCameraView.swift */,
-				35745D7E298C02B400208D03 /* RNDepthCameraView.m */,
 				35745D75298C01C400208D03 /* NightVision-Bridging-Header.h */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -126,10 +124,20 @@
 		35745D9B298FE27800208D03 /* RNModules */ = {
 			isa = PBXGroup;
 			children = (
+				35745DA02990000900208D03 /* RNDepthCamera */,
 				35745D9C298FE28E00208D03 /* RNToast.swift */,
 				35745D9E298FE29D00208D03 /* RNToast.m */,
 			);
 			path = RNModules;
+			sourceTree = "<group>";
+		};
+		35745DA02990000900208D03 /* RNDepthCamera */ = {
+			isa = PBXGroup;
+			children = (
+				35745D7E298C02B400208D03 /* RNDepthCameraView.m */,
+				35745D80298C02F100208D03 /* RNDepthCameraView.swift */,
+			);
+			path = RNDepthCamera;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
