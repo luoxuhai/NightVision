@@ -1,15 +1,26 @@
+import { useUpdateEffect } from '@/hooks';
+import { useStore } from '@/store';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, TextStyle } from 'react-native';
 import { View, Dimensions, ViewStyle, PlatformColor } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { runOnJS, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { MIN_RECT_SIZE } from './constants';
 
 const windowWidth = Dimensions.get('window').width;
 
-export function DistanceRect() {
+export const DistanceRect = observer(() => {
+  const store = useStore();
   const scale = useSharedValue(1);
+
+  useUpdateEffect(() => {
+    scale.value = store!.distanceRect.scale;
+    savedScale.value = store!.distanceRect.scale;
+  }, [store?.distanceRect.scale]);
+
   const savedScale = useSharedValue(1);
   const $animatedStyle = useAnimatedStyle(() => ({
     width: scale.value * MIN_RECT_SIZE,
@@ -27,6 +38,7 @@ export function DistanceRect() {
   const gesture = useMemo(
     () =>
       Gesture.Pinch()
+        .runOnJS(true)
         .onUpdate((e) => {
           const _scale = savedScale.value * e.scale;
           if (_scale < 1 || _scale * MIN_RECT_SIZE > windowWidth - 50) {
@@ -36,6 +48,9 @@ export function DistanceRect() {
         })
         .onEnd((e) => {
           savedScale.value = scale.value;
+          store?.setDistanceRect({
+            scale: scale.value,
+          });
         }),
     [],
   );
@@ -52,7 +67,7 @@ export function DistanceRect() {
       </GestureDetector>
     </>
   );
-}
+});
 
 const $xAxis: ViewStyle = {
   width: '100%',

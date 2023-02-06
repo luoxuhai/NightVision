@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle, View, PlatformColor, StatusBar, Share, InteractionManager } from 'react-native';
+import { ViewStyle, View, PlatformColor, Share, InteractionManager } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import KeepAwake from '@sayem314/react-native-keep-awake';
@@ -25,7 +25,6 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
 
   return (
     <>
-      <StatusBar hidden />
       <KeepAwake />
       <View style={$container}>
         <View

@@ -1,9 +1,10 @@
+import { MIN_RECT_SIZE } from '@/components/DeepCamera/constants';
 import { observable, makeObservable, action } from 'mobx';
 import { hydrateStore, makePersistable, clearPersistedStore } from 'mobx-persist-store';
 
 interface DistanceRect {
   position: { x: number; y: number };
-  size: { width: number; height: number };
+  scale: number;
 }
 
 export class GlobalStore {
@@ -11,7 +12,7 @@ export class GlobalStore {
   @observable maxDistance = 1;
   @observable distanceRect: DistanceRect = {
     position: { x: 0, y: 0 },
-    size: { width: 100, height: 100 },
+    scale: 1,
   };
 
   constructor() {
@@ -26,8 +27,8 @@ export class GlobalStore {
     this.maxDistance = value;
   }
 
-  @action setDistanceRect(value: DistanceRect): void {
-    this.distanceRect = value;
+  @action setDistanceRect(value: Partial<DistanceRect>): void {
+    this.distanceRect = { ...this.distanceRect, ...value };
   }
 
   async hydrate() {
