@@ -1,14 +1,13 @@
-import { useUpdateEffect } from '@/hooks';
-import { useStore } from '@/store';
+import { useEffect, useMemo } from 'react';
+import { StyleSheet, Text, TextStyle, View, Dimensions, ViewStyle, PlatformColor } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { useEffect } from 'react';
-import { useMemo } from 'react';
-import { StyleSheet } from 'react-native';
-import { Text, TextStyle } from 'react-native';
-import { View, Dimensions, ViewStyle, PlatformColor } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+
 import { MIN_RECT_SIZE } from './constants';
+import { HapticFeedback } from '@/utils';
+import { useStore } from '@/store';
+import { useUpdateEffect } from '@/hooks';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -42,6 +41,7 @@ export const DistanceRect = observer(() => {
         .onUpdate((e) => {
           const _scale = savedScale.value * e.scale;
           if (_scale < 1 || _scale * MIN_RECT_SIZE > windowWidth - 50) {
+            HapticFeedback.impact.medium();
             return;
           }
           scale.value = savedScale.value * e.scale;

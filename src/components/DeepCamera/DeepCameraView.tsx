@@ -1,30 +1,45 @@
-import { View, Dimensions, PlatformColor, useColorScheme } from 'react-native';
-import Animated from 'react-native-reanimated';
-import { DistanceRect } from './DistanceRect';
+import { PureComponent } from 'react';
+import { requireNativeComponent, NativeModules, ViewStyle } from 'react-native';
 
-const ratio = 192 / 256;
-const width = Dimensions.get('window').width;
+const DeepCameraModule = NativeModules.DepthCameraView;
 
-export function DeepCameraView() {
-  const isDark = useColorScheme() === 'dark';
-  return (
-    <View
-      style={{
-        backgroundColor: PlatformColor(isDark ? 'secondarySystemBackground' : 'systemBackground'),
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <View
-        style={{
-          width,
-          height: width / ratio,
-          backgroundColor: '#000',
-        }}
-      >
-        <DistanceRect />
-      </View>
-    </View>
-  );
+interface DeepCameraViewProps {
+  style?: ViewStyle;
+  minDistance?: number;
+  distanceRectWidth?: number;
+  distanceRectHeight?: number;
+  colorMode?: number;
+  onMinDistance?: (distance: number) => void;
+  onError?: () => void;
+  onReady?: () => void;
 }
+
+export class DeepCameraView extends PureComponent<DeepCameraViewProps> {
+  constructor(props: CameraProps) {
+    super(props);
+    this.onMinDistance = this.onMinDistance.bind(this);
+  }
+
+  private onMinDistance(event: any): void {
+    this.props.onMinDistance?.(event.nativeEvent?.distance ?? -1);
+  }
+
+  public static async supports(): Promise<boolean> {
+      return await DeepCameraModule.supports();
+  }
+
+  public render() {
+    return (
+      <NativeDeepCameraView
+        {...props}
+        onMinDistance={this.onMinDistance}
+      />
+    );
+  }
+}
+
+const NativeDeepCameraView = requireNativeComponent<NativeCameraViewProps>(
+  'DepthCameraView',
+  // @ts-expect-error because the type declarations are kinda wrong, no?
+  DeepCameraView,
+);
