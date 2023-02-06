@@ -1,3 +1,2 @@
 CFBundleDisplayName = "夜视仪";
 NSCameraUsageDescription = "App会在您使用从相机导入图片和视频功能时，访问您的相机权限，为了导入图片和视频";
-NSPhotoLibraryAddUsageDescription = "为了保存图片和视频到相册";

@@ -23,6 +23,7 @@
     "react": "18.2.0",
     "react-fast-compare": "^3.2.0",
     "react-native": "0.71.0",
+    "react-native-anchor-point": "^1.0.6",
     "react-native-device-info": "^10.3.0",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.9.0",

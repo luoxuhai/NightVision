@@ -50,8 +50,8 @@ const AppStack = observer(function AppStack() {
         component={AppMaskScreen}
         options={{
           headerShown: false,
-          animation: 'none',
-          presentation: 'fullScreenModal',
+          animation: 'fade',
+          presentation: 'transparentModal',
           autoHideHomeIndicator: true,
         }}
       />

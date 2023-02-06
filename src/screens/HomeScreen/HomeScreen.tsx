@@ -16,9 +16,11 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
   const safeAreaInsets = useSafeAreaInsets();
 
   useEffect(() => {
-    setTimeout(() => {
-      InteractionManager.runAfterInteractions(requestReview);
-    }, 3000);
+    if (!__DEV__) {
+      setTimeout(() => {
+        InteractionManager.runAfterInteractions(requestReview);
+      }, 3000);
+    }
   }, []);
 
   return (

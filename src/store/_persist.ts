@@ -6,7 +6,7 @@ export const mmkv = new MMKV({
 });
 
 configurePersistable({
-  debugMode: __DEV__,
+  debugMode: false,
   storage: {
     setItem: (key, data) => mmkv.set(key, data),
     getItem: (key) => mmkv.getString(key) as string | null,
