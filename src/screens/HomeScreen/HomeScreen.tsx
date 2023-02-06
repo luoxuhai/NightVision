@@ -14,7 +14,7 @@ import { AppStackParamList } from '@/navigators';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
-  const [distanceRectVisible, setDistanceRectVisible] = useState(false)
+  const [distanceRectVisible, setDistanceRectVisible] = useState(false);
 
   useEffect(() => {
     if (!__DEV__) {
@@ -48,13 +48,18 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
           />
         </View>
 
-        <DeepCameraView distanceRectVisible={distanceRectVisible} />
+        <DeepCamera distanceRectVisible={distanceRectVisible} />
 
         <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
           <BottomButton iconName="camera.filters" color={PlatformColor('systemPurple')} />
-          <BottomButton iconName="ruler" iconSize={40} size={80} onPress={() => {
-            setDistanceRectVisible(prev => !prev);
-          }} />
+          <BottomButton
+            iconName="ruler"
+            iconSize={40}
+            size={80}
+            onPress={() => {
+              setDistanceRectVisible((prev) => !prev);
+            }}
+          />
           <BottomButton
             iconName="moon.fill"
             onPress={() => {

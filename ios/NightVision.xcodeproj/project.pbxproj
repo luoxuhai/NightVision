@@ -13,10 +13,12 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		35745D6F2989559C00208D03 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35745D712989559C00208D03 /* InfoPlist.strings */; };
-		35745D7F298C02B400208D03 /* RNDepthCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745D7E298C02B400208D03 /* RNDepthCameraView.m */; };
-		35745D81298C02F200208D03 /* RNDepthCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745D80298C02F100208D03 /* RNDepthCameraView.swift */; };
 		35745D9D298FE28E00208D03 /* RNToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745D9C298FE28E00208D03 /* RNToast.swift */; };
 		35745D9F298FE29D00208D03 /* RNToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745D9E298FE29D00208D03 /* RNToast.m */; };
+		35745DA529913E7F00208D03 /* DepthCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA129913E7B00208D03 /* DepthCameraView.swift */; };
+		35745DA629913E7F00208D03 /* DepthCameraViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA229913E7C00208D03 /* DepthCameraViewManager.m */; };
+		35745DA729913E7F00208D03 /* DepthCameraViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA329913E7D00208D03 /* DepthCameraViewManager.swift */; };
+		35745DA829913E7F00208D03 /* DepthDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA429913E7E00208D03 /* DepthDataProvider.swift */; };
 		7699B88040F8A987B510C191 /* libPods-NightVision-NightVisionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-NightVision-NightVisionTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -45,10 +47,12 @@
 		35745D702989559C00208D03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35745D72298955A000208D03 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		35745D75298C01C400208D03 /* NightVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NightVision-Bridging-Header.h"; sourceTree = "<group>"; };
-		35745D7E298C02B400208D03 /* RNDepthCameraView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNDepthCameraView.m; sourceTree = "<group>"; };
-		35745D80298C02F100208D03 /* RNDepthCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNDepthCameraView.swift; sourceTree = "<group>"; };
 		35745D9C298FE28E00208D03 /* RNToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNToast.swift; sourceTree = "<group>"; };
 		35745D9E298FE29D00208D03 /* RNToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNToast.m; sourceTree = "<group>"; };
+		35745DA129913E7B00208D03 /* DepthCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthCameraView.swift; sourceTree = "<group>"; };
+		35745DA229913E7C00208D03 /* DepthCameraViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepthCameraViewManager.m; sourceTree = "<group>"; };
+		35745DA329913E7D00208D03 /* DepthCameraViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthCameraViewManager.swift; sourceTree = "<group>"; };
+		35745DA429913E7E00208D03 /* DepthDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthDataProvider.swift; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-NightVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision.debug.xcconfig"; path = "Target Support Files/Pods-NightVision/Pods-NightVision.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-NightVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision.release.xcconfig"; path = "Target Support Files/Pods-NightVision/Pods-NightVision.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-NightVision-NightVisionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision-NightVisionTests.debug.xcconfig"; path = "Target Support Files/Pods-NightVision-NightVisionTests/Pods-NightVision-NightVisionTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -134,8 +138,10 @@
 		35745DA02990000900208D03 /* RNDepthCamera */ = {
 			isa = PBXGroup;
 			children = (
-				35745D7E298C02B400208D03 /* RNDepthCameraView.m */,
-				35745D80298C02F100208D03 /* RNDepthCameraView.swift */,
+				35745DA129913E7B00208D03 /* DepthCameraView.swift */,
+				35745DA429913E7E00208D03 /* DepthDataProvider.swift */,
+				35745DA229913E7C00208D03 /* DepthCameraViewManager.m */,
+				35745DA329913E7D00208D03 /* DepthCameraViewManager.swift */,
 			);
 			path = RNDepthCamera;
 			sourceTree = "<group>";
@@ -448,12 +454,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35745DA829913E7F00208D03 /* DepthDataProvider.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				35745D9D298FE28E00208D03 /* RNToast.swift in Sources */,
-				35745D7F298C02B400208D03 /* RNDepthCameraView.m in Sources */,
-				35745D81298C02F200208D03 /* RNDepthCameraView.swift in Sources */,
+				35745DA529913E7F00208D03 /* DepthCameraView.swift in Sources */,
 				35745D9F298FE29D00208D03 /* RNToast.m in Sources */,
+				35745DA629913E7F00208D03 /* DepthCameraViewManager.m in Sources */,
+				35745DA729913E7F00208D03 /* DepthCameraViewManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

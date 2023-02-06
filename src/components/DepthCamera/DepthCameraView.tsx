@@ -1,9 +1,9 @@
 import { PureComponent } from 'react';
 import { requireNativeComponent, NativeModules, ViewStyle } from 'react-native';
 
-const DeepCameraModule = NativeModules.DepthCameraView;
+const DepthCameraModule = NativeModules.DepthCameraView;
 
-interface DeepCameraViewProps {
+interface DepthCameraViewProps {
   style?: ViewStyle;
   minDistance?: number;
   distanceRectWidth?: number;
@@ -14,32 +14,27 @@ interface DeepCameraViewProps {
   onReady?: () => void;
 }
 
-export class DeepCameraView extends PureComponent<DeepCameraViewProps> {
-  constructor(props: CameraProps) {
+export class DepthCameraView extends PureComponent<DepthCameraViewProps> {
+  constructor(props: DepthCameraViewProps) {
     super(props);
     this.onMinDistance = this.onMinDistance.bind(this);
   }
 
   private onMinDistance(event: any): void {
-    this.props.onMinDistance?.(event.nativeEvent?.distance ?? -1);
+    this.props.onMinDistance?.(event.nativeEvent?.minDistance ?? -1);
   }
 
   public static async supports(): Promise<boolean> {
-      return await DeepCameraModule.supports();
+    return await DepthCameraModule.supports();
   }
 
   public render() {
-    return (
-      <NativeDeepCameraView
-        {...props}
-        onMinDistance={this.onMinDistance}
-      />
-    );
+    return <NativeDeptCameraView {...this.props} onMinDistance={this.onMinDistance} />;
   }
 }
 
-const NativeDeepCameraView = requireNativeComponent<NativeCameraViewProps>(
+const NativeDeptCameraView = requireNativeComponent<DepthCameraViewProps>(
   'DepthCameraView',
   // @ts-expect-error because the type declarations are kinda wrong, no?
-  DeepCameraView,
+  DepthCameraView,
 );

@@ -1,26 +1,37 @@
-import { useEffect, useMemo } from 'react';
-import { StyleSheet, Text, TextStyle, View, Dimensions, ViewStyle, PlatformColor } from 'react-native';
+import { useMemo, useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+  Dimensions,
+  ViewStyle,
+  PlatformColor,
+} from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import Animated, { runOnJS, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, {
+  FadeIn,
+  FadeOut,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 
 import { MIN_RECT_SIZE } from './constants';
-import { HapticFeedback } from '@/utils';
 import { useStore } from '@/store';
-import { useUpdateEffect } from '@/hooks';
 
 const windowWidth = Dimensions.get('window').width;
 
 export const DistanceRect = observer(() => {
   const store = useStore();
   const scale = useSharedValue(1);
+  const savedScale = useSharedValue(1);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     scale.value = store!.distanceRect.scale;
     savedScale.value = store!.distanceRect.scale;
   }, [store?.distanceRect.scale]);
 
-  const savedScale = useSharedValue(1);
   const $animatedStyle = useAnimatedStyle(() => ({
     width: scale.value * MIN_RECT_SIZE,
     height: scale.value * MIN_RECT_SIZE,
@@ -41,12 +52,11 @@ export const DistanceRect = observer(() => {
         .onUpdate((e) => {
           const _scale = savedScale.value * e.scale;
           if (_scale < 1 || _scale * MIN_RECT_SIZE > windowWidth - 50) {
-            HapticFeedback.impact.medium();
             return;
           }
           scale.value = savedScale.value * e.scale;
         })
-        .onEnd((e) => {
+        .onEnd(() => {
           savedScale.value = scale.value;
           store?.setDistanceRect({
             scale: scale.value,
@@ -56,7 +66,11 @@ export const DistanceRect = observer(() => {
   );
 
   return (
-    <>
+    <Animated.View
+      style={{ flex: 1 }}
+      entering={FadeIn.duration(100)}
+      exiting={FadeOut.duration(100)}
+    >
       <View style={$xAxis} />
       <View style={$yAxis} />
 
@@ -65,7 +79,7 @@ export const DistanceRect = observer(() => {
           <Text style={$text}>1.2m</Text>
         </Animated.View>
       </GestureDetector>
-    </>
+    </Animated.View>
   );
 });
 

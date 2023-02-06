@@ -1,4 +1,4 @@
-import { MIN_RECT_SIZE } from '@/components/DeepCamera/constants';
+import { MIN_RECT_SIZE } from '@/components/DepthCamera/constants';
 import { observable, makeObservable, action } from 'mobx';
 import { hydrateStore, makePersistable, clearPersistedStore } from 'mobx-persist-store';
 

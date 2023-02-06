@@ -1,17 +1,23 @@
 import Foundation
 import ARKit
-import UIKit
+import React
 
-class DepthDataProvider: ARSessionDelegate {
+class DepthDataProvider: NSObject, ARSessionDelegate {
     var session: ARSession!
-    var distanceRect: CGSize
-    var onMinDistance: RCTDirectEventBlock?
+    var distanceRectWidth: Int!
+    var distanceRectHeight: Int!
+    var minDistance: Float!
 
-    public init() {
+    var onMinDistance: RCTDirectEventBlock?
+    var onReady: RCTDirectEventBlock?
+    var onError: RCTDirectEventBlock?
+
+    public override init() {
+      super.init()
       self.setup()
     }
 
-    public setup() {
+    public func setup() {
         self.session = ARSession()
         self.session.delegate = self
 
@@ -20,12 +26,14 @@ class DepthDataProvider: ARSessionDelegate {
         if ARWorldTrackingConfiguration.supportsFrameSemantics(.smoothedSceneDepth) {
           config.frameSemantics.insert(.smoothedSceneDepth)
         }
-        config.isLightEstimationEnabled = flase
+        config.isLightEstimationEnabled = false
+      
         self.session.run(config)
+        self.onReady?([:])
     }
 
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        let depthData = currentFrame.sceneDepth?.depthMap
+     if let depth = session.currentFrame?.sceneDepth?.depthMap {
         let depthWidth = CVPixelBufferGetWidth(depth)
         let depthHeight = CVPixelBufferGetHeight(depth)
         let depthSize = CGSize(width: depthWidth, height: depthHeight)
@@ -34,26 +42,32 @@ class DepthDataProvider: ARSessionDelegate {
         guard let cgImageRef = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: depthSize.width, height: depthSize.height)) else { return }
         let uiImage = UIImage(cgImage: cgImageRef)
         // imageView.image = session.currentFrame?.depthMapTransformedImage(orientation: orientation, viewPort: self.imageView.bounds)
+       
+       
+       // 距离
+       let depthFloatData = DepthData()
+       CVPixelBufferLockBaseAddress(depth, CVPixelBufferLockFlags(rawValue: 0))
+       let floatBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(depth), to: UnsafeMutablePointer<Float32>.self)
+       for y in 0...depthHeight-1 {
+           for x in 0...depthWidth-1 {
+               let distanceAtXYPoint = floatBuffer[y*depthWidth+x]
+               depthFloatData.set(x: x, y: y, floatData: distanceAtXYPoint)
+           }
+       }
+       
+       let smoothedSceneDepth = session.currentFrame!.smoothedSceneDepth!.depthMap
+       let smoothedSceneDepthWidth = CVPixelBufferGetWidth(smoothedSceneDepth)
+       let smoothedSceneDepthHeight = CVPixelBufferGetHeight(smoothedSceneDepth)
+       
+       print("-------minDistance---", depthFloatData.get(x: 100, y: 100))
 
-        // 距离
-        if let depth = arARSession.currentFrame?.sceneDepth?.depthMap {
-            var depthFloatData = DepthData()
-            let depthWidth = CVPixelBufferGetWidth(depth)
-            let depthHeight = CVPixelBufferGetHeight(depth)
-            CVPixelBufferLockBaseAddress(depth, CVPixelBufferLockFlags(rawValue: 0))
-            let floatBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(depth), to: UnsafeMutablePointer<Float32>.self)
-            for y in 0...depthHeight-1 {
-                for x in 0...depthWidth-1 {
-                    let distanceAtXYPoint = floatBuffer[y*depthWidth+x]
-                    depthFloatData.set(x: x, y: y, floatData: distanceAtXYPoint)
-                }
-            }
+       self.onMinDistance?(["minDistance": depthFloatData.get(x: 100, y: 100)])
 
-            self.detectMinDistance(depthFloatData)
-        }
+       // self.detectMinDistance(depthFloatData)
+      }
     }
 
-    private func detectMinDistance(_ depthData: DepthData) {
+   /* private func detectMinDistance(_ depthData: DepthData) {
       let minDistance = self.distanceRect["minDistance"] as Float
       let width = self.distanceRect["width"] as Int
       let height = self.distanceRect["height"] as Int
@@ -68,7 +82,7 @@ class DepthDataProvider: ARSessionDelegate {
           }
         }
       }
-    }
+    } */
 }
 
 class DepthData {

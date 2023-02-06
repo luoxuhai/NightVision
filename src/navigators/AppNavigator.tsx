@@ -1,9 +1,9 @@
-import { t } from '@/locales';
+import { useColorScheme, PlatformColor } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
-import { PlatformColor } from 'react-native';
-import { useColorScheme } from 'react-native';
+
+import { t } from '@/locales';
 
 import { HomeScreen, SettingsScreen, AppMaskScreen } from '../screens';
 

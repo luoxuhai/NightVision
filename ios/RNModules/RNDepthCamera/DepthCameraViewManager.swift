@@ -1,30 +1,27 @@
 import React
 import Foundation
+import ARKit
 
-@objc(DepthCameraManager)
-class DepthCameraManager: RCTViewManager {
+@objc(DepthCameraViewManager)
+class DepthCameraViewManager: RCTViewManager {
     override static func requiresMainQueueSetup() -> Bool {
       return true
     }
 
     override func view() -> UIView {
-        return RNDepthCameraView()
+        return DepthCameraView()
     }
 
     override var methodQueue: DispatchQueue! {
       return DispatchQueue.main
     }
 
-    override func constantsToExport() -> [AnyHashable : Any]? {
-        return ["MinDistanceEvent": MinDistanceEvent]
-    }
-
     @objc
     func supports(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
         if ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) {
-          resolve("")
+          resolve(true)
         } else {
-          reject()
+          resolve(false)
         }
     }
 }
