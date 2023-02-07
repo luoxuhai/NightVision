@@ -14,6 +14,7 @@ import { DepthCameraView } from './DepthCameraView';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { PermissionManager } from '@/utils';
+import { useStore } from '@/store';
 
 const ratio = 192 / 256;
 const width = Dimensions.get('window').width;
@@ -25,6 +26,8 @@ interface DeepCameraProps {
 export function DeepCamera(props: DeepCameraProps) {
   const isDark = useColorScheme() === 'dark';
   const [supports, setSupports] = useState(false);
+  const [minDistance, setMinDistance] = useState(-1);
+  const store = useStore();
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (state) => {
@@ -72,23 +75,25 @@ export function DeepCamera(props: DeepCameraProps) {
       >
         {supports && (
           <DepthCameraView
-            style={{
-              flex: 1,
-              backgroundColor: '#F00',
-            }}
-            onMinDistance={(e) => {
-              console.log(e);
-            }}
-            minDistance={44.9}
-            distanceRectWidth={199}
+            style={$depthCameraView}
+            onMinDistance={setMinDistance}
+            minDistance={1}
+            smoothed
+            distanceRectWidth={100}
+            distanceRectHeight={100}
           />
         )}
 
-        {props.distanceRectVisible && <DistanceRect />}
+        {props.distanceRectVisible && <DistanceRect minDistance={minDistance} />}
       </View>
     </Pressable>
   );
 }
+
+const $depthCameraView: ViewStyle = {
+  flex: 1,
+  backgroundColor: '#F00',
+};
 
 const $cameraContainer: ViewStyle = {
   flex: 1,

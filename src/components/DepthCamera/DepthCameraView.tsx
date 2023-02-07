@@ -5,6 +5,8 @@ const DepthCameraModule = NativeModules.DepthCameraView;
 
 interface DepthCameraViewProps {
   style?: ViewStyle;
+  enabled?: boolean;
+  smoothed?: boolean;
   minDistance?: number;
   distanceRectWidth?: number;
   distanceRectHeight?: number;
@@ -12,6 +14,7 @@ interface DepthCameraViewProps {
   onMinDistance?: (distance: number) => void;
   onError?: () => void;
   onReady?: () => void;
+  onPause?: () => void;
 }
 
 export class DepthCameraView extends PureComponent<DepthCameraViewProps> {
@@ -21,7 +24,7 @@ export class DepthCameraView extends PureComponent<DepthCameraViewProps> {
   }
 
   private onMinDistance(event: any): void {
-    this.props.onMinDistance?.(event.nativeEvent?.minDistance ?? -1);
+    this.props.onMinDistance?.(event.nativeEvent?.distance ?? -1);
   }
 
   public static async supports(): Promise<boolean> {

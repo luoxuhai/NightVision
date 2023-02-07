@@ -22,7 +22,11 @@ import { useStore } from '@/store';
 
 const windowWidth = Dimensions.get('window').width;
 
-export const DistanceRect = observer(() => {
+interface DistanceRectProps {
+  minDistance: number;
+}
+
+export const DistanceRect = observer<DistanceRectProps>((props) => {
   const store = useStore();
   const scale = useSharedValue(1);
   const savedScale = useSharedValue(1);
@@ -67,7 +71,7 @@ export const DistanceRect = observer(() => {
 
   return (
     <Animated.View
-      style={{ flex: 1 }}
+      style={{ flex: 1, ...StyleSheet.absoluteFillObject }}
       entering={FadeIn.duration(100)}
       exiting={FadeOut.duration(100)}
     >
@@ -76,7 +80,9 @@ export const DistanceRect = observer(() => {
 
       <GestureDetector gesture={gesture}>
         <Animated.View style={[$rect, $animatedStyle]}>
-          <Text style={$text}>1.2m</Text>
+          {props.minDistance && props.minDistance != -1 && (
+            <Text style={$text}>{props.minDistance.toFixed(3)}m</Text>
+          )}
         </Animated.View>
       </GestureDetector>
     </Animated.View>
@@ -110,7 +116,7 @@ const $rect: ViewStyle = {
 };
 
 const $text: TextStyle = {
-  width: 50,
+  width: 68,
   backgroundColor: PlatformColor('systemYellow'),
   borderRadius: 10,
   color: '#FFF',
