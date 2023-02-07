@@ -1,4 +1,4 @@
-import { useMemo, useEffect, forwardRef } from 'react';
+import { useMemo, useEffect, forwardRef, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,7 +7,7 @@ import {
   Dimensions,
   ViewStyle,
   PlatformColor,
-  Vibration
+  Vibration,
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
@@ -18,97 +18,106 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { MIN_RECT_SIZE } from './constants';
 import { useStore } from '@/store';
+import { useImperativeHandle } from 'react';
+import { useAppState } from '@/hooks';
 
-const windowWidth = Dimensions.get('window').width;
+interface DistanceRectProps {
+  width: number;
+  height: number;
+}
 
-interface DistanceRectProps { }
+export interface DistanceRectRef {
+  setMinDistance(value: number): void;
+}
 
-export const DistanceRect = observer<DistanceRectProps>((props, ref) => {
-  const store = useStore();
-  const scale = useSharedValue(1);
-  const savedScale = useSharedValue(1);
+export const DistanceRect = observer<DistanceRectProps, DistanceRectRef>(
+  (props, ref) => {
+    const store = useStore();
+    const scale = useSharedValue(1);
+    const savedScale = useSharedValue(1);
+    const rectSize = props.width * store.distanceRect.scale;
 
-  useEffect(() => {
-    scale.value = store!.distanceRect.scale;
-    savedScale.value = store!.distanceRect.scale;
-  }, [store?.distanceRect.scale]);
+    const $animatedStyle = useAnimatedStyle(() => ({
+      width: scale.value * rectSize,
+      height: scale.value * rectSize,
+      transform: [
+        {
+          translateX: -(scale.value * rectSize) / 2,
+        },
+        {
+          translateY: -(scale.value * rectSize) / 2,
+        },
+      ],
+    }));
 
-  const $animatedStyle = useAnimatedStyle(() => ({
-    width: scale.value * MIN_RECT_SIZE,
-    height: scale.value * MIN_RECT_SIZE,
-    transform: [
-      {
-        translateX: -(scale.value * MIN_RECT_SIZE) / 2,
-      },
-      {
-        translateY: -(scale.value * MIN_RECT_SIZE) / 2,
-      },
-    ],
-  }));
+    const gesture = useMemo(
+      () =>
+        Gesture.Pinch()
+          .runOnJS(true)
+          .onUpdate((e) => {
+            const _scale = savedScale.value * e.scale;
+            if (_scale < 1 || _scale * rectSize > props.width - 50) {
+              return;
+            }
+            scale.value = savedScale.value * e.scale;
+          })
+          .onEnd(() => {
+            savedScale.value = scale.value;
+            store?.setDistanceRect({
+              scale: (scale.value * rectSize) / props.width,
+            });
+          }),
+      [],
+    );
 
-  const gesture = useMemo(
-    () =>
-      Gesture.Pinch()
-        .runOnJS(true)
-        .onUpdate((e) => {
-          const _scale = savedScale.value * e.scale;
-          if (_scale < 1 || _scale * MIN_RECT_SIZE > windowWidth - 50) {
-            return;
-          }
-          scale.value = savedScale.value * e.scale;
-        })
-        .onEnd(() => {
-          savedScale.value = scale.value;
-          store?.setDistanceRect({
-            scale: scale.value,
-          });
-        }),
-    [],
-  );
+    return (
+      <Animated.View
+        style={{ flex: 1, ...StyleSheet.absoluteFillObject }}
+        entering={FadeIn.duration(100)}
+        exiting={FadeOut.duration(100)}
+      >
+        <View style={$xAxis} />
+        <View style={$yAxis} />
 
-  return (
-    <Animated.View
-      style={{ flex: 1, ...StyleSheet.absoluteFillObject }}
-      entering={FadeIn.duration(100)}
-      exiting={FadeOut.duration(100)}
-    >
-      <View style={$xAxis} />
-      <View style={$yAxis} />
+        <GestureDetector gesture={gesture}>
+          <Animated.View style={[$rect, $animatedStyle]}>
+            <DistanceText ref={ref} />
+          </Animated.View>
+        </GestureDetector>
+      </Animated.View>
+    );
+  },
+  { forwardRef: true },
+);
 
-      <GestureDetector gesture={gesture}>
-        <Animated.View style={[$rect, $animatedStyle]}>
-          <DistanceText ref={ref} />
-        </Animated.View>
-      </GestureDetector>
-    </Animated.View>
-  );
-}, { forwardRef: true });
+const DistanceText = observer(
+  (_, ref: DistanceRectRef) => {
+    const [minDistance, setMinDistance] = useState(-1);
+    const appState = useAppState();
+    const store = useStore();
+    const warning = (store?.minDistance ?? 1) > minDistance;
 
-const DistanceText = forwardRef((_, ref) => {
-  const [minDistance, setMinDistance] = useState(-1);
-  const store = useStore();
-  const warning = store.minDistance < minDistance;
+    useImperativeHandle(ref, () => ({
+      setMinDistance,
+    }));
 
-  useImperativeHandle(ref, () => ({
-    setMinDistance
-  }))
+    useEffect(() => {
+      if (appState === 'active' && warning) {
+        Vibration.vibrate([250], true);
+      } else {
+        Vibration.cancel();
+      }
+    }, [appState, warning]);
 
-  useUpdateEffect(() => {
-    if (warning) {
-      Vibration.vibrate([], true)
-    } else {
-      Vibration.cancel();
+    if (!minDistance || minDistance === -1) {
+      return null;
     }
-  }, [warning])
 
-  if (!minDistance || minDistance === -1) {
-    return null;
-  }
-
-  return <Text style={[$text, warning && $textError ]}>{minDistance.toFixed(3)}m</Text>
-})
+    return <Text style={[$text, warning && $textError]}>{minDistance.toFixed(3)}m</Text>;
+  },
+  { forwardRef: true },
+);
 
 const $xAxis: ViewStyle = {
   width: '100%',
@@ -156,4 +165,4 @@ const $text: TextStyle = {
 
 const $textError: TextStyle = {
   backgroundColor: PlatformColor('systemRed'),
-}
+};

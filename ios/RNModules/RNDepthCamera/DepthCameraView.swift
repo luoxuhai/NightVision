@@ -52,7 +52,7 @@ class DepthCameraView: UIView {
     }
   
     @objc
-    func setMinDistanceDetection(_ minDistanceDetection: Float) {
+    func setMinDistanceDetection(_ minDistanceDetection: Bool) {
         _minDistanceDetection = minDistanceDetection
         self.depthDataProvider.minDistanceDetection = _minDistanceDetection
     }

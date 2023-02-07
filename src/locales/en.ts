@@ -9,7 +9,7 @@ const en: Translations = {
     second: 'Seconds',
     minute: 'Minutes',
     hour: 'Hours',
-    appName: 'Privacy Box',
+    appName: 'Night Vision',
     coming: 'Coming Soon...',
     enable: 'Enable',
     disable: 'Disable',
@@ -29,11 +29,23 @@ const en: Translations = {
   homeScreen: {},
   settingsScreen: {
     title: 'Settings',
+    version: 'version',
+    connect: 'Contact the developer',
+    goodReview: 'Give a good review',
+    recommend: {
+      title: 'App Recommendation',
+      appName: 'Privacy Box',
+      desc: 'Hide private pictures, videos and files',
+    },
+    agreement: 'Agreement',
+    privacyPolicy: 'Privacy Policy',
+    userAgreement: 'User Agreement',
+    advanced: {
+      title: 'Advanced Settings',
+    },
   },
   permissionManager: {
     camera: 'Camera',
-    photoLibrary: 'Photo Library',
-    mediaLibrary: 'Media Library',
     unavailable: '{{permission}} unavailable',
     blocked:
       'Please go to settings to grant {{permissions}} permission to use this function normally',

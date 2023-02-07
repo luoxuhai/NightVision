@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState, useCallback } from 'react';
 import {
   View,
   Dimensions,
@@ -8,16 +9,15 @@ import {
   Pressable,
   ViewStyle,
 } from 'react-native';
+import throttle from 'lodash/throttle';
 
-import { DistanceRect } from './DistanceRect';
+import { DistanceRect, DistanceRectRef } from './DistanceRect';
 import { DepthCameraView } from './DepthCameraView';
-import { useEffect } from 'react';
-import { useState } from 'react';
 import { PermissionManager } from '@/utils';
 import { useStore } from '@/store';
 
-const ratio = 192 / 256;
-const width = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width;
+const cameraViewWidth = windowWidth > 500 ? 500 : windowWidth;
 
 interface DepthCameraProps {
   distanceRectVisible: boolean;
@@ -26,7 +26,8 @@ interface DepthCameraProps {
 export function DepthCamera(props: DepthCameraProps) {
   const isDark = useColorScheme() === 'dark';
   const [supports, setSupports] = useState(false);
-  const minDistanceTextRef = useRef();
+  const [ratio, setRatio] = useState(192 / 256);
+  const minDistanceTextRef = useRef<DistanceRectRef>(null);
   const store = useStore();
 
   useEffect(() => {
@@ -56,6 +57,17 @@ export function DepthCamera(props: DepthCameraProps) {
     });
   }
 
+  const onCameraSize = useCallback((size: any) => {
+    setRatio(size.height / size.width);
+  }, []);
+
+  const onMinDistance = useCallback(
+    throttle((distance: number) => {
+      minDistanceTextRef.current?.setMinDistance(distance);
+    }, 200),
+    [],
+  );
+
   return (
     <Pressable
       style={[
@@ -68,8 +80,8 @@ export function DepthCamera(props: DepthCameraProps) {
     >
       <View
         style={{
-          width,
-          height: width / ratio,
+          width: cameraViewWidth,
+          height: cameraViewWidth / ratio,
           backgroundColor: '#000',
           position: 'relative',
         }}
@@ -77,18 +89,22 @@ export function DepthCamera(props: DepthCameraProps) {
         {supports && (
           <DepthCameraView
             style={$depthCameraView}
-            onMinDistance={(distance) => {
-              minDistanceTextRef.current?.setMinDistance(distance)
-            }}
-            minDistance={1}
             smoothed
             minDistanceDetection={props.distanceRectVisible}
-            detectionWidthScale={store.distanceRect.scale}
-            detectionHeightScale={store.distanceRect.scale}
+            detectionWidthScale={store?.distanceRect.scale}
+            detectionHeightScale={store?.distanceRect.scale}
+            onCameraSize={onCameraSize}
+            onMinDistance={onMinDistance}
           />
         )}
 
-        {props.distanceRectVisible && <DistanceRect ref={} />}
+        {props.distanceRectVisible && (
+          <DistanceRect
+            ref={minDistanceTextRef}
+            width={cameraViewWidth}
+            height={cameraViewWidth / ratio}
+          />
+        )}
       </View>
     </Pressable>
   );
@@ -96,7 +112,7 @@ export function DepthCamera(props: DepthCameraProps) {
 
 const $depthCameraView: ViewStyle = {
   flex: 1,
-  backgroundColor: '#F00',
+  backgroundColor: '#888',
 };
 
 const $cameraContainer: ViewStyle = {

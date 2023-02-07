@@ -12,8 +12,6 @@ import { t } from '@/locales';
 export class PermissionManager {
   private static permissionMapTitle: { [key: string]: string } = {
     'ios.permission.CAMERA': t('permissionManager.camera'),
-    'ios.permission.PHOTO_LIBRARY': t('permissionManager.photoLibrary'),
-    'ios.permission.MEDIA_LIBRARY': t('permissionManager.mediaLibrary'),
   };
 
   static async checkPermissions(permissions: IOSPermission[]): Promise<boolean | undefined> {

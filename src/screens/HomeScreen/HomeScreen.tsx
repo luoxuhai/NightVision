@@ -9,6 +9,7 @@ import { requestReview } from 'react-native-store-review';
 import { TopButton } from './components/TopButton';
 import { BottomButton } from './components/BottomButton';
 import config from '@/config';
+import { HapticFeedback } from '@/utils';
 import { DepthCamera } from '@/components';
 import { AppStackParamList } from '@/navigators';
 
@@ -58,6 +59,7 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
             size={80}
             onPress={() => {
               setDistanceRectVisible((prev) => !prev);
+              HapticFeedback.impact.medium()
             }}
           />
           <BottomButton

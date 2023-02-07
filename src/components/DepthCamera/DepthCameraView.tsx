@@ -12,7 +12,7 @@ interface DepthCameraViewProps {
   detectionHeightScale?: number;
   colorMode?: number;
   onMinDistance?: (distance: number) => void;
-  onCameraSize?: (size: { width: number, height: number }) => void;
+  onCameraSize?: (size: { width: number; height: number }) => void;
   onError?: () => void;
   onReady?: () => void;
   onPause?: () => void;
@@ -22,6 +22,7 @@ export class DepthCameraView extends PureComponent<DepthCameraViewProps> {
   constructor(props: DepthCameraViewProps) {
     super(props);
     this.onMinDistance = this.onMinDistance.bind(this);
+    this.onCameraSize = this.onCameraSize.bind(this);
   }
 
   private onMinDistance(event: any): void {
@@ -38,7 +39,13 @@ export class DepthCameraView extends PureComponent<DepthCameraViewProps> {
   }
 
   public render() {
-    return <NativeDeptCameraView {...this.props} onMinDistance={this.onMinDistance} onCameraSize={this.onMinDistance} />;
+    return (
+      <NativeDeptCameraView
+        {...this.props}
+        onMinDistance={this.onMinDistance}
+        onCameraSize={this.onCameraSize}
+      />
+    );
   }
 }
 

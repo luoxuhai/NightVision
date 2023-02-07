@@ -7,7 +7,7 @@ const zh = {
     second: '秒',
     minute: '分钟',
     hour: '小时',
-    appName: '隐私盒子',
+    appName: '夜视仪',
     coming: '即将推出...',
     enable: '启动',
     disable: '禁用',
@@ -44,8 +44,6 @@ const zh = {
   },
   permissionManager: {
     camera: '相机',
-    photoLibrary: '相册',
-    mediaLibrary: '媒体库',
     unavailable: '{{permission}}功能不可用',
     blocked: '请前往设置授予{{permissions}}权限，才能正常使用该功能',
     openSettings: '打开设置',

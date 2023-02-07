@@ -11,13 +11,13 @@ export default {
 
   /** 隐私政策 */
   privacyPolicy: {
-    zh_cn: 'https://private-space-web.netlify.app/zh-cn/privacy-policy',
-    en_us: 'https://private-space-web.netlify.app/en-us/privacy-policy',
+    zh_cn: 'https://night-vision-web.netlify.app/zh-cn/privacy-policy',
+    en_us: 'https://night-vision-web.netlify.app/en-us/privacy-policy',
   },
 
   /** 用户协议 */
   userAgreement: {
-    zh_cn: 'https://private-space-web.netlify.app/zh-cn/user-agreement',
-    en_us: 'https://private-space-web.netlify.app/en-us/user-agreement',
+    zh_cn: 'https://night-vision-web.netlify.app/zh-cn/user-agreement',
+    en_us: 'https://night-vision-web.netlify.app/en-us/user-agreement',
   },
 };
