@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, forwardRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,7 @@ import {
   Dimensions,
   ViewStyle,
   PlatformColor,
+  Vibration
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
@@ -22,11 +23,9 @@ import { useStore } from '@/store';
 
 const windowWidth = Dimensions.get('window').width;
 
-interface DistanceRectProps {
-  minDistance: number;
-}
+interface DistanceRectProps { }
 
-export const DistanceRect = observer<DistanceRectProps>((props) => {
+export const DistanceRect = observer<DistanceRectProps>((props, ref) => {
   const store = useStore();
   const scale = useSharedValue(1);
   const savedScale = useSharedValue(1);
@@ -80,14 +79,36 @@ export const DistanceRect = observer<DistanceRectProps>((props) => {
 
       <GestureDetector gesture={gesture}>
         <Animated.View style={[$rect, $animatedStyle]}>
-          {props.minDistance && props.minDistance != -1 && (
-            <Text style={$text}>{props.minDistance.toFixed(3)}m</Text>
-          )}
+          <DistanceText ref={ref} />
         </Animated.View>
       </GestureDetector>
     </Animated.View>
   );
-});
+}, { forwardRef: true });
+
+const DistanceText = forwardRef((_, ref) => {
+  const [minDistance, setMinDistance] = useState(-1);
+  const store = useStore();
+  const warning = store.minDistance < minDistance;
+
+  useImperativeHandle(ref, () => ({
+    setMinDistance
+  }))
+
+  useUpdateEffect(() => {
+    if (warning) {
+      Vibration.vibrate([], true)
+    } else {
+      Vibration.cancel();
+    }
+  }, [warning])
+
+  if (!minDistance || minDistance === -1) {
+    return null;
+  }
+
+  return <Text style={[$text, warning && $textError ]}>{minDistance.toFixed(3)}m</Text>
+})
 
 const $xAxis: ViewStyle = {
   width: '100%',
@@ -132,3 +153,7 @@ const $text: TextStyle = {
     },
   ],
 };
+
+const $textError: TextStyle = {
+  backgroundColor: PlatformColor('systemRed'),
+}

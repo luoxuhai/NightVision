@@ -4,9 +4,9 @@ import UIKit
 import React
 
 class DepthCameraView: UIView {
-    private var _distanceRectWidth: Int = 100
-    private var _distanceRectHeight: Int = 100
-    private var _minDistance: Float = 1
+    private var _detectionWidth: Int = 100
+    private var _detectionHeight: Int = 100
+    private var _minDistanceDetection: Bool = false
     private var _colorMode: Int = 1
     private var _smoothed: Bool = true
     private var _enabled: Bool = true
@@ -46,21 +46,21 @@ class DepthCameraView: UIView {
     }
   
     @objc
-    func setMinDistance(_ minDistance: Float) {
-        _minDistance = minDistance
-        self.depthDataProvider.minDistance = _minDistance
+    func setMinDistanceDetection(_ minDistanceDetection: Float) {
+        _minDistanceDetection = minDistanceDetection
+        self.depthDataProvider.minDistanceDetection = _minDistanceDetection
     }
 
     @objc
-    func setDistanceRectWidth(_ distanceRectWidth: Int) {
-        _distanceRectWidth = distanceRectWidth
-        self.depthDataProvider.distanceRectWidth = _distanceRectWidth
+    func setDetectionWidth(_ detectionWidth: Int) {
+        _detectionWidth = detectionWidth
+        self.depthDataProvider.detectionWidth = _detectionWidth
     }
 
     @objc
-    func setDistanceRectHeight(_ distanceRectHeight: Int) {
-        _distanceRectHeight = distanceRectHeight
-        self.depthDataProvider.distanceRectHeight = _distanceRectHeight
+    func setDetectionHeight(_ detectionHeight: Int) {
+        _detectionHeight = detectionHeight
+        self.depthDataProvider.distanceRectHeight = _detectionHeight
     }
   
     @objc

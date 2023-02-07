@@ -121,7 +121,7 @@ const DistanceSliderSection = observer(() => {
   return (
     <ListSection headerText={t('settingsScreen.advanced.title')}>
       <ListCell
-        text={`距离检测: ${store?.maxDistance} m`}
+        text={`距离检测: ${store?.minDistance} m`}
         bottomSeparator={false}
         rightIcon={null}
       />
@@ -130,13 +130,13 @@ const DistanceSliderSection = observer(() => {
           <Text style={$sliderIcon}>0.1 m</Text>
           <Slider
             style={{ flex: 1 }}
-            value={store?.maxDistance}
+            value={store?.minDistance}
             minimumValue={0.1}
             maximumValue={5}
             step={0.1}
             tapToSeek
             onValueChange={(value) => {
-              store?.setMaxDistance(Number(value.toFixed(1)));
+              store?.setMinDistance(Number(value.toFixed(1)));
             }}
           />
           <Text style={$sliderIcon}>5 m</Text>

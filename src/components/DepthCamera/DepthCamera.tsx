@@ -19,14 +19,14 @@ import { useStore } from '@/store';
 const ratio = 192 / 256;
 const width = Dimensions.get('window').width;
 
-interface DeepCameraProps {
+interface DepthCameraProps {
   distanceRectVisible: boolean;
 }
 
-export function DeepCamera(props: DeepCameraProps) {
+export function DepthCamera(props: DepthCameraProps) {
   const isDark = useColorScheme() === 'dark';
   const [supports, setSupports] = useState(false);
-  const [minDistance, setMinDistance] = useState(-1);
+  const minDistanceTextRef = useRef();
   const store = useStore();
 
   useEffect(() => {
@@ -71,20 +71,24 @@ export function DeepCamera(props: DeepCameraProps) {
           width,
           height: width / ratio,
           backgroundColor: '#000',
+          position: 'relative',
         }}
       >
         {supports && (
           <DepthCameraView
             style={$depthCameraView}
-            onMinDistance={setMinDistance}
+            onMinDistance={(distance) => {
+              minDistanceTextRef.current?.setMinDistance(distance)
+            }}
             minDistance={1}
             smoothed
-            distanceRectWidth={100}
-            distanceRectHeight={100}
+            minDistanceDetection={props.distanceRectVisible}
+            detectionWidth={100}
+            detectionHeight={100}
           />
         )}
 
-        {props.distanceRectVisible && <DistanceRect minDistance={minDistance} />}
+        {props.distanceRectVisible && <DistanceRect ref={} />}
       </View>
     </Pressable>
   );

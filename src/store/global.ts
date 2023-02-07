@@ -8,8 +8,8 @@ interface DistanceRect {
 }
 
 export class GlobalStore {
-  // 最大距离
-  @observable maxDistance = 1;
+  // 最短距离
+  @observable minDistance = 1;
   @observable distanceRect: DistanceRect = {
     position: { x: 0, y: 0 },
     scale: 1,
@@ -19,12 +19,12 @@ export class GlobalStore {
     makeObservable(this);
     makePersistable(this, {
       name: 'Global',
-      properties: ['maxDistance', 'distanceRect'],
+      properties: ['minDistance', 'distanceRect'],
     });
   }
 
-  @action setMaxDistance(value: number): void {
-    this.maxDistance = value;
+  @action setMinDistance(value: number): void {
+    this.minDistance = value;
   }
 
   @action setDistanceRect(value: Partial<DistanceRect>): void {

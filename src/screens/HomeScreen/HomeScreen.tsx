@@ -9,7 +9,7 @@ import { requestReview } from 'react-native-store-review';
 import { TopButton } from './components/TopButton';
 import { BottomButton } from './components/BottomButton';
 import config from '@/config';
-import { DeepCamera } from '@/components';
+import { DepthCamera } from '@/components';
 import { AppStackParamList } from '@/navigators';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
@@ -48,7 +48,7 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
           />
         </View>
 
-        <DeepCamera distanceRectVisible={distanceRectVisible} />
+        <DepthCamera distanceRectVisible={distanceRectVisible} />
 
         <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
           <BottomButton iconName="camera.filters" color={PlatformColor('systemPurple')} />

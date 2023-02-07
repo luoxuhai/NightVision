@@ -6,9 +6,9 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
     var config = ARWorldTrackingConfiguration()
     var session: ARSession!
 
-    var distanceRectWidth: Int!
-    var distanceRectHeight: Int!
-    var minDistance: Float!
+    var detectionWidth: Int!
+    var detectionHeight: Int!
+    var minDistanceDetection: Bool!
 
     var onMinDistance: RCTDirectEventBlock?
     var onReady: RCTDirectEventBlock?
@@ -61,18 +61,28 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
         let uiImage = UIImage(cgImage: cgImageRef)
         // imageView.image = session.currentFrame?.depthMapTransformedImage(orientation: orientation, viewPort: self.imageView.bounds)
        
-       // 距离
+       if !self.minDistanceDetection || self.detectionWidth == nil || self.detectionHeight == nil {
+        return
+       }
+
+       let confidenceMap = depth!.confidenceMap!
        let realDepthData = DepthData(width: depthWidth, height: depthHeight)
+       let confidenceData = DepthData(width: depthWidth, height: depthHeight)
        CVPixelBufferLockBaseAddress(depthMap, CVPixelBufferLockFlags(rawValue: 0))
-       let floatBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(depthMap), to: UnsafeMutablePointer<Float32>.self)
+       CVPixelBufferLockBaseAddress(confidenceMap, CVPixelBufferLockFlags(rawValue: 0))
+       let distanceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(depthMap), to: UnsafeMutablePointer<Float32>.self)
+       let confidenceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(confidenceMap), to: UnsafeMutablePointer<UInt8>.self)
+
        for y in 0...depthHeight-1 {
            for x in 0...depthWidth-1 {
-               let distanceAtXYPoint = floatBuffer[y*depthWidth+x]
-               realDepthData.set(x: x, y: y, floatData: distanceAtXYPoint)
+               let distance = distanceBuffer[y * depthWidth + x]
+               let confidence = confidenceBuffer[y * depthWidth + x]
+               realDepthData.set(x: x, y: y, floatData: distance)
+               confidenceData.set(x: x, y: y, floatData: confidence)
            }
        }
        
-       self.detectMinDistance(realDepthData)
+       self.detectMinDistance(depthData: realDepthData, confidenceData: confidenceData)
       }
     }
 
@@ -80,29 +90,30 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
 }
 
 extension DepthDataProvider {
-  private func detectMinDistance(_ depthData: DepthData) {
-    let xRange = [(depthData.width / 2) - (self.distanceRectWidth / 2), (depthData.width / 2) + self.distanceRectWidth / 2 ]
-    let yRange = [(depthData.height / 2) - (self.distanceRectHeight ?? 100 / 2), (depthData.height / 2) + (self.distanceRectHeight ?? 100) / 2]
+  private func detectMinDistance(depthData: DepthData, confidenceData: DepthData) {
+    let xRange = [(depthData.width / 2) - (self.detectionWidth / 2), (depthData.width / 2) + self.detectionWidth / 2 ]
+    let yRange = [(depthData.height / 2) - (self.detectionHeight / 2), (depthData.height / 2) + self.detectionHeight / 2]
     let data = depthData.data
     
+    var minDistance: Float
     for y in 0...depthData.height - 1 {
       if y < yRange[0] || y > yRange[1] {
         continue
       }
       for x in 0...depthData.width - 1 {
-        if x < xRange[0] || x > xRange[1] {
+        if x < xRange[0] || x > xRange[1] || confidenceData.get(x: x, y: y) == 0 {
           continue
         }
-        
+
         let distance = depthData.get(x: x, y: y)
-        if distance <= self.minDistance {
-          print("-------minDistance---", distance)
-          self.onMinDistance?(["distance": distance])
-          return
+        if minDistance == nil || distance < minDistance {
+          minDistance = distance
         }
-        //
       }
     }
+
+     print("-------minDistance-----", minDistance)
+     self.onMinDistance?(["distance": minDistance])
    }
 }
 
@@ -120,7 +131,7 @@ class DepthData {
      // data = Array(repeating: Array(repeating: Float(-1), count: self.width), count: self.height)
     }
 
-    func set(x: Int,y:Int, floatData:Float) {
+    func set(x: Int,y: Int, floatData: Float) {
          data[x][y] = floatData
     }
 
