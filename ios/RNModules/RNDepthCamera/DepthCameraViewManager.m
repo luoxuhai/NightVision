@@ -13,6 +13,7 @@ RCT_EXPORT_VIEW_PROPERTY(onReady, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPause, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onError, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onMinDistance, RCTDirectEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onCameraSize, RCTDirectEventBlock);
 
 RCT_EXTERN_METHOD(supports:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 

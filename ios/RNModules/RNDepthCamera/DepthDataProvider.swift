@@ -11,9 +11,12 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
     var minDistanceDetection: Bool!
 
     var onMinDistance: RCTDirectEventBlock?
+    var onCameraSize: RCTDirectEventBlock?
     var onReady: RCTDirectEventBlock?
     var onError: RCTDirectEventBlock?
     var onPause: RCTDirectEventBlock?
+
+    var invokedCameraSize = false
 
     public override init() {
       super.init()
@@ -55,6 +58,9 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
         let depthWidth = CVPixelBufferGetWidth(depthMap)
         let depthHeight = CVPixelBufferGetHeight(depthMap)
         let depthSize = CGSize(width: depthWidth, height: depthHeight)
+        if !self.invokedCameraSize {
+          self.onCameraSize?(["width": depthWidth, "height": depthHeight ])
+        }
         let ciImage = CIImage(cvPixelBuffer: depthMap)
         let context = CIContext.init(options: nil)
         guard let cgImageRef = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: depthSize.width, height: depthSize.height)) else { return }

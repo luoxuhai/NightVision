@@ -37,6 +37,12 @@ class DepthCameraView: UIView {
       }
     }
   
+    @objc var onCameraSize: RCTDirectEventBlock? {
+      didSet {
+        self.depthDataProvider.onCameraSize = onCameraSize
+      }
+    }
+  
     override init(frame: CGRect) {
       super.init(frame:frame)
     }
