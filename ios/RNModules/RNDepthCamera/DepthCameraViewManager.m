@@ -3,8 +3,8 @@
 
 @interface RCT_EXTERN_REMAP_MODULE(DepthCameraView, DepthCameraViewManager, RCTViewManager)
 
-RCT_EXPORT_VIEW_PROPERTY(detectionWidth, int);
-RCT_EXPORT_VIEW_PROPERTY(detectionHeight, int);
+RCT_EXPORT_VIEW_PROPERTY(detectionWidthScale, NSNumber);
+RCT_EXPORT_VIEW_PROPERTY(detectionHeightScale, NSNumber);
 RCT_EXPORT_VIEW_PROPERTY(minDistanceDetection, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(smoothed, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(enabled, BOOL);

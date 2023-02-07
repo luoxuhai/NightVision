@@ -4,8 +4,8 @@ import UIKit
 import React
 
 class DepthCameraView: UIView {
-    private var _detectionWidth: Int = 100
-    private var _detectionHeight: Int = 100
+    private var _detectionWidthScale: Float = 0.5
+    private var _detectionHeightScale: Float = 0.5
     private var _minDistanceDetection: Bool = false
     private var _colorMode: Int = 1
     private var _smoothed: Bool = true
@@ -58,15 +58,15 @@ class DepthCameraView: UIView {
     }
 
     @objc
-    func setDetectionWidth(_ detectionWidth: Int) {
-        _detectionWidth = detectionWidth
-        self.depthDataProvider.detectionWidth = _detectionWidth
+    func setDetectionWidthScale(_ detectionWidthScale: Float) {
+        _detectionWidthScale = detectionWidthScale
+        self.depthDataProvider.detectionWidthScale = _detectionWidthScale
     }
 
     @objc
-    func setDetectionHeight(_ detectionHeight: Int) {
-        _detectionHeight = detectionHeight
-        self.depthDataProvider.distanceRectHeight = _detectionHeight
+    func setDetectionHeightScale(_ detectionHeightScale: Float) {
+        _detectionHeightScale = detectionHeightScale
+        self.depthDataProvider.detectionHeightScale = _detectionHeightScale
     }
   
     @objc

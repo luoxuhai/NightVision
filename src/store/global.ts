@@ -12,7 +12,7 @@ export class GlobalStore {
   @observable minDistance = 1;
   @observable distanceRect: DistanceRect = {
     position: { x: 0, y: 0 },
-    scale: 1,
+    scale: 0.5,
   };
 
   constructor() {

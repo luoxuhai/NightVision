@@ -83,8 +83,8 @@ export function DepthCamera(props: DepthCameraProps) {
             minDistance={1}
             smoothed
             minDistanceDetection={props.distanceRectVisible}
-            detectionWidth={100}
-            detectionHeight={100}
+            detectionWidthScale={store.distanceRect.scale}
+            detectionHeightScale={store.distanceRect.scale}
           />
         )}
 

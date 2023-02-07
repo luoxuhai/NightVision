@@ -8,8 +8,8 @@ interface DepthCameraViewProps {
   enabled?: boolean;
   smoothed?: boolean;
   minDistanceDetection?: boolean;
-  detectionWidth?: number;
-  detectionHeight?: number;
+  detectionWidthScale?: number;
+  detectionHeightScale?: number;
   colorMode?: number;
   onMinDistance?: (distance: number) => void;
   onCameraSize?: (size: { width: number, height: number }) => void;

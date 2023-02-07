@@ -6,8 +6,8 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
     var config = ARWorldTrackingConfiguration()
     var session: ARSession!
 
-    var detectionWidth: Int!
-    var detectionHeight: Int!
+    var detectionWidthScale: Float!
+    var detectionHeightScale: Float!
     var minDistanceDetection: Bool!
 
     var onMinDistance: RCTDirectEventBlock?
@@ -97,8 +97,10 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
 
 extension DepthDataProvider {
   private func detectMinDistance(depthData: DepthData, confidenceData: DepthData) {
-    let xRange = [(depthData.width / 2) - (self.detectionWidth / 2), (depthData.width / 2) + self.detectionWidth / 2 ]
-    let yRange = [(depthData.height / 2) - (self.detectionHeight / 2), (depthData.height / 2) + self.detectionHeight / 2]
+    let width = self.detectionWidthScale * depthData.width
+    let height = self.detectionHeightScale * depthData.height
+    let xRange = [(depthData.width / 2) - (width / 2), (depthData.width / 2) + width / 2 ]
+    let yRange = [(depthData.height / 2) - (height / 2), (depthData.height / 2) + height / 2]
     let data = depthData.data
     
     var minDistance: Float
