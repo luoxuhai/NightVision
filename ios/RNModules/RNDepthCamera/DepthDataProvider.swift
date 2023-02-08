@@ -6,6 +6,7 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
     var config = ARWorldTrackingConfiguration()
     var session: ARSession!
     var imageView: UIImageView!
+    var depthSize: CGSize!
 
     var detectionWidthScale: Float!
     var detectionHeightScale: Float!
@@ -57,40 +58,36 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
       let depth = config.frameSemantics.contains(.smoothedSceneDepth) ? smoothedSceneDepth : sceneDepth
       
       if let depthMap = depth?.depthMap {
-        let depthWidth = CVPixelBufferGetWidth(depthMap)
-        let depthHeight = CVPixelBufferGetHeight(depthMap)
-        let depthSize = CGSize(width: depthWidth, height: depthHeight)
+        if depthSize == nil {
+          let depthWidth = CVPixelBufferGetWidth(depthMap)
+          let depthHeight = CVPixelBufferGetHeight(depthMap)
+          depthSize = CGSize(width: depthWidth, height: depthHeight)
+        }
+
         if !self.invokedCameraSize {
-          self.onCameraSize?(["width": depthWidth, "height": depthHeight ])
+          self.onCameraSize?(["width": depthSize.width, "height": depthSize.height ])
           self.invokedCameraSize = true
         }
-        let ciImage = CIImage(cvPixelBuffer: depthMap)
-        let context = CIContext.init(options: nil)
-        guard let cgImageRef = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: depthSize.height, height: depthSize.width)) else { return }
-        //let uiImage = UIImage(cgImage: cgImageRef)
-        let uiImage = session.currentFrame?.depthMapTransformedImage(orientation: .portrait, viewPort: self.imageView.bounds)
-        self.imageView.image = uiImage
         
-       // depthMapTransformedImage(orientation: orientation, viewPort: self.imageView.bounds)
-      /*  let myCImage = CIImage(cvPixelBuffer: depthData.depthMap)
-                    return UIImage(ciImage: myCImage)
-       */
+        let uiImage = session.currentFrame?.depthMapTransformedImage(pixelBuffer: depthMap, orientation: .portrait, viewPort: self.imageView.bounds)
+        self.imageView.image = uiImage
+
         if !self.minDistanceDetection || self.detectionWidthScale == nil || self.detectionHeightScale == nil {
         return
        }
 
        let confidenceMap = depth!.confidenceMap!
-       let realDepthData = DepthData(width: depthWidth, height: depthHeight)
-       let confidenceData = DepthConfidenceData(width: depthWidth, height: depthHeight)
+       let realDepthData = DepthData(width: depthSize.width, height: depthSize.height)
+       let confidenceData = DepthConfidenceData(width: depthSize.width, height: depthSize.height)
        CVPixelBufferLockBaseAddress(depthMap, CVPixelBufferLockFlags(rawValue: 0))
        CVPixelBufferLockBaseAddress(confidenceMap, CVPixelBufferLockFlags(rawValue: 0))
        let distanceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(depthMap), to: UnsafeMutablePointer<Float32>.self)
        let confidenceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(confidenceMap), to: UnsafeMutablePointer<UInt8>.self)
 
-       for y in 0...depthHeight-1 {
-           for x in 0...depthWidth-1 {
-               let distance = distanceBuffer[y * depthWidth + x]
-               let confidence = confidenceBuffer[y * depthWidth + x]
+       for y in 0...depthSize.height-1 {
+           for x in 0...depthSize.width-1 {
+               let distance = distanceBuffer[y * depthSize.width + x]
+               let confidence = confidenceBuffer[y * depthSize.width + x]
                realDepthData.set(x: x, y: y, value: distance)
                confidenceData.set(x: x, y: y, value: confidence)
            }
@@ -104,11 +101,13 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
 extension DepthDataProvider {
   private func detectMinDistance(depthData: DepthData, confidenceData: DepthConfidenceData) {
     let width = Int(self.detectionWidthScale * Float(depthData.width))
-    let height = Int(self.detectionHeightScale * Float(depthData.height))
+    let height = width
     let xRange = [(depthData.width / 2) - (width / 2), (depthData.width / 2) + width / 2 ]
     let yRange = [(depthData.height / 2) - (height / 2), (depthData.height / 2) + height / 2]
     var minDistance: Float?
-    
+    var minX = 0
+    var minY = 0
+
     for y in 0...depthData.height - 1 {
       if y < yRange[0] || y > yRange[1] {
         continue
@@ -123,11 +122,13 @@ extension DepthDataProvider {
           minDistance = distance
         } else if distance < minDistance! {
           minDistance = distance
+          minX = x
+          minY = y
         }
       }
     }
 
-     print("-------minDistance-----", minDistance, width, height)
+     print("--minDistance--", minDistance, width, height, minX, minY)
      self.onMinDistance?(["distance": minDistance])
    }
 }
