@@ -5,6 +5,7 @@ import React
 class DepthDataProvider: NSObject, ARSessionDelegate {
     var config = ARWorldTrackingConfiguration()
     var session: ARSession!
+    var imageView: UIImageView!
 
     var detectionWidthScale: Float!
     var detectionHeightScale: Float!
@@ -65,10 +66,15 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
         }
         let ciImage = CIImage(cvPixelBuffer: depthMap)
         let context = CIContext.init(options: nil)
-        guard let cgImageRef = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: depthSize.width, height: depthSize.height)) else { return }
-        let uiImage = UIImage(cgImage: cgImageRef)
-        // imageView.image = session.currentFrame?.depthMapTransformedImage(orientation: orientation, viewPort: self.imageView.bounds)
-       
+        guard let cgImageRef = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: depthSize.height, height: depthSize.width)) else { return }
+        //let uiImage = UIImage(cgImage: cgImageRef)
+        let uiImage = session.currentFrame?.depthMapTransformedImage(orientation: .portrait, viewPort: self.imageView.bounds)
+        self.imageView.image = uiImage
+        
+       // depthMapTransformedImage(orientation: orientation, viewPort: self.imageView.bounds)
+      /*  let myCImage = CIImage(cvPixelBuffer: depthData.depthMap)
+                    return UIImage(ciImage: myCImage)
+       */
         if !self.minDistanceDetection || self.detectionWidthScale == nil || self.detectionHeightScale == nil {
         return
        }
@@ -93,8 +99,6 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
        self.detectMinDistance(depthData: realDepthData, confidenceData: confidenceData)
       }
     }
-
-
 }
 
 extension DepthDataProvider {

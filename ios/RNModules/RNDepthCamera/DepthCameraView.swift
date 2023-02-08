@@ -12,6 +12,8 @@ class DepthCameraView: UIView {
     private var _enabled: Bool = true
 
     private let depthDataProvider = DepthDataProvider()
+  
+    private var imageView = UIImageView()
 
     @objc var onReady: RCTDirectEventBlock? {
       didSet {
@@ -45,6 +47,9 @@ class DepthCameraView: UIView {
   
     override init(frame: CGRect) {
       super.init(frame:frame)
+      self.depthDataProvider.imageView = imageView
+      imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      self.addSubview(imageView)
     }
   
     required init?(coder: NSCoder) {

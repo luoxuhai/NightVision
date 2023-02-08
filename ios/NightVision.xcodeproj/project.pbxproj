@@ -19,6 +19,7 @@
 		35745DA629913E7F00208D03 /* DepthCameraViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA229913E7C00208D03 /* DepthCameraViewManager.m */; };
 		35745DA729913E7F00208D03 /* DepthCameraViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA329913E7D00208D03 /* DepthCameraViewManager.swift */; };
 		35745DA829913E7F00208D03 /* DepthDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA429913E7E00208D03 /* DepthDataProvider.swift */; };
+		35745DAA2993328600208D03 /* ARFrame+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA92993328600208D03 /* ARFrame+Ext.swift */; };
 		7699B88040F8A987B510C191 /* libPods-NightVision-NightVisionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-NightVision-NightVisionTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		35745DA229913E7C00208D03 /* DepthCameraViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepthCameraViewManager.m; sourceTree = "<group>"; };
 		35745DA329913E7D00208D03 /* DepthCameraViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthCameraViewManager.swift; sourceTree = "<group>"; };
 		35745DA429913E7E00208D03 /* DepthDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthDataProvider.swift; sourceTree = "<group>"; };
+		35745DA92993328600208D03 /* ARFrame+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARFrame+Ext.swift"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-NightVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision.debug.xcconfig"; path = "Target Support Files/Pods-NightVision/Pods-NightVision.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-NightVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision.release.xcconfig"; path = "Target Support Files/Pods-NightVision/Pods-NightVision.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-NightVision-NightVisionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightVision-NightVisionTests.debug.xcconfig"; path = "Target Support Files/Pods-NightVision-NightVisionTests/Pods-NightVision-NightVisionTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				35745DA429913E7E00208D03 /* DepthDataProvider.swift */,
 				35745DA229913E7C00208D03 /* DepthCameraViewManager.m */,
 				35745DA329913E7D00208D03 /* DepthCameraViewManager.swift */,
+				35745DA92993328600208D03 /* ARFrame+Ext.swift */,
 			);
 			path = RNDepthCamera;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35745DAA2993328600208D03 /* ARFrame+Ext.swift in Sources */,
 				35745DA829913E7F00208D03 /* DepthDataProvider.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
