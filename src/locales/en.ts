@@ -26,7 +26,14 @@ const en: Translations = {
     share: 'Share',
     save: 'Save',
   },
-  homeScreen: {},
+  homeScreen: {
+    outOfRange: 'Beyond the detection range: 10cm - 5m',
+    unavailable: {
+      title: 'Cannot run on this device',
+      message:
+        'Only supports devices with lidar scanners, supported models: iPhone 12 Pro(Max), iPhone 13 Pro (Max), iPhone 14 Pro (Max)',
+    },
+  },
   settingsScreen: {
     title: 'Settings',
     version: 'version',

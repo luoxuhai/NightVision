@@ -24,7 +24,14 @@ const zh = {
     share: '分享',
     save: '保存',
   },
-  homeScreen: {},
+  homeScreen: {
+    outOfRange: '超出检测范围：10cm - 5m',
+    unavailable: {
+      title: '无法在此设备运行',
+      message:
+        '只支持具有激光雷达扫描仪的设备，支持的机型：iPhone 12 Pro(Max)、iPhone 13 Pro (Max)、iPhone 14 Pro (Max)',
+    },
+  },
   settingsScreen: {
     title: '设置',
     version: '版本',

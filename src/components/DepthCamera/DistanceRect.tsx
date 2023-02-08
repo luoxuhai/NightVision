@@ -21,6 +21,8 @@ import Animated, {
 import { useStore } from '@/store';
 import { useImperativeHandle } from 'react';
 import { useAppState } from '@/hooks';
+import { t } from '@/locales';
+import { validDistance } from './helpers';
 
 interface DistanceRectProps {
   width: number;
@@ -94,9 +96,13 @@ export const DistanceRect = observer<DistanceRectProps, DistanceRectRef>(
 const DistanceText = observer(
   (_, ref: DistanceRectRef) => {
     const [minDistance, setMinDistance] = useState(-1);
+    const [rangeTextWidth, setRangeTextWidth] = useState(50);
     const appState = useAppState();
     const store = useStore();
-    const warning = (store?.minDistance ?? 1) > minDistance;
+    const warning = useMemo(
+      () => (validDistance(minDistance) ? store.minDistance > minDistance : false),
+      [minDistance, store.minDistance],
+    );
 
     useImperativeHandle(ref, () => ({
       setMinDistance,
@@ -108,10 +114,32 @@ const DistanceText = observer(
       } else {
         Vibration.cancel();
       }
+
+      return () => {
+        Vibration.cancel();
+      };
     }, [appState, warning]);
 
     if (!minDistance || minDistance === -1) {
-      return null;
+      return (
+        <Text
+          style={[
+            $rangeText,
+            {
+              transform: [
+                {
+                  translateX: -rangeTextWidth / 2,
+                },
+              ],
+            },
+          ]}
+          onLayout={(e) => {
+            setRangeTextWidth(e.nativeEvent.layout.width);
+          }}
+        >
+          {t('homeScreen.outOfRange')}
+        </Text>
+      );
     }
 
     return <Text style={[$text, warning && $textError]}>{minDistance.toFixed(3)}m</Text>;
@@ -158,11 +186,29 @@ const $text: TextStyle = {
   left: '50%',
   transform: [
     {
-      translateX: -25,
+      translateX: -34,
     },
   ],
 };
 
 const $textError: TextStyle = {
   backgroundColor: PlatformColor('systemRed'),
+};
+
+const $rangeText: TextStyle = {
+  backgroundColor: PlatformColor('systemPink'),
+  borderRadius: 12,
+  color: '#FFF',
+  overflow: 'hidden',
+  textAlign: 'center',
+  paddingVertical: 4,
+  paddingHorizontal: 8,
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  // transform: [
+  //   {
+  //     translateX: -34,
+  //   },
+  // ],
 };

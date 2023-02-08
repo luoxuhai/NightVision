@@ -15,6 +15,7 @@ import { DistanceRect, DistanceRectRef } from './DistanceRect';
 import { DepthCameraView } from './DepthCameraView';
 import { PermissionManager } from '@/utils';
 import { useStore } from '@/store';
+import { t } from '@/locales';
 
 const windowWidth = Dimensions.get('window').width;
 const cameraViewWidth = windowWidth > 500 ? 500 : windowWidth;
@@ -49,7 +50,7 @@ export function DepthCamera(props: DepthCameraProps) {
 
     DepthCameraView.supports().then(async (value) => {
       if (!value) {
-        Alert.alert('无法在此设备运行', '请更换支持激光雷达扫描仪的设备后尝试');
+        Alert.alert(t('homeScreen.unavailable.title'), t('homeScreen.unavailable.message'));
       } else {
         await PermissionManager.checkPermissions(['ios.permission.CAMERA']);
         setSupports(value);
