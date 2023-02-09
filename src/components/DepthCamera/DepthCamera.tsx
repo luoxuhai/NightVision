@@ -113,7 +113,6 @@ export function DepthCamera(props: DepthCameraProps) {
 
 const $depthCameraView: ViewStyle = {
   flex: 1,
-  backgroundColor: '#888',
 };
 
 const $cameraContainer: ViewStyle = {

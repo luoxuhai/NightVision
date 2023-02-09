@@ -1,12 +1,15 @@
 import Foundation
 import ARKit
 import React
+import MetalKit
+import Metal
 
 class DepthDataProvider: NSObject, ARSessionDelegate {
     var config = ARWorldTrackingConfiguration()
     var session: ARSession!
-    var imageView: UIImageView!
-    var depthSize: CGSize!
+    var depthSize: DepthSize!
+    var textureCache: CVMetalTextureCache!
+    var depthContent: MetalTextureContent!
 
     var detectionWidthScale: Float!
     var detectionHeightScale: Float!
@@ -61,7 +64,7 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
         if depthSize == nil {
           let depthWidth = CVPixelBufferGetWidth(depthMap)
           let depthHeight = CVPixelBufferGetHeight(depthMap)
-          depthSize = CGSize(width: depthWidth, height: depthHeight)
+          depthSize = DepthSize(width: depthWidth, height: depthHeight)
         }
 
         if !self.invokedCameraSize {
@@ -69,9 +72,16 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
           self.invokedCameraSize = true
         }
         
+        if textureCache != nil {
+          depthContent.texture = depthMap.texture(withFormat: .r32Float, planeIndex: 0, addToCache: textureCache)
+        } else {
+          print("Not textureCache")
+        }
+        
+        /*
         let uiImage = session.currentFrame?.depthMapTransformedImage(pixelBuffer: depthMap, orientation: .portrait, viewPort: self.imageView.bounds)
         self.imageView.image = uiImage
-
+*/
         if !self.minDistanceDetection || self.detectionWidthScale == nil || self.detectionHeightScale == nil {
         return
        }
@@ -184,4 +194,10 @@ class DepthConfidenceData {
     func count() -> Int {
         return data.count
     }
+}
+
+
+struct DepthSize {
+  var width: Int
+  var height: Int
 }

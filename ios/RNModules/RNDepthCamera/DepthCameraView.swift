@@ -2,6 +2,8 @@ import Foundation
 import ARKit
 import UIKit
 import React
+import MetalKit
+import Metal
 
 class DepthCameraView: UIView {
     private var _detectionWidthScale: Float = 0.5
@@ -13,7 +15,10 @@ class DepthCameraView: UIView {
 
     private let depthDataProvider = DepthDataProvider()
   
-    private var imageView = UIImageView()
+    private let mtkView = MTKView()
+    private var textureCache: CVMetalTextureCache!
+    private var mtkCoordinator: MTKCoordinator!
+    private var depthContent = MetalTextureContent()
 
     @objc var onReady: RCTDirectEventBlock? {
       didSet {
@@ -47,13 +52,25 @@ class DepthCameraView: UIView {
   
     override init(frame: CGRect) {
       super.init(frame:frame)
-      self.depthDataProvider.imageView = imageView
-      imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-      self.addSubview(imageView)
+      
+      self.setupMTKView()
+
+      self.addSubview(mtkView)
     }
   
     required init?(coder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
+    }
+  
+    //
+    private func setupMTKView() {
+      mtkCoordinator = MTKCoordinator(content: depthContent)
+      mtkView.delegate = mtkCoordinator
+      mtkCoordinator.setupView(mtkView: mtkView)
+      
+      CVMetalTextureCacheCreate(nil, nil, mtkView.device!, nil, &textureCache)
+      self.depthDataProvider.textureCache = textureCache
+      self.depthDataProvider.depthContent = depthContent
     }
   
     @objc

@@ -20,3 +20,26 @@ extension ARFrame {
         return normalizeTransform.concatenating(flipTransform).concatenating(displayTransform).concatenating(toViewPortTransform)
     }
 }
+
+// Enable `CVPixelBuffer` to output an `MTLTexture`.
+extension CVPixelBuffer {
+    
+    func texture(withFormat pixelFormat: MTLPixelFormat, planeIndex: Int, addToCache cache: CVMetalTextureCache) -> MTLTexture? {
+        
+        let width = CVPixelBufferGetWidthOfPlane(self, planeIndex)
+        let height = CVPixelBufferGetHeightOfPlane(self, planeIndex)
+        
+        var cvtexture: CVMetalTexture?
+        _ = CVMetalTextureCacheCreateTextureFromImage(nil, cache, self, nil, pixelFormat, width, height, planeIndex, &cvtexture)
+        let texture = CVMetalTextureGetTexture(cvtexture!)
+        
+        return texture
+        
+    }
+    
+}
+
+// Wrap the `MTLTexture` protocol to reference outputs from ARKit.
+final class MetalTextureContent {
+    var texture: MTLTexture?
+}
