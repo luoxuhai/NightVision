@@ -13,6 +13,7 @@ export function AppMaskScreen(props: NativeStackScreenProps<AppStackParamList, '
       Gesture.Tap()
         .numberOfTaps(3)
         .maxDistance(10)
+        .maxDuration(300)
         .runOnJS(true)
         .onEnd(() => {
           props.navigation.goBack();

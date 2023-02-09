@@ -12,6 +12,8 @@ import {
 
 import { VibrancyView } from '@react-native-community/blur';
 import { SFSymbol } from 'react-native-sfsymbols';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/store';
 
 interface BottomButtonProps {
   style?: StyleProp<ViewStyle>;
@@ -22,8 +24,10 @@ interface BottomButtonProps {
   onPress?: () => void;
 }
 
-export function BottomButton(props: BottomButtonProps) {
+export const BottomButton = observer((props: BottomButtonProps) => {
   const isDark = useColorScheme() === 'dark';
+  const store = useStore();
+
   const size = props.size ?? 60;
   const iconSize = props.iconSize ?? 26;
   const color = props.color ?? PlatformColor('systemGray');
@@ -39,6 +43,7 @@ export function BottomButton(props: BottomButtonProps) {
           borderRadius: size / 2,
         },
       ]}
+      disabled={!store.isReady}
       activeOpacity={0.5}
       onPress={props.onPress}
     >
@@ -50,7 +55,7 @@ export function BottomButton(props: BottomButtonProps) {
       <SFSymbol name={props.iconName} size={iconSize} color={color} />
     </TouchableOpacity>
   );
-}
+});
 
 const $container: ViewStyle = {
   overflow: 'hidden',

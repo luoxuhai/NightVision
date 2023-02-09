@@ -9,6 +9,7 @@ import {
   Text,
   TextStyle,
   Linking,
+  Switch,
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
@@ -121,11 +122,23 @@ const DistanceSliderSection = observer(() => {
   return (
     <ListSection headerText={t('settingsScreen.advanced.title')}>
       <ListCell
-        text={`距离检测: ${store?.minDistance} m`}
+        text={t('settingsScreen.advanced.smoothed')}
+        rightIcon={null}
+        RightAccessory={
+          <Switch
+            value={store.smoothed}
+            onValueChange={(value) => {
+              store.setSmoothed(value);
+            }}
+          />
+        }
+      />
+      <ListCell
+        text={`${t('settingsScreen.advanced.distance')}${store?.minDistance} m`}
         bottomSeparator={false}
         rightIcon={null}
       />
-      <ListCell style={$sliderCell} rightIcon={null} bottomSeparator={false}>
+      <ListCell style={$sliderCell} rightIcon={null}>
         <View style={$slider}>
           <Text style={$sliderIcon}>0.1 m</Text>
           <Slider

@@ -7,7 +7,6 @@ import Metal
 
 class DepthCameraView: UIView {
     private var _detectionWidthScale: Float = 0.5
-    private var _detectionHeightScale: Float = 0.5
     private var _minDistanceDetection: Bool = false
     private var _colorMode: Int = 1
     private var _smoothed: Bool = true
@@ -84,17 +83,11 @@ class DepthCameraView: UIView {
         _detectionWidthScale = detectionWidthScale
         self.depthDataProvider.detectionWidthScale = _detectionWidthScale
     }
-
-    @objc
-    func setDetectionHeightScale(_ detectionHeightScale: Float) {
-        _detectionHeightScale = detectionHeightScale
-        self.depthDataProvider.detectionHeightScale = _detectionHeightScale
-    }
   
     @objc
     func setSmoothed(_ smoothed: Bool) {
         _smoothed = smoothed
-      
+
       let exists = self.depthDataProvider.config.frameSemantics.contains(.smoothedSceneDepth)
       if _smoothed {
         if !exists {
@@ -122,7 +115,6 @@ class DepthCameraView: UIView {
     @objc
     func setColorMode(_ colorMode: Int) {
         _colorMode = colorMode
-
         if _colorMode == 1 {
           mtkCoordinator.prepareFunctions(fragmentFunction: "planeFragmentShaderDepth")
         } else {

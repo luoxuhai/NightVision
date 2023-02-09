@@ -91,8 +91,6 @@ class MTKCoordinator: NSObject, MTKViewDelegate {
         encoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 4)
         encoder.endEncoding()
         commandBuffer.present(view.currentDrawable!)
-        commandBuffer.commit()
-      
-        print("-----draw----", mtkView.frame.width, mtkView.frame.height)
+        commandBuffer.commit()      
     }
 }

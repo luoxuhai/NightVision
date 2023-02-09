@@ -12,9 +12,11 @@ import config from '@/config';
 import { HapticFeedback } from '@/utils';
 import { DepthCamera } from '@/components';
 import { AppStackParamList } from '@/navigators';
+import { useStore } from '@/store';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
+  const store = useStore();
   const [distanceRectVisible, setDistanceRectVisible] = useState(false);
 
   useEffect(() => {
@@ -52,24 +54,29 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
         <DepthCamera distanceRectVisible={distanceRectVisible} />
 
         <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
-          <BottomButton iconName="camera.filters" color={PlatformColor('systemPurple')}
+          <BottomButton
+            iconName="camera.filters"
+            color={PlatformColor(store.colorMode === 1 ? 'systemPurple' : 'systemGray')}
             onPress={() => {
-              const prev = store.colorMode
+              const prev = store.colorMode;
               store.setColorMode(prev === 1 ? 2 : 1);
-            }} />
+              HapticFeedback.impact.medium();
+            }}
+          />
           <BottomButton
             iconName="ruler"
             iconSize={40}
             size={80}
             onPress={() => {
               setDistanceRectVisible((prev) => !prev);
-              HapticFeedback.impact.medium()
+              HapticFeedback.impact.heavy();
             }}
           />
           <BottomButton
             iconName="moon.fill"
             onPress={() => {
               props.navigation.navigate('AppMask');
+              HapticFeedback.impact.medium();
             }}
           />
         </View>
@@ -104,5 +111,3 @@ const $bottomContainer: ViewStyle = {
   justifyContent: 'center',
   columnGap: 50,
 };
-
-const $bottomCenterButton: ViewStyle = {};

@@ -4,7 +4,6 @@ import {
   Text,
   TextStyle,
   View,
-  Dimensions,
   ViewStyle,
   PlatformColor,
   Vibration,
@@ -23,6 +22,7 @@ import { useImperativeHandle } from 'react';
 import { useAppState } from '@/hooks';
 import { t } from '@/locales';
 import { validDistance } from './helpers';
+import { MAX_RECT_SCALE, MIN_RECT_SCALE } from './constants';
 
 interface DistanceRectProps {
   width: number;
@@ -38,7 +38,7 @@ export const DistanceRect = observer<DistanceRectProps, DistanceRectRef>(
     const store = useStore();
     const scale = useSharedValue(1);
     const savedScale = useSharedValue(1);
-    const rectSize = props.width * store.distanceRect.scale;
+    const rectSize = useMemo(() => props.width * store.distanceRect.scale, []);
 
     const $animatedStyle = useAnimatedStyle(() => ({
       width: scale.value * rectSize,
@@ -59,7 +59,8 @@ export const DistanceRect = observer<DistanceRectProps, DistanceRectRef>(
           .runOnJS(true)
           .onUpdate((e) => {
             const _scale = savedScale.value * e.scale;
-            if (_scale < 1 || _scale * rectSize > props.width - 50) {
+            const w = _scale * rectSize;
+            if (w < props.width * MIN_RECT_SCALE || w > props.width * MAX_RECT_SCALE) {
               return;
             }
             scale.value = savedScale.value * e.scale;

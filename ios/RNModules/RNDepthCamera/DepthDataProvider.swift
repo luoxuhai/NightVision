@@ -12,7 +12,6 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
     var depthContent: MetalTextureContent!
 
     var detectionWidthScale: Float!
-    var detectionHeightScale: Float!
     var minDistanceDetection: Bool!
 
     var onMinDistance: RCTDirectEventBlock?
@@ -78,45 +77,40 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
           print("Not textureCache")
         }
         
-        /*
-        let uiImage = session.currentFrame?.depthMapTransformedImage(pixelBuffer: depthMap, orientation: .portrait, viewPort: self.imageView.bounds)
-        self.imageView.image = uiImage
-*/
-        if !self.minDistanceDetection || self.detectionWidthScale == nil || self.detectionHeightScale == nil {
+        if !self.minDistanceDetection || self.detectionWidthScale == nil {
         return
        }
 
-       let confidenceMap = depth!.confidenceMap!
-       let realDepthData = DepthData(width: depthSize.width, height: depthSize.height)
-       let confidenceData = DepthConfidenceData(width: depthSize.width, height: depthSize.height)
-       CVPixelBufferLockBaseAddress(depthMap, CVPixelBufferLockFlags(rawValue: 0))
-       CVPixelBufferLockBaseAddress(confidenceMap, CVPixelBufferLockFlags(rawValue: 0))
-       let distanceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(depthMap), to: UnsafeMutablePointer<Float32>.self)
-       let confidenceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(confidenceMap), to: UnsafeMutablePointer<UInt8>.self)
+        DispatchQueue.global().async {
+          let confidenceMap = depth!.confidenceMap!
+          let realDepthData = DepthData(width: self.depthSize.width, height: self.depthSize.height)
+          let confidenceData = DepthConfidenceData(width: self.depthSize.width, height: self.depthSize.height)
+          CVPixelBufferLockBaseAddress(depthMap, CVPixelBufferLockFlags(rawValue: 0))
+          CVPixelBufferLockBaseAddress(confidenceMap, CVPixelBufferLockFlags(rawValue: 0))
+          let distanceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(depthMap), to: UnsafeMutablePointer<Float32>.self)
+          let confidenceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(confidenceMap), to: UnsafeMutablePointer<UInt8>.self)
 
-       for y in 0...depthSize.height-1 {
-           for x in 0...depthSize.width-1 {
-               let distance = distanceBuffer[y * depthSize.width + x]
-               let confidence = confidenceBuffer[y * depthSize.width + x]
-               realDepthData.set(x: x, y: y, value: distance)
-               confidenceData.set(x: x, y: y, value: confidence)
-           }
-       }
-       
-       self.detectMinDistance(depthData: realDepthData, confidenceData: confidenceData)
+          for y in 0...self.depthSize.height-1 {
+            for x in 0...self.depthSize.width-1 {
+              let distance = distanceBuffer[y * self.depthSize.width + x]
+              let confidence = confidenceBuffer[y * self.depthSize.width + x]
+                  realDepthData.set(x: x, y: y, value: distance)
+                  confidenceData.set(x: x, y: y, value: confidence)
+              }
+          }
+          self.detectMinDistance(depthData: realDepthData, confidenceData: confidenceData)
+        }
       }
     }
 }
 
 extension DepthDataProvider {
   private func detectMinDistance(depthData: DepthData, confidenceData: DepthConfidenceData) {
-    let width = Int(self.detectionWidthScale * Float(depthData.width))
+    let width = Int(self.detectionWidthScale * Float(depthData.height))
     let height = width
     let xRange = [(depthData.width / 2) - (width / 2), (depthData.width / 2) + width / 2 ]
     let yRange = [(depthData.height / 2) - (height / 2), (depthData.height / 2) + height / 2]
     var minDistance: Float?
-    var minX = 0
-    var minY = 0
 
     for y in 0...depthData.height - 1 {
       if y < yRange[0] || y > yRange[1] {
@@ -132,14 +126,11 @@ extension DepthDataProvider {
           minDistance = distance
         } else if distance < minDistance! {
           minDistance = distance
-          minX = x
-          minY = y
         }
       }
     }
 
-     print("--minDistance--", minDistance, width, height, minX, minY)
-     self.onMinDistance?(["distance": minDistance])
+    self.onMinDistance?(["distance": minDistance ?? -1])
    }
 }
 

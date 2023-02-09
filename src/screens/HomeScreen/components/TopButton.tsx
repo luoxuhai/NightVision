@@ -11,6 +11,7 @@ import {
 
 import { VibrancyView } from '@react-native-community/blur';
 import { SFSymbol } from 'react-native-sfsymbols';
+import { observer } from 'mobx-react-lite';
 
 interface TopButtonProps {
   style?: StyleProp<ViewStyle>;
@@ -18,7 +19,7 @@ interface TopButtonProps {
   onPress: () => void;
 }
 
-export function TopButton(props: TopButtonProps) {
+export const TopButton = observer((props: TopButtonProps) => {
   const isDark = useColorScheme() === 'dark';
 
   return (
@@ -31,7 +32,7 @@ export function TopButton(props: TopButtonProps) {
       <SFSymbol name={props.iconName} size={24} color={PlatformColor('systemGray')} />
     </TouchableOpacity>
   );
-}
+});
 
 const $container: ViewStyle = {
   borderRadius: 16,

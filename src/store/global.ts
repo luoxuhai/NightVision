@@ -1,30 +1,29 @@
+import { DEFAULT_RECT_SCALE } from '@/components/DepthCamera/constants';
 import { observable, makeObservable, action } from 'mobx';
 import { hydrateStore, makePersistable, clearPersistedStore } from 'mobx-persist-store';
 
 interface DistanceRect {
   position: { x: number; y: number };
   scale: number;
-  /**
-   * 1: 彩色
-   * 2: 黑白
-   */
-  colorMode: 1 | 2
 }
 
 export class GlobalStore {
   // 最短距离
   @observable minDistance = 1;
   @observable colorMode = 1;
+  @observable smoothed = true;
   @observable distanceRect: DistanceRect = {
     position: { x: 0, y: 0 },
-    scale: 0.5,
+    scale: DEFAULT_RECT_SCALE,
   };
+
+  @observable isReady = false;
 
   constructor() {
     makeObservable(this);
     makePersistable(this, {
       name: 'Global',
-      properties: ['minDistance', 'distanceRect'],
+      properties: ['minDistance', 'distanceRect', 'smoothed', 'colorMode'],
     });
   }
 
@@ -38,6 +37,14 @@ export class GlobalStore {
 
   @action setColorMode(value: number): void {
     this.colorMode = value;
+  }
+
+  @action setSmoothed(value: boolean): void {
+    this.smoothed = value;
+  }
+
+  @action setIsReady(value: boolean): void {
+    this.isReady = value;
   }
 
   async hydrate() {

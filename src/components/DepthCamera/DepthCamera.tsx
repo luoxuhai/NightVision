@@ -16,6 +16,7 @@ import { DepthCameraView } from './DepthCameraView';
 import { PermissionManager } from '@/utils';
 import { useStore } from '@/store';
 import { t } from '@/locales';
+import { observer } from 'mobx-react-lite';
 
 const windowWidth = Dimensions.get('window').width;
 const cameraViewWidth = windowWidth > 500 ? 500 : windowWidth;
@@ -24,7 +25,7 @@ interface DepthCameraProps {
   distanceRectVisible: boolean;
 }
 
-export function DepthCamera(props: DepthCameraProps) {
+export const DepthCamera = observer((props: DepthCameraProps) => {
   const isDark = useColorScheme() === 'dark';
   const [supports, setSupports] = useState(false);
   const [ratio, setRatio] = useState(192 / 256);
@@ -60,6 +61,7 @@ export function DepthCamera(props: DepthCameraProps) {
 
   const onCameraSize = useCallback((size: any) => {
     setRatio(size.height / size.width);
+    store.setIsReady(true);
   }, []);
 
   const onMinDistance = useCallback(
@@ -90,7 +92,7 @@ export function DepthCamera(props: DepthCameraProps) {
         {supports && (
           <DepthCameraView
             style={$depthCameraView}
-            smoothed
+            smoothed={store.smoothed}
             colorMode={store.colorMode}
             minDistanceDetection={props.distanceRectVisible}
             detectionWidthScale={store?.distanceRect.scale}
@@ -110,7 +112,7 @@ export function DepthCamera(props: DepthCameraProps) {
       </View>
     </Pressable>
   );
-}
+});
 
 const $depthCameraView: ViewStyle = {
   flex: 1,
