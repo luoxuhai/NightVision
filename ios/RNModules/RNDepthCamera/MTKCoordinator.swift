@@ -29,10 +29,10 @@ class MTKCoordinator: NSObject, MTKViewDelegate {
         self.mtkView.contentMode = .scaleAspectFit
         self.mtkView.device = EnvironmentVariables.shared.metalDevice
         self.metalCommandQueue = EnvironmentVariables.shared.metalCommandQueue
-        prepareFunctions()
+        prepareFunctions(fragmentFunction: "planeFragmentShaderDepth")
     }
     
-    func prepareFunctions() {
+    func prepareFunctions(fragmentFunction: String) {
         guard let metalDevice = mtkView.device else { fatalError("Expected a Metal device.") }
         do {
             let library = EnvironmentVariables.shared.metalLibrary
@@ -40,17 +40,14 @@ class MTKCoordinator: NSObject, MTKViewDelegate {
             pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
             pipelineDescriptor.depthAttachmentPixelFormat = .depth32Float
             pipelineDescriptor.vertexFunction = library.makeFunction(name: "planeVertexShader")
-            pipelineDescriptor.fragmentFunction = library.makeFunction(name: "planeFragmentShaderDepth")
-            //pipelineDescriptor.fragmentFunction = library.makeFunction(name: "planeFragmentShaderDarkDepth")
+            pipelineDescriptor.fragmentFunction = library.makeFunction(name: fragmentFunction)
             pipelineDescriptor.vertexDescriptor = createPlaneMetalVertexDescriptor()
             pipelineState = try metalDevice.makeRenderPipelineState(descriptor: pipelineDescriptor)
         } catch {
             print("Unexpected error: \(error).")
         }
-      
-      print("-----prepareFunctions----")
-
     }
+
     func createPlaneMetalVertexDescriptor() -> MTLVertexDescriptor {
         let mtlVertexDescriptor: MTLVertexDescriptor = MTLVertexDescriptor()
         // Store position in `attribute[[0]]`.

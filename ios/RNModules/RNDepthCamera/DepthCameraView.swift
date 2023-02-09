@@ -118,4 +118,15 @@ class DepthCameraView: UIView {
           self.depthDataProvider.pause()
         }
     }
+  
+    @objc
+    func setColorMode(_ colorMode: Int) {
+        _colorMode = colorMode
+
+        if _colorMode == 1 {
+          mtkCoordinator.prepareFunctions(fragmentFunction: "planeFragmentShaderDepth")
+        } else {
+          mtkCoordinator.prepareFunctions(fragmentFunction: "planeFragmentShaderDarkDepth")
+        }
+    }
 }

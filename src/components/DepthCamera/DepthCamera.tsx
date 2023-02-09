@@ -91,6 +91,7 @@ export function DepthCamera(props: DepthCameraProps) {
           <DepthCameraView
             style={$depthCameraView}
             smoothed
+            colorMode={store.colorMode}
             minDistanceDetection={props.distanceRectVisible}
             detectionWidthScale={store?.distanceRect.scale}
             detectionHeightScale={store?.distanceRect.scale}

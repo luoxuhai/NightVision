@@ -52,7 +52,11 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
         <DepthCamera distanceRectVisible={distanceRectVisible} />
 
         <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
-          <BottomButton iconName="camera.filters" color={PlatformColor('systemPurple')} />
+          <BottomButton iconName="camera.filters" color={PlatformColor('systemPurple')}
+            onPress={() => {
+              const prev = store.colorMode
+              store.setColorMode(prev === 1 ? 2 : 1);
+            }} />
           <BottomButton
             iconName="ruler"
             iconSize={40}
