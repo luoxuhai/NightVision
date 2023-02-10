@@ -51,10 +51,11 @@ export const DepthCamera = observer((props: DepthCameraProps) => {
 
     DepthCameraView.supports().then(async (value) => {
       if (!value) {
-        Alert.alert(t('homeScreen.unavailable.title'), t('homeScreen.unavailable.message'));
+        alertInavailable()
       } else {
         await PermissionManager.checkPermissions(['ios.permission.CAMERA']);
         setSupports(value);
+        setAvailable(value);
       }
     });
   }, [supports]);

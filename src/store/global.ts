@@ -19,6 +19,9 @@ export class GlobalStore {
   @observable isReady = false;
   // 忽略熄屏模式提示
   @observable ignoreAppMask = false;
+  // 可用的
+  @observable available = false;
+  @observable shake = false;
 
   constructor() {
     makeObservable(this);
@@ -50,6 +53,14 @@ export class GlobalStore {
 
   @action setIgnoreAppMask(value: boolean): void {
     this.ignoreAppMask = value;
+  }
+
+  @action setAvailable(value: boolean): void {
+    this.available = value;
+  }
+
+  @action setShake(value: boolean): void {
+    this.shake = value;
   }
 
   async hydrate() {

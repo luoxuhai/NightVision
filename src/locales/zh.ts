@@ -42,7 +42,13 @@ const zh = {
     advanced: {
       title: '高级设置',
       smoothed: '平滑处理',
-      distance: '距离检测：',
+      distance: '最小距离：',
+      vibrationMode:{
+        title: "震动模式",
+        invariable: '不变的',
+        subsection: '自适应距离'
+      },
+      shake: '摇一摇息屏'
     },
   },
   permissionManager: {

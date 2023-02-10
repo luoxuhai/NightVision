@@ -29,6 +29,12 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
     }
   }, []);
 
+  useEffect(() => {
+    if (shake) {
+      props.navigation.navigate('AppMask');
+    }
+  }, [store.shake]);
+
   return (
     <>
       <KeepAwake />

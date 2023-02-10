@@ -134,6 +134,18 @@ const DistanceSliderSection = observer(() => {
         }
       />
       <ListCell
+        text={t('settingsScreen.advanced.shake')}
+        rightIcon={null}
+        RightAccessory={
+          <Switch
+            value={store.shake}
+            onValueChange={(value) => {
+              store.setShake(value);
+            }}
+          />
+        }
+      />
+      <ListCell
         text={`${t('settingsScreen.advanced.distance')}${store?.minDistance} m`}
         bottomSeparator={false}
         rightIcon={null}
