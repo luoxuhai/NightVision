@@ -24,6 +24,7 @@ const zh = {
       message:
         '只支持具有激光雷达扫描仪的设备，支持的机型：iPhone 12 Pro(Max)、iPhone 13 Pro (Max)、iPhone 14 Pro (Max)',
     },
+    maskTip: '连续快速点击 3 次屏幕，可退出息屏模式',
   },
   settingsScreen: {
     title: '设置',

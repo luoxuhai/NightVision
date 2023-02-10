@@ -13,6 +13,8 @@ import { HapticFeedback } from '@/utils';
 import { DepthCamera } from '@/components';
 import { AppStackParamList } from '@/navigators';
 import { useStore } from '@/store';
+import { Alert } from 'react-native';
+import { t } from '@/locales';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
@@ -77,6 +79,11 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
             onPress={() => {
               props.navigation.navigate('AppMask');
               HapticFeedback.impact.medium();
+
+              if (!store.ignoreAppMask) {
+                Alert.alert(t('homeScreen.maskTip'));
+                store.setIgnoreAppMask(true);
+              }
             }}
           />
         </View>

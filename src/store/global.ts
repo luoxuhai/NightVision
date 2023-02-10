@@ -16,8 +16,9 @@ export class GlobalStore {
     position: { x: 0, y: 0 },
     scale: DEFAULT_RECT_SCALE,
   };
-
   @observable isReady = false;
+  // 忽略熄屏模式提示
+  @observable ignoreAppMask = false;
 
   constructor() {
     makeObservable(this);
@@ -45,6 +46,10 @@ export class GlobalStore {
 
   @action setIsReady(value: boolean): void {
     this.isReady = value;
+  }
+
+  @action setIgnoreAppMask(value: boolean): void {
+    this.ignoreAppMask = value;
   }
 
   async hydrate() {

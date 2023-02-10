@@ -44,7 +44,7 @@ export const DepthCamera = observer((props: DepthCameraProps) => {
     };
   }, []);
 
-  function checkSupports() {
+  const checkSupports = useCallback(() => {
     if (supports) {
       return;
     }
@@ -57,7 +57,7 @@ export const DepthCamera = observer((props: DepthCameraProps) => {
         setSupports(value);
       }
     });
-  }
+  }, [supports]);
 
   const onCameraSize = useCallback((size: any) => {
     setRatio(size.height / size.width);
