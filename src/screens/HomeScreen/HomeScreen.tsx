@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import KeepAwake from '@sayem314/react-native-keep-awake';
 import { requestReview } from 'react-native-store-review';
+import Shake from 'react-native-shake';
 
 import { TopButton } from './components/TopButton';
 import { BottomButton } from './components/BottomButton';
@@ -14,7 +15,7 @@ import { DepthCamera } from '@/components';
 import { AppStackParamList } from '@/navigators';
 import { useStore } from '@/store';
 import { Alert } from 'react-native';
-import { t } from '@/locales';
+import { t, i18n, SupportedLanguage } from '@/locales';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
@@ -30,9 +31,15 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
   }, []);
 
   useEffect(() => {
-    if (shake) {
-      props.navigation.navigate('AppMask');
-    }
+    const subscription = Shake.addListener(() => {
+      if (store.shake) {
+        props.navigation.navigate('AppMask');
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
   }, [store.shake]);
 
   return (
@@ -55,7 +62,14 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
           />
           <TopButton
             iconName="square.and.arrow.up"
-            onPress={() => Share.share({ url: config.appStoreUrl.global })}
+            onPress={() => {
+              Share.share({
+                url:
+                  i18n.language === SupportedLanguage.ZH
+                    ? config.appStoreUrl.cn
+                    : config.appStoreUrl.global,
+              });
+            }}
           />
         </View>
 
@@ -85,11 +99,6 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
             onPress={() => {
               props.navigation.navigate('AppMask');
               HapticFeedback.impact.medium();
-
-              if (!store.ignoreAppMask) {
-                Alert.alert(t('homeScreen.maskTip'));
-                store.setIgnoreAppMask(true);
-              }
             }}
           />
         </View>

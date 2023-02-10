@@ -6251,6 +6251,11 @@ react-native-sfsymbols@^1.2.1:
   resolved "https://registry.npmjs.org/react-native-sfsymbols/-/react-native-sfsymbols-1.2.1.tgz#53422d432dca1e028cfd95a283d69a590d3e3f84"
   integrity sha512-G8TLcTJwUsVhDQV/yatoltWF+BWrEyb5Grmrhzdrc0gH9TgXnjfoJ9QxaWwC/3D6QVuaugosnbmlL69EurgM/w==
 
+react-native-shake@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.npmjs.org/react-native-shake/-/react-native-shake-5.1.1.tgz#733657764b0395b26f26576bba51e2dcbcecfe89"
+  integrity sha512-h6O8LnFd3LkvoYx7O0afM6rO9fDKomZ1EyomGgKRDyFhinxYIU7Z4uPYtwA4Z1Cd3frEEKTLNKHI1Eu0MOI3Yw==
+
 react-native-store-review@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/react-native-store-review/-/react-native-store-review-0.3.0.tgz#67480b9736c10bd00ad8d4d80324d2146e18d7dd"

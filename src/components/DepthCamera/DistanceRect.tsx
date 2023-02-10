@@ -1,4 +1,4 @@
-import { useMemo, useEffect, forwardRef, useState } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,7 @@ import {
   ViewStyle,
   PlatformColor,
   Vibration,
+  Alert,
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
@@ -96,7 +97,7 @@ export const DistanceRect = observer<DistanceRectProps, DistanceRectRef>(
 
 const DistanceText = observer(
   (_, ref: DistanceRectRef) => {
-    const [minDistance, setMinDistance] = useState(-1);
+    const [minDistance, setMinDistance] = useState(-2);
     const [rangeTextWidth, setRangeTextWidth] = useState(50);
     const appState = useAppState();
     const store = useStore();
@@ -108,6 +109,13 @@ const DistanceText = observer(
     useImperativeHandle(ref, () => ({
       setMinDistance,
     }));
+
+    useEffect(() => {
+      if (!store.ignoreRectTip) {
+        Alert.alert(t('homeScreen.rectTip'));
+        store.setIgnoreRectTip(true);
+      }
+    }, []);
 
     useEffect(() => {
       if (appState === 'active' && warning) {

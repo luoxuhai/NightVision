@@ -27,7 +27,7 @@ const en: Translations = {
         'Only supports devices with lidar scanners, supported models: iPhone 12 Pro(Max), iPhone 13 Pro (Max), iPhone 14 Pro (Max)',
     },
     maskTip: 'Quickly tap the screen 3 times in a row to exit the screen mode',
-
+    rectTip: 'Pinch the detection frame with two fingers to adjust the size',
   },
   settingsScreen: {
     title: 'Settings',
@@ -45,7 +45,8 @@ const en: Translations = {
     advanced: {
       title: 'Advanced Settings',
       smoothed: 'Smoothing',
-      distance: 'Distance Detection: ',
+      distance: 'Minimum Distance: ',
+      shake: 'Shake the Screen',
     },
   },
   permissionManager: {

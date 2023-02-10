@@ -19,15 +19,24 @@ export class GlobalStore {
   @observable isReady = false;
   // 忽略熄屏模式提示
   @observable ignoreAppMask = false;
+  @observable ignoreRectTip = false;
   // 可用的
-  @observable available = false;
+  @observable isAvailable = false;
   @observable shake = false;
 
   constructor() {
     makeObservable(this);
     makePersistable(this, {
       name: 'Global',
-      properties: ['minDistance', 'distanceRect', 'smoothed', 'colorMode'],
+      properties: [
+        'minDistance',
+        'distanceRect',
+        'smoothed',
+        'colorMode',
+        'shake',
+        'ignoreAppMask',
+        'ignoreRectTip',
+      ],
     });
   }
 
@@ -55,8 +64,12 @@ export class GlobalStore {
     this.ignoreAppMask = value;
   }
 
-  @action setAvailable(value: boolean): void {
-    this.available = value;
+  @action setIgnoreRectTip(value: boolean): void {
+    this.ignoreRectTip = value;
+  }
+
+  @action setIsAvailable(value: boolean): void {
+    this.isAvailable = value;
   }
 
   @action setShake(value: boolean): void {

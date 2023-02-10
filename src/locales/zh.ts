@@ -25,12 +25,13 @@ const zh = {
         '只支持具有激光雷达扫描仪的设备，支持的机型：iPhone 12 Pro(Max)、iPhone 13 Pro (Max)、iPhone 14 Pro (Max)',
     },
     maskTip: '连续快速点击 3 次屏幕，可退出息屏模式',
+    rectTip: '双指捏放检测框可调整大小',
   },
   settingsScreen: {
     title: '设置',
     version: '版本',
     connect: '联系开发者',
-    goodReview: '给个好评',
+    goodReview: '给个5星好评',
     recommend: {
       title: 'App 推荐',
       appName: '隐私盒子',
@@ -43,12 +44,7 @@ const zh = {
       title: '高级设置',
       smoothed: '平滑处理',
       distance: '最小距离：',
-      vibrationMode:{
-        title: "震动模式",
-        invariable: '不变的',
-        subsection: '自适应距离'
-      },
-      shake: '摇一摇息屏'
+      shake: '摇一摇息屏',
     },
   },
   permissionManager: {

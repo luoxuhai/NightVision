@@ -6,6 +6,7 @@
     "ios": "react-native run-ios --simulator 'iPhone 14 Pro Max'",
     "lint": "eslint .",
     "start": "react-native start",
+    "start:cache": "react-native start --reset-cache",
     "test": "jest",
     "postinstall": "node ./scripts/postInstall"
   },
@@ -38,6 +39,7 @@
     "react-native-safe-area-context": "^4.5.0",
     "react-native-screens": "^3.19.0",
     "react-native-sfsymbols": "^1.2.1",
+    "react-native-shake": "^5.1.1",
     "react-native-store-review": "^0.3.0",
     "react-native-typography": "^1.4.1",
     "use-deep-compare-effect": "^1.8.1"

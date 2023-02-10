@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import {
-  View,
   Dimensions,
-  PlatformColor,
-  useColorScheme,
-  Alert,
   AppState,
   Pressable,
   ViewStyle,
+  PlatformColor,
+  useColorScheme,
+  View,
+  ActivityIndicator,
 } from 'react-native';
 import throttle from 'lodash/throttle';
 
@@ -15,8 +15,9 @@ import { DistanceRect, DistanceRectRef } from './DistanceRect';
 import { DepthCameraView } from './DepthCameraView';
 import { PermissionManager } from '@/utils';
 import { useStore } from '@/store';
-import { t } from '@/locales';
 import { observer } from 'mobx-react-lite';
+import { alertInAvailable } from './helpers';
+import { useAppState } from '@/hooks';
 
 const windowWidth = Dimensions.get('window').width;
 const cameraViewWidth = windowWidth > 500 ? 500 : windowWidth;
@@ -26,39 +27,31 @@ interface DepthCameraProps {
 }
 
 export const DepthCamera = observer((props: DepthCameraProps) => {
-  const isDark = useColorScheme() === 'dark';
-  const [supports, setSupports] = useState(false);
   const [ratio, setRatio] = useState(192 / 256);
   const minDistanceTextRef = useRef<DistanceRectRef>(null);
   const store = useStore();
+  const isDark = useColorScheme() === 'dark';
+  const appState = useAppState();
 
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', (state) => {
-      if (state === 'active') {
-        checkSupports();
-      }
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
+    if (appState === 'active') {
+      checkSupports();
+    }
+  }, [store.isAvailable, appState]);
 
   const checkSupports = useCallback(() => {
-    if (supports) {
+    if (store.isAvailable) {
       return;
     }
 
     DepthCameraView.supports().then(async (value) => {
       if (!value) {
-        alertInavailable()
-      } else {
-        await PermissionManager.checkPermissions(['ios.permission.CAMERA']);
-        setSupports(value);
-        setAvailable(value);
+        alertInAvailable();
+      } else if (await PermissionManager.checkPermissions(['ios.permission.CAMERA'])) {
+        store.setIsAvailable(value);
       }
     });
-  }, [supports]);
+  }, [store.isAvailable]);
 
   const onCameraSize = useCallback((size: any) => {
     setRatio(size.height / size.width);
@@ -90,7 +83,7 @@ export const DepthCamera = observer((props: DepthCameraProps) => {
           position: 'relative',
         }}
       >
-        {supports && (
+        {store.isAvailable && (
           <DepthCameraView
             style={$depthCameraView}
             smoothed={store.smoothed}
@@ -102,6 +95,8 @@ export const DepthCamera = observer((props: DepthCameraProps) => {
             onMinDistance={onMinDistance}
           />
         )}
+
+        {!store.isReady && <ActivityIndicator style={$indicator} size="large" />}
 
         {props.distanceRectVisible && (
           <DistanceRect
@@ -123,4 +118,21 @@ const $cameraContainer: ViewStyle = {
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
+};
+
+const $indicator: ViewStyle = {
+  position: 'absolute',
+  width: 50,
+  height: 50,
+  top: '50%',
+  left: '50%',
+  zIndex: 9,
+  transform: [
+    {
+      translateX: -25,
+    },
+    {
+      translateY: -25,
+    },
+  ],
 };
