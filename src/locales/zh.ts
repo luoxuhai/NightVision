@@ -33,7 +33,7 @@ const zh = {
     connect: '联系开发者',
     goodReview: '给个5星好评',
     recommend: {
-      title: 'App 推荐',
+      title: '我的更多 App',
       appName: '隐私盒子',
       desc: '隐藏私密图片、视频和文件',
     },

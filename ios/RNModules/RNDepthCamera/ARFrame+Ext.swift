@@ -1,26 +1,6 @@
 import ARKit
 import UIKit
 
-extension ARFrame {
-    func depthMapTransformedImage(pixelBuffer: CVPixelBuffer,orientation: UIInterfaceOrientation, viewPort: CGRect) -> UIImage? {
-        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-        return UIImage(ciImage: screenTransformed(ciImage: ciImage, orientation: orientation, viewPort: viewPort))
-    }
-
-    func screenTransformed(ciImage: CIImage, orientation: UIInterfaceOrientation, viewPort: CGRect) -> CIImage {
-        let transform = screenTransform(orientation: orientation, viewPortSize: viewPort.size, captureSize: ciImage.extent.size)
-        return ciImage.transformed(by: transform).cropped(to: viewPort)
-    }
-
-    func screenTransform(orientation: UIInterfaceOrientation, viewPortSize: CGSize, captureSize: CGSize) -> CGAffineTransform {
-        let normalizeTransform = CGAffineTransform(scaleX: 1.0/captureSize.width, y: 1.0/captureSize.height)
-        let flipTransform = (orientation.isPortrait) ? CGAffineTransform(scaleX: -1, y: -1).translatedBy(x: -1, y: -1) : .identity
-        let displayTransform = self.displayTransform(for: orientation, viewportSize: viewPortSize)
-        let toViewPortTransform = CGAffineTransform(scaleX: viewPortSize.width, y: viewPortSize.height)
-        return normalizeTransform.concatenating(flipTransform).concatenating(displayTransform).concatenating(toViewPortTransform)
-    }
-}
-
 // Enable `CVPixelBuffer` to output an `MTLTexture`.
 extension CVPixelBuffer {
     
@@ -42,4 +22,24 @@ extension CVPixelBuffer {
 // Wrap the `MTLTexture` protocol to reference outputs from ARKit.
 final class MetalTextureContent {
     var texture: MTLTexture?
+}
+
+public extension MTLTexture {
+  func toUIImage() -> UIImage {
+        let bytesPerPixel: Int = 4
+        let imageByteCount = self.width * self.height * bytesPerPixel
+        let bytesPerRow = self.width * bytesPerPixel
+        var src = [UInt8](repeating: 0, count: Int(imageByteCount))
+
+        let region = MTLRegionMake2D(0, 0, self.width, self.height)
+        self.getBytes(&src, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
+        let bitmapInfo = CGBitmapInfo(rawValue: (CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.noneSkipFirst.rawValue))
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitsPerComponent = 8
+        let context = CGContext(data: &src, width: self.width, height: self.height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue);
+
+        let dstImageFilter = context?.makeImage();
+
+      return UIImage(cgImage: dstImageFilter!, scale: 0.0, orientation: UIImage.Orientation.downMirrored)
+    }
 }

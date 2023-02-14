@@ -28,12 +28,12 @@ export function AppRecommendSection() {
         </View>
         <SFSymbol
           style={{
-            width: 18,
-            height: 18,
+            width: 30,
+            height: 30,
           }}
-          name="chevron.right"
+          name="icloud.and.arrow.down"
           weight="medium"
-          color={PlatformColor('opaqueSeparator')}
+          color={PlatformColor('systemBlue')}
         />
       </ListCell>
     </ListSection>

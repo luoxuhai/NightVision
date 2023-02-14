@@ -8,6 +8,7 @@ import {
   useColorScheme,
   StyleProp,
   ColorValue,
+  Text,
 } from 'react-native';
 
 import { VibrancyView } from '@react-native-community/blur';
@@ -47,12 +48,15 @@ export const BottomButton = observer((props: BottomButtonProps) => {
       activeOpacity={0.5}
       onPress={props.onPress}
     >
-      <VibrancyView
-        style={StyleSheet.absoluteFill}
-        blurType={isDark ? 'ultraThinMaterial' : 'ultraThinMaterialLight'}
-        blurAmount={50}
-      />
-      <SFSymbol name={props.iconName} size={iconSize} color={color} />
+      <View>
+        <VibrancyView
+          style={StyleSheet.absoluteFill}
+          blurType={isDark ? 'ultraThinMaterial' : 'ultraThinMaterialLight'}
+          blurAmount={50}
+        />
+        <SFSymbol name={props.iconName} size={iconSize} color={color} />
+      </View>
+      <Text>xxxx</Text>
     </TouchableOpacity>
   );
 });

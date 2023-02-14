@@ -15,6 +15,18 @@ class DepthCameraViewManager: RCTViewManager {
     override var methodQueue: DispatchQueue! {
       return DispatchQueue.main
     }
+  
+    @objc(takePicture:reactTag:resolver:rejecter:)
+    func takePicture(options: NSDictionary, reactTag: NSNumber, resolve: @escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock) {
+      bridge.uiManager.prependUIBlock({_ , viewRegistry in
+          let view = viewRegistry?[reactTag]
+          if !(view is DepthCameraView) {
+            reject("ERROR_TAKE", "Invalid view returned from registry", nil)
+          } else if let view = view as? DepthCameraView {
+            view.takePicture(options: options, resolve: resolve, reject: reject)
+          }
+      })
+    }
 
     @objc
     func supports(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {

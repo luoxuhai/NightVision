@@ -31,11 +31,11 @@ const en: Translations = {
   },
   settingsScreen: {
     title: 'Settings',
-    version: 'version',
-    connect: 'Contact the developer',
-    goodReview: 'Give a good review',
+    version: 'Version',
+    connect: 'Contact Developer',
+    goodReview: 'Good Review',
     recommend: {
-      title: 'App Recommendation',
+      title: 'More Apps',
       appName: 'Privacy Box',
       desc: 'Hide private pictures, videos and files',
     },

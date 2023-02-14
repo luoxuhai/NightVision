@@ -17,5 +17,10 @@ RCT_EXPORT_VIEW_PROPERTY(onCameraSize, RCTDirectEventBlock);
 
 RCT_EXTERN_METHOD(supports:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(takePicture:(NSDictionary *)options
+        reactTag:(nonnull NSNumber *)reactTag
+        resolver:(RCTPromiseResolveBlock)resolve
+        rejecter:(RCTPromiseRejectBlock)reject)
+
 @end
 

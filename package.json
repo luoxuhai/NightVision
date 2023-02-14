@@ -30,6 +30,7 @@
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-haptic-feedback": "^1.14.0",
+    "react-native-iap": "^12.7.2",
     "react-native-inappbrowser-reborn": "^3.7.0",
     "react-native-localize": "^2.2.4",
     "react-native-mail": "^6.1.1",

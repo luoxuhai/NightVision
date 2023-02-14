@@ -54,7 +54,7 @@ class DepthCameraView: UIView {
       
       self.setupMTKView()
 
-      self.addSubview(mtkView)
+      self.addSubview(mtkView)      
     }
   
     required init?(coder: NSCoder) {
@@ -72,6 +72,18 @@ class DepthCameraView: UIView {
       self.depthDataProvider.depthContent = depthContent
     }
   
+    func takePicture(options: NSDictionary, resolve: @escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock) {
+        let quality = options["quality"] as? CGFloat ?? 1
+        let image = depthContent.texture?.toUIImage()
+        do {
+          let destPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(UUID().uuidString).jpg")
+          try image?.jpegData(compressionQuality: quality)?.write(to: destPath)
+          resolve(["uri": destPath.absoluteString])
+        } catch {
+          reject("ERROR_TAKE", error.localizedDescription, error)
+        }
+    }
+    
     @objc
     func setMinDistanceDetection(_ minDistanceDetection: Bool) {
         _minDistanceDetection = minDistanceDetection

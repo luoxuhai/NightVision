@@ -57,6 +57,9 @@ export const SettingsScreen = observer<NativeStackScreenProps<AppStackParamList,
           contentContainerStyle={$contentContainer}
         >
           <ListSection>
+            <ListCell text="xxx" />
+          </ListSection>
+          <ListSection>
             <ListCell
               text={t('settingsScreen.version')}
               rightIcon={null}
