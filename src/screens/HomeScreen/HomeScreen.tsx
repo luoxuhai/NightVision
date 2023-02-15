@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle, View, PlatformColor, Share, InteractionManager } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -10,17 +10,18 @@ import Shake from 'react-native-shake';
 import { TopButton } from './components/TopButton';
 import { BottomButton } from './components/BottomButton';
 import config from '@/config';
-import { HapticFeedback } from '@/utils';
+import { HapticFeedback, Overlay } from '@/utils';
 import { DepthCamera } from '@/components';
+import { DepthCameraViewRef } from '@/components/DepthCamera/DepthCameraView';
 import { AppStackParamList } from '@/navigators';
 import { useStore } from '@/store';
-import { Alert } from 'react-native';
 import { t, i18n, SupportedLanguage } from '@/locales';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
   const store = useStore();
   const [distanceRectVisible, setDistanceRectVisible] = useState(false);
+  const depthCameraRef = useRef<DepthCameraViewRef>(null);
 
   useEffect(() => {
     if (!__DEV__) {
@@ -73,11 +74,12 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
           />
         </View>
 
-        <DepthCamera distanceRectVisible={distanceRectVisible} />
+        <DepthCamera ref={depthCameraRef} distanceRectVisible={distanceRectVisible} />
 
         <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
           <BottomButton
             iconName="camera.filters"
+            text={t('homeScreen.color')}
             color={PlatformColor(store.colorMode === 1 ? 'systemPurple' : 'systemGray')}
             onPress={() => {
               const prev = store.colorMode;
@@ -87,15 +89,27 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
           />
           <BottomButton
             iconName="ruler"
-            iconSize={40}
-            size={80}
+            text={t('homeScreen.distance')}
             onPress={() => {
               setDistanceRectVisible((prev) => !prev);
               HapticFeedback.impact.heavy();
             }}
           />
           <BottomButton
+            iconName="record.circle"
+            text={t('homeScreen.take')}
+            onPress={async () => {
+              HapticFeedback.impact.medium();
+              await depthCameraRef.current?.takePicture();
+              Overlay.toast({
+                preset: 'done',
+                title: t('homeScreen.saveToPhotos'),
+              });
+            }}
+          />
+          <BottomButton
             iconName="moon.fill"
+            text={t('homeScreen.offLight')}
             onPress={() => {
               props.navigation.navigate('AppMask');
               HapticFeedback.impact.medium();
@@ -127,9 +141,8 @@ const $bottomContainer: ViewStyle = {
   zIndex: 1,
   width: '100%',
   paddingBottom: 20,
-  paddingHorizontal: 26,
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  columnGap: 50,
+  columnGap: 36,
 };

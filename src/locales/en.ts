@@ -28,6 +28,11 @@ const en: Translations = {
     },
     maskTip: 'Quickly tap the screen 3 times in a row to exit the screen mode',
     rectTip: 'Pinch the detection frame with two fingers to adjust the size',
+    color: 'Colors',
+    distance: 'Detection',
+    take: 'Take',
+    offLight: 'Screen Off',
+    saveToPhotos: 'Saved to Photo Album',
   },
   settingsScreen: {
     title: 'Settings',

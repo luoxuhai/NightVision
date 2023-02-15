@@ -26,6 +26,11 @@ const zh = {
     },
     maskTip: '连续快速点击 3 次屏幕，可退出息屏模式',
     rectTip: '双指捏放检测框可调整大小',
+    color: '颜色',
+    distance: '距离检测',
+    take: '拍摄',
+    offLight: '息屏',
+    saveToPhotos: '已保存到相册',
   },
   settingsScreen: {
     title: '设置',

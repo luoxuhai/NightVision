@@ -74,14 +74,9 @@ class DepthCameraView: UIView {
     }
   
     func takePicture(options: NSDictionary, resolve: @escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock) {
-        let quality = options["quality"] as? CGFloat ?? 1
-        let image = depthContent.texture?.toUIImage()
-        do {
-          let data = try! image!.jpegData(compressionQuality: quality)
-          PhotoLibrary.shared.saveToPhotoLibrary(image: UIImage(data: data!)!, resolve: resolve, reject: reject)
-        } catch {
-          reject("ERROR_TAKE", error.localizedDescription, error)
-        }
+        // let quality = options["quality"] as? CGFloat ?? 1
+        let image = mtkView.currentDrawable!.texture.toUIImage()
+        PhotoLibrary.shared.saveToPhotoLibrary(image: image, resolve: resolve, reject: reject)
     }
     
     @objc

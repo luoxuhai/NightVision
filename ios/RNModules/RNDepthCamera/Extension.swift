@@ -3,7 +3,6 @@ import UIKit
 
 // Enable `CVPixelBuffer` to output an `MTLTexture`.
 extension CVPixelBuffer {
-    
     func texture(withFormat pixelFormat: MTLPixelFormat, planeIndex: Int, addToCache cache: CVMetalTextureCache) -> MTLTexture? {
         
         let width = CVPixelBufferGetWidthOfPlane(self, planeIndex)
@@ -40,6 +39,6 @@ public extension MTLTexture {
 
         let dstImageFilter = context?.makeImage();
 
-      return UIImage(cgImage: dstImageFilter!, scale: 0.0, orientation: UIImage.Orientation.downMirrored)
+      return UIImage(cgImage: dstImageFilter!, scale: 0.0, orientation: UIImage.Orientation.up)
     }
 }

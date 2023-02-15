@@ -1,6 +1,5 @@
 import { PureComponent, createRef } from 'react';
 import { requireNativeComponent, NativeModules, findNodeHandle, ViewStyle } from 'react-native';
-import { DepthCameraRef } from './DepthCamera';
 
 const DepthCameraModule = NativeModules.DepthCameraView;
 
@@ -8,7 +7,7 @@ interface TakePictureOptions {
   quality?: number;
 }
 
-interface DepthCameraViewProps {
+export interface DepthCameraViewProps {
   style?: ViewStyle;
   enabled?: boolean;
   smoothed?: boolean;
@@ -23,21 +22,28 @@ interface DepthCameraViewProps {
   onPause?: () => void;
 }
 
-type RefType = PureComponent<DepthCameraViewProps> & Readonly<DepthCameraRef>;
+interface NativeMethods {
+  takePicture: () => Promise<void>;
+}
+
+export type DepthCameraViewRef = PureComponent<DepthCameraViewProps> & NativeMethods;
 
 export class DepthCameraView extends PureComponent<DepthCameraViewProps> {
-  private readonly ref: React.RefObject<RefType>;
+  private readonly ref: React.RefObject<DepthCameraViewRef>;
 
   constructor(props: DepthCameraViewProps) {
     super(props);
 
-    this.ref = createRef<RefType>();
+    this.ref = createRef<DepthCameraViewRef>();
     this.onMinDistance = this.onMinDistance.bind(this);
     this.onCameraSize = this.onCameraSize.bind(this);
   }
 
   public takePicture = async (options?: TakePictureOptions) => {
-    return await DepthCameraModule.takePicture(options ?? {}, findNodeHandle(this.ref.current));
+    return await DepthCameraModule.takePicture(
+      findNodeHandle(this.ref.current),
+      options ?? { quality: 1 },
+    );
   };
 
   private onMinDistance(event: any): void {

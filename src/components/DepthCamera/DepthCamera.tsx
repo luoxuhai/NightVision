@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState, useCallback, useImperativeHandle } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import {
   Dimensions,
-  AppState,
   Pressable,
   ViewStyle,
   PlatformColor,
@@ -12,7 +11,7 @@ import {
 import throttle from 'lodash/throttle';
 
 import { DistanceRect, DistanceRectRef } from './DistanceRect';
-import { DepthCameraView } from './DepthCameraView';
+import { DepthCameraView, DepthCameraViewRef } from './DepthCameraView';
 import { PermissionManager } from '@/utils';
 import { useStore } from '@/store';
 import { observer } from 'mobx-react-lite';
@@ -26,20 +25,13 @@ interface DepthCameraProps {
   distanceRectVisible: boolean;
 }
 
-export interface DepthCameraRef {
-  takePicture: () => void;
-}
-
-export const DepthCamera = observer<DepthCameraProps, DepthCameraRef>(
+export const DepthCamera = observer<DepthCameraProps, DepthCameraViewRef>(
   (props, ref) => {
     const [ratio, setRatio] = useState(192 / 256);
     const minDistanceTextRef = useRef<DistanceRectRef>(null);
-    const depthCameraRef = useRef<DepthCameraRef>(null);
     const store = useStore();
     const isDark = useColorScheme() === 'dark';
     const appState = useAppState();
-
-    useImperativeHandle(ref, () => depthCameraRef.current!);
 
     useEffect(() => {
       if (appState === 'active') {
@@ -96,7 +88,7 @@ export const DepthCamera = observer<DepthCameraProps, DepthCameraRef>(
           {store.isAvailable && (
             <DepthCameraView
               style={$depthCameraView}
-              ref={depthCameraRef}
+              ref={ref}
               smoothed={store.smoothed}
               colorMode={store.colorMode}
               minDistanceDetection={props.distanceRectVisible}
