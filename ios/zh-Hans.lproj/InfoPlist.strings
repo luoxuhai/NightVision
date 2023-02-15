@@ -2,3 +2,4 @@ CFBundleDisplayName = "夜视仪";
 NSCameraUsageDescription = "App会在您使用夜视仪时，访问您的相机权限，为了获取激光雷达扫描的数据";
 NSPhotoLibraryUsageDescription = "App会在您使用从相册导入图片功能时，访问您的相册权限，为了导入图片";
 NSAppleMusicUsageDescription = "为了删除系统相册中的图片";
+NSPhotoLibraryAddUsageDescription = "为了保存图片和视频到相册";

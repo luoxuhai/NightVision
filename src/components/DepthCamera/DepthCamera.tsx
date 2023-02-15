@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useImperativeHandle } from 'react';
 import {
   Dimensions,
   AppState,
@@ -26,89 +26,102 @@ interface DepthCameraProps {
   distanceRectVisible: boolean;
 }
 
-export const DepthCamera = observer((props: DepthCameraProps) => {
-  const [ratio, setRatio] = useState(192 / 256);
-  const minDistanceTextRef = useRef<DistanceRectRef>(null);
-  const store = useStore();
-  const isDark = useColorScheme() === 'dark';
-  const appState = useAppState();
+export interface DepthCameraRef {
+  takePicture: () => void;
+}
 
-  useEffect(() => {
-    if (appState === 'active') {
-      checkSupports();
-    }
-  }, [store.isAvailable, appState]);
+export const DepthCamera = observer<DepthCameraProps, DepthCameraRef>(
+  (props, ref) => {
+    const [ratio, setRatio] = useState(192 / 256);
+    const minDistanceTextRef = useRef<DistanceRectRef>(null);
+    const depthCameraRef = useRef<DepthCameraRef>(null);
+    const store = useStore();
+    const isDark = useColorScheme() === 'dark';
+    const appState = useAppState();
 
-  const checkSupports = useCallback(() => {
-    if (store.isAvailable) {
-      return;
-    }
+    useImperativeHandle(ref, () => depthCameraRef.current!);
 
-    DepthCameraView.supports().then(async (value) => {
-      if (!value) {
-        alertInAvailable();
-      } else if (await PermissionManager.checkPermissions(['ios.permission.CAMERA'])) {
-        store.setIsAvailable(value);
+    useEffect(() => {
+      if (appState === 'active') {
+        checkSupports();
       }
-    });
-  }, [store.isAvailable]);
+    }, [store.isAvailable, appState]);
 
-  const onCameraSize = useCallback((size: any) => {
-    setRatio(size.height / size.width);
-    store.setIsReady(true);
-  }, []);
+    const checkSupports = useCallback(() => {
+      if (store.isAvailable) {
+        return;
+      }
 
-  const onMinDistance = useCallback(
-    throttle((distance: number) => {
-      minDistanceTextRef.current?.setMinDistance(distance);
-    }, 200),
-    [],
-  );
+      DepthCameraView.supports().then(async (value) => {
+        if (!value) {
+          alertInAvailable();
+        } else if (await PermissionManager.checkPermissions(['ios.permission.CAMERA'])) {
+          store.setIsAvailable(value);
+        }
+      });
+    }, [store.isAvailable]);
 
-  return (
-    <Pressable
-      style={[
-        $cameraContainer,
-        {
-          backgroundColor: PlatformColor(isDark ? 'secondarySystemBackground' : 'systemBackground'),
-        },
-      ]}
-      onPress={checkSupports}
-    >
-      <View
-        style={{
-          width: cameraViewWidth,
-          height: cameraViewWidth / ratio,
-          backgroundColor: '#000',
-          position: 'relative',
-        }}
+    const onCameraSize = useCallback((size: any) => {
+      setRatio(size.height / size.width);
+      store.setIsReady(true);
+    }, []);
+
+    const onMinDistance = useCallback(
+      throttle((distance: number) => {
+        minDistanceTextRef.current?.setMinDistance(distance);
+      }, 200),
+      [],
+    );
+
+    return (
+      <Pressable
+        style={[
+          $cameraContainer,
+          {
+            backgroundColor: PlatformColor(
+              isDark ? 'secondarySystemBackground' : 'systemBackground',
+            ),
+          },
+        ]}
+        onPress={checkSupports}
       >
-        {store.isAvailable && (
-          <DepthCameraView
-            style={$depthCameraView}
-            smoothed={store.smoothed}
-            colorMode={store.colorMode}
-            minDistanceDetection={props.distanceRectVisible}
-            detectionWidthScale={store?.distanceRect.scale}
-            detectionHeightScale={store?.distanceRect.scale}
-            onCameraSize={onCameraSize}
-            onMinDistance={onMinDistance}
-          />
-        )}
+        <View
+          style={{
+            width: cameraViewWidth,
+            height: cameraViewWidth / ratio,
+            backgroundColor: '#000',
+            position: 'relative',
+          }}
+        >
+          {store.isAvailable && (
+            <DepthCameraView
+              style={$depthCameraView}
+              ref={depthCameraRef}
+              smoothed={store.smoothed}
+              colorMode={store.colorMode}
+              minDistanceDetection={props.distanceRectVisible}
+              detectionWidthScale={store?.distanceRect.scale}
+              detectionHeightScale={store?.distanceRect.scale}
+              onCameraSize={onCameraSize}
+              onMinDistance={onMinDistance}
+            />
+          )}
 
-        {!store.isReady && <ActivityIndicator style={$indicator} size="large" />}
+          {!store.isReady && <ActivityIndicator style={$indicator} size="large" />}
 
-        {props.distanceRectVisible && (
-          <DistanceRect
-            ref={minDistanceTextRef}
-            width={cameraViewWidth}
-            height={cameraViewWidth / ratio}
-          />
-        )}
-      </View>
-    </Pressable>
-  );
-});
+          {props.distanceRectVisible && (
+            <DistanceRect
+              ref={minDistanceTextRef}
+              width={cameraViewWidth}
+              height={cameraViewWidth / ratio}
+            />
+          )}
+        </View>
+      </Pressable>
+    );
+  },
+  { forwardRef: true },
+);
 
 const $depthCameraView: ViewStyle = {
   flex: 1,

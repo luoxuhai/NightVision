@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3563453C299C5AE200742442 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3563453B299C5AE200742442 /* PhotoLibrary.swift */; };
 		35745D6F2989559C00208D03 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35745D712989559C00208D03 /* InfoPlist.strings */; };
 		35745D9D298FE28E00208D03 /* RNToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745D9C298FE28E00208D03 /* RNToast.swift */; };
 		35745D9F298FE29D00208D03 /* RNToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745D9E298FE29D00208D03 /* RNToast.m */; };
@@ -48,6 +49,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NightVision/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NightVision/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-NightVision-NightVisionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NightVision-NightVisionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3563453B299C5AE200742442 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
 		35745D702989559C00208D03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35745D72298955A000208D03 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		35745D75298C01C400208D03 /* NightVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NightVision-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		35745DA02990000900208D03 /* RNDepthCamera */ = {
 			isa = PBXGroup;
 			children = (
+				3563453B299C5AE200742442 /* PhotoLibrary.swift */,
 				35745DA129913E7B00208D03 /* DepthCameraView.swift */,
 				35745DA429913E7E00208D03 /* DepthDataProvider.swift */,
 				35745DA229913E7C00208D03 /* DepthCameraViewManager.m */,
@@ -467,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35745DAA2993328600208D03 /* ARFrame+Ext.swift in Sources */,
+				3563453C299C5AE200742442 /* PhotoLibrary.swift in Sources */,
 				35745DA829913E7F00208D03 /* DepthDataProvider.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				35745DAC2993EBB200208D03 /* EnvironmentVariables.swift in Sources */,

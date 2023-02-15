@@ -4,6 +4,7 @@ import UIKit
 import React
 import MetalKit
 import Metal
+import UIKit
 
 class DepthCameraView: UIView {
     private var _detectionWidthScale: Float = 0.5
@@ -76,9 +77,8 @@ class DepthCameraView: UIView {
         let quality = options["quality"] as? CGFloat ?? 1
         let image = depthContent.texture?.toUIImage()
         do {
-          let destPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(UUID().uuidString).jpg")
-          try image?.jpegData(compressionQuality: quality)?.write(to: destPath)
-          resolve(["uri": destPath.absoluteString])
+          let data = try! image!.jpegData(compressionQuality: quality)
+          PhotoLibrary.shared.saveToPhotoLibrary(image: UIImage(data: data!)!, resolve: resolve, reject: reject)
         } catch {
           reject("ERROR_TAKE", error.localizedDescription, error)
         }
