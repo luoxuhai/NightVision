@@ -41,8 +41,12 @@
 
 本项目已采用 [Contributor Covenant](https://www.contributor-covenant.org/) 作为其行为准则，我们希望项目参与者遵守它。 请阅读[全文](CODE_OF_CONDUCT.md)。
 
+请阅读我们的 [贡献指南](CONTRIBUTING-zh_CN.md) 以了解我们的开发过程。
+
+感谢所有为 NightVision 做出贡献的人！
+
 ## 协议
 
 本项目根据 [GPL-3.0 许可证](https://github.com/luoxuhai/NightVision/blob/master/LICENSE) 的条款获得许可。
 
-[![星史图](https://api.star-history.com/svg?repos=luoxuhai/NightVision&type=Date)](https://star-history.com/#luoxuhai/pcl.js&Date)
+[![star history](https://api.star-history.com/svg?repos=luoxuhai/NightVision&type=Date)](https://star-history.com/#luoxuhai/pcl.js&Date)
