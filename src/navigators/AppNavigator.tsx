@@ -1,5 +1,5 @@
 import { useColorScheme, PlatformColor } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, Theme } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 
@@ -60,23 +60,16 @@ const AppStack = observer(function AppStack() {
 
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 
+const theme = {
+  colors: {
+    primary: PlatformColor('systemBlue'),
+    text: PlatformColor('label'),
+  },
+};
+
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
-  const isDark = useColorScheme() === 'dark';
-
-  const theme = {
-    dark: isDark,
-    colors: {
-      primary: PlatformColor('systemBlue'),
-      card: PlatformColor('systemBackground'),
-      background: PlatformColor('systemBackground'),
-      text: PlatformColor('label'),
-      border: PlatformColor('separator'),
-      notification: PlatformColor('systemRed'),
-    },
-  };
-
   return (
-    <NavigationContainer {...props} theme={theme}>
+    <NavigationContainer {...props} theme={theme as unknown as Theme}>
       <AppStack />
     </NavigationContainer>
   );

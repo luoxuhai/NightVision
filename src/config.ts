@@ -4,6 +4,8 @@ export default {
   appId,
   email: 'darkce97@gmail.com',
 
+  productId: 'net.darkce.nvd.donate_2',
+
   appStoreUrl: {
     cn: `https://apps.apple.com/cn/app/id${appId}`,
     global: `https://apps.apple.com/app/id${appId}`,

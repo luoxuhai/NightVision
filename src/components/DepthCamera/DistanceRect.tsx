@@ -118,7 +118,7 @@ const DistanceText = observer(
     }, []);
 
     useEffect(() => {
-      if (appState === 'active' && warning) {
+      if (store.vibrationEnabled && appState === 'active' && warning) {
         Vibration.vibrate([250], true);
       } else {
         Vibration.cancel();

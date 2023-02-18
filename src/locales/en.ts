@@ -52,10 +52,18 @@ const en: Translations = {
       smoothed: 'Smoothing',
       distance: 'Minimum Distance: ',
       shake: 'Shake the Screen',
+      vibrationEnabled: 'Vibration',
+    },
+    donate: {
+      success: 'Thank you for your donation',
+      fail: 'Donation failed',
+      title: 'Buy Me a Coffee (Donation)',
+      subtitle: 'Support us to develop more free and easy-to-use apps',
     },
   },
   permissionManager: {
     camera: 'Camera',
+    saveToPhoto: 'Save to Photos',
     unavailable: '{{permission}} unavailable',
     blocked:
       'Please go to settings to grant {{permissions}} permission to use this function normally',

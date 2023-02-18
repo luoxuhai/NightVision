@@ -1,4 +1,4 @@
-import { PlatformColor, StyleSheet, View, ViewStyle, Text, TextStyle } from 'react-native';
+import { PlatformColor, StyleSheet, View, ViewStyle, Text, TextStyle, Switch } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { human } from 'react-native-typography';
 import Slider from '@react-native-community/slider';
@@ -7,7 +7,7 @@ import { ListCell } from '@/components';
 import { t } from '@/locales';
 import { useStore } from '@/store';
 
-export const DistanceSlider = observer(() => {
+export const DistanceCell = observer(() => {
   const store = useStore();
 
   return (
@@ -34,6 +34,18 @@ export const DistanceSlider = observer(() => {
           <Text style={$sliderIcon}>5 m</Text>
         </View>
       </ListCell>
+      <ListCell
+        text={t('settingsScreen.advanced.vibrationEnabled')}
+        rightIcon={null}
+        RightAccessory={
+          <Switch
+            value={store.vibrationEnabled}
+            onValueChange={(value) => {
+              store.setVibrationEnabled(value);
+            }}
+          />
+        }
+      />
     </>
   );
 });

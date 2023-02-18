@@ -7,17 +7,25 @@ import {
   ViewStyle,
   Text,
   TextStyle,
+  Linking,
 } from 'react-native';
 import { human } from 'react-native-typography';
 import { SFSymbol } from 'react-native-sfsymbols';
 
 import { ListCell, ListSection } from '@/components';
-import { t } from '@/locales';
-import { openRecommendAppStore } from '../helpers/openUri';
+import { i18n, SupportedLanguage, t } from '@/locales';
 
 const AppIcon = require('@/assets/app-icon.png');
 
-export function AppRecommendSection() {
+function openRecommendAppStore() {
+  Linking.openURL(
+    i18n.language === SupportedLanguage.ZH
+      ? 'https://apps.apple.com/cn/app/id1597534147'
+      : 'https://apps.apple.com/app/id1597534147',
+  );
+}
+
+export function AppPromoteSection() {
   return (
     <ListSection headerText={t('settingsScreen.recommend.title')}>
       <ListCell style={$recommend} bottomSeparator={false} onPress={openRecommendAppStore}>

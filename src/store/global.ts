@@ -12,6 +12,7 @@ export class GlobalStore {
   @observable minDistance = 1;
   @observable colorMode = 1;
   @observable smoothed = true;
+  @observable vibrationEnabled = true;
   @observable distanceRect: DistanceRect = {
     position: { x: 0, y: 0 },
     scale: DEFAULT_RECT_SCALE,
@@ -36,6 +37,7 @@ export class GlobalStore {
         'shake',
         'ignoreAppMask',
         'ignoreRectTip',
+        'vibrationEnabled',
       ],
     });
   }
@@ -74,6 +76,10 @@ export class GlobalStore {
 
   @action setShake(value: boolean): void {
     this.shake = value;
+  }
+
+  @action setVibrationEnabled(value: boolean): void {
+    this.vibrationEnabled = value;
   }
 
   async hydrate() {

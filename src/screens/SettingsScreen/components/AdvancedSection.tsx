@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { ListCell, ListSection } from '@/components';
 import { t } from '@/locales';
 import { useStore } from '@/store';
-import { DistanceSlider } from './DistanceSlider';
+import { DistanceCell } from './DistanceCell';
 
 export const AdvancedSection = observer(() => {
   const store = useStore();
@@ -35,7 +35,7 @@ export const AdvancedSection = observer(() => {
           />
         }
       />
-      <DistanceSlider />
+      <DistanceCell />
     </ListSection>
   );
 });
