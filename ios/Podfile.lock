@@ -391,6 +391,8 @@ PODS:
     - React-RCTImage
   - RNStoreReview (0.3.0):
     - React-Core
+  - SPAlert (4.2.0)
+  - SPConfetti (1.4.0)
   - SPIndicator (1.6.4)
   - Yoga (1.14.0)
 
@@ -451,6 +453,8 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNStoreReview (from `../node_modules/react-native-store-review`)
+  - SPAlert
+  - SPConfetti
   - SPIndicator
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -460,6 +464,8 @@ SPEC REPOS:
     - libevent
     - MMKV
     - MMKVCore
+    - SPAlert
+    - SPConfetti
     - SPIndicator
 
 EXTERNAL SOURCES:
@@ -633,9 +639,11 @@ SPEC CHECKSUMS:
   RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
   RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
   RNStoreReview: 18cf6adbd193eadb049d2f6c37ef2ab3d5a28706
+  SPAlert: 735da1f16a887e294719217572ce1f936d8c8782
+  SPConfetti: 4ba720ff652d960f59c3e4eadee2c0c3ef6ce9a4
   SPIndicator: 93e0a4fb23de51294ac48e874c0f081a5e293e4f
   Yoga: c618b544ff8bd8865cdca602f00cbcdb92fd6d31
 
-PODFILE CHECKSUM: 1d90b5f27626865b7584dd9706fd00752409cac2
+PODFILE CHECKSUM: 4d94743d38cb2051ff1839c110d599376a6ae693
 
 COCOAPODS: 1.11.2

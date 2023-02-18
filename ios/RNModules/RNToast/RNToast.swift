@@ -9,7 +9,6 @@ class RNToast: NSObject {
     var preset: SPIndicatorIconPreset
     var haptic: SPIndicatorHaptic
 
-    // SPIndicatorIconPreset
     switch options["preset"] as? String {
     case "error":
       preset = .error

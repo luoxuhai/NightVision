@@ -7,6 +7,7 @@ import {
   ImageStyle,
   ViewStyle,
   PlatformColor,
+  ActivityIndicator,
 } from 'react-native';
 
 import { ListSection, ListCell } from '@/components';
@@ -43,7 +44,13 @@ export function DonateSection() {
           </Text>
         </View>
 
-        <Button title={product?.localizedPrice ?? '-'} onPress={handlePurchase} />
+        <View>
+          {product?.localizedPrice ? (
+            <Button title={product?.localizedPrice} onPress={handlePurchase} />
+          ) : (
+            <ActivityIndicator />
+          )}
+        </View>
       </ListCell>
     </ListSection>
   );
@@ -61,9 +68,8 @@ const $textContainer: ViewStyle = {
 };
 
 const $title: TextStyle = {
-  ...human.title3Object,
+  ...human.headlineObject,
   color: PlatformColor('label'),
-  fontWeight: '500',
 };
 
 const $subtitle: TextStyle = {

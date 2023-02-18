@@ -12,6 +12,8 @@ import {
   PurchaseError,
 } from 'react-native-iap';
 import { Overlay } from '@/utils';
+import * as RNAlert from '@/lib/RNAlert';
+import * as RNConfetti from '@/lib/RNConfetti';
 import { t } from '@/locales';
 import Config from '@/config';
 
@@ -47,6 +49,11 @@ export class InAppPurchase {
   }
 
   public async requestPurchase() {
+    RNAlert.show({
+      preset: 'spinner',
+      duration: 0,
+    });
+
     try {
       return await requestPurchase({
         sku: this.productId,
@@ -82,12 +89,15 @@ export class InAppPurchase {
     if (!this.purchaseUpdateSubscription) {
       this.purchaseUpdateSubscription = purchaseUpdatedListener(
         async (purchase: SubscriptionPurchase | ProductPurchase) => {
+          RNAlert.dismissAll();
+
           if (purchase.productId !== this.productId) {
             return;
           }
 
           try {
             await finishTransaction({ purchase, isConsumable: false });
+            RNConfetti.start({ duration: 2 });
             Overlay.toast({ preset: 'done', title: t('settingsScreen.donate.success') });
           } catch (error) {
             this.purchaseErrorHandler(error as unknown as PurchaseError);
@@ -109,6 +119,8 @@ export class InAppPurchase {
   }
 
   public purchaseErrorHandler(error?: PurchaseError) {
+    RNAlert.dismissAll();
+
     Overlay.toast({
       preset: 'error',
       title: t('settingsScreen.donate.fail'),
