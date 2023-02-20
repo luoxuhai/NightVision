@@ -55,6 +55,7 @@ const en: Translations = {
       vibrationEnabled: 'Vibration',
     },
     donate: {
+      purchasing: 'Paying',
       success: 'Thank you for your donation',
       fail: 'Donation failed',
       title: 'Buy Me a Coffee (Donation)',

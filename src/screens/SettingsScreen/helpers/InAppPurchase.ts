@@ -51,6 +51,7 @@ export class InAppPurchase {
   public async requestPurchase() {
     RNAlert.show({
       preset: 'spinner',
+      title: t('settingsScreen.donate.purchasing'),
       duration: 0,
     });
 
