@@ -133,7 +133,7 @@ const DistanceText = observer(
       return (
         <Text
           style={[
-            $rangeText,
+            $rangeLimitText,
             {
               transform: [
                 {
@@ -151,7 +151,12 @@ const DistanceText = observer(
       );
     }
 
-    return <Text style={[$text, warning && $textError]}>{minDistance.toFixed(3)}m</Text>;
+    return (
+      <Text style={[$text, warning && $textError]}>
+        {minDistance.toFixed(3)}
+        {t('common.meter')}
+      </Text>
+    );
   },
   { forwardRef: true },
 );
@@ -183,28 +188,44 @@ const $rect: ViewStyle = {
 };
 
 const $text: TextStyle = {
-  width: 68,
+  width: 78,
   backgroundColor: PlatformColor('systemYellow'),
-  borderRadius: 10,
-  color: '#FFF',
+  borderRadius: 14,
+  color: PlatformColor('darkText'),
   overflow: 'hidden',
   textAlign: 'center',
-  paddingVertical: 2,
+  paddingVertical: 4,
   position: 'absolute',
-  top: '50%',
+  bottom: '100%',
   left: '50%',
+  fontSize: 17,
   transform: [
     {
-      translateX: -34,
+      translateX: -39,
+    },
+    {
+      translateY: -5,
     },
   ],
 };
 
 const $textError: TextStyle = {
   backgroundColor: PlatformColor('systemRed'),
+  color: '#FFF',
+  width: 100,
+  fontSize: 20,
+  transform: [
+    {
+      translateX: -50,
+    },
+    {
+      translateY: -5,
+    },
+  ],
 };
 
-const $rangeText: TextStyle = {
+const $rangeLimitText: TextStyle = {
+  width: 200,
   backgroundColor: PlatformColor('systemPink'),
   borderRadius: 12,
   color: '#FFF',
@@ -213,11 +234,14 @@ const $rangeText: TextStyle = {
   paddingVertical: 4,
   paddingHorizontal: 8,
   position: 'absolute',
-  top: '50%',
+  bottom: '100%',
   left: '50%',
-  // transform: [
-  //   {
-  //     translateX: -34,
-  //   },
-  // ],
+  transform: [
+    {
+      translateX: -100,
+    },
+    {
+      translateY: -5,
+    },
+  ],
 };

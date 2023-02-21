@@ -61,6 +61,9 @@ const en: Translations = {
       title: 'Buy Me a Coffee (Donation)',
       subtitle: 'Support us to develop more free and easy-to-use apps',
     },
+    openSource: {
+      title: 'The APP is open source, welcome to Star and PR 👉',
+    },
   },
   permissionManager: {
     camera: 'Camera',

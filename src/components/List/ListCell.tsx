@@ -93,6 +93,8 @@ export function ListCell(props: ListCellProps) {
                   },
                   textStyle,
                 ]}
+                numberOfLines={1}
+                adjustsFontSizeToFit
               >
                 {text}
               </Text>

@@ -8,6 +8,7 @@ import {
   ViewStyle,
   PlatformColor,
   ActivityIndicator,
+  Linking,
 } from 'react-native';
 
 import { ListSection, ListCell } from '@/components';
@@ -28,6 +29,10 @@ export function DonateSection() {
   const handlePurchase = useCallback(async () => {
     await InAppPurchase.shared.init();
     await InAppPurchase.shared.requestPurchase();
+  }, []);
+
+  const handleToGithub = useCallback(() => {
+    Linking.openURL('https://github.com/luoxuhai/NightVision');
   }, []);
 
   return (
@@ -52,6 +57,11 @@ export function DonateSection() {
           )}
         </View>
       </ListCell>
+      <ListCell
+        text={t('settingsScreen.openSource.title')}
+        bottomSeparator={false}
+        onPress={handleToGithub}
+      />
     </ListSection>
   );
 }
