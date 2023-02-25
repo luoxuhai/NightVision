@@ -83,13 +83,13 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
 
         DispatchQueue.global().async {
           let confidenceMap = depth!.confidenceMap!
-          let realDepthData = DepthData(width: self.depthSize.width, height: self.depthSize.height)
-          let confidenceData = DepthConfidenceData(width: self.depthSize.width, height: self.depthSize.height)
+          let realDepthData = DepthData(size: self.depthSize)
+          let confidenceData = DepthConfidenceData(size: self.depthSize)
           CVPixelBufferLockBaseAddress(depthMap, CVPixelBufferLockFlags(rawValue: 0))
           CVPixelBufferLockBaseAddress(confidenceMap, CVPixelBufferLockFlags(rawValue: 0))
           let distanceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(depthMap), to: UnsafeMutablePointer<Float32>.self)
           let confidenceBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(confidenceMap), to: UnsafeMutablePointer<UInt8>.self)
-
+          
           for y in 0...self.depthSize.height-1 {
             for x in 0...self.depthSize.width-1 {
               let distance = distanceBuffer[y * self.depthSize.width + x]
@@ -106,17 +106,17 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
 
 extension DepthDataProvider {
   private func detectMinDistance(depthData: DepthData, confidenceData: DepthConfidenceData) {
-    let width = Int(self.detectionWidthScale * Float(depthData.height))
+    let width = Int(self.detectionWidthScale * Float(self.depthSize.height))
     let height = width
-    let xRange = [(depthData.width / 2) - (width / 2), (depthData.width / 2) + width / 2 ]
-    let yRange = [(depthData.height / 2) - (height / 2), (depthData.height / 2) + height / 2]
+    let xRange = [(self.depthSize.height / 2) - (width / 2), (self.depthSize.height / 2) + width / 2 ]
+    let yRange = [(self.depthSize.width / 2) - (height / 2), (self.depthSize.width / 2) + height / 2]
     var minDistance: Float?
 
-    for y in 0...depthData.height - 1 {
+    for y in 0...self.depthSize.height - 1 {
       if y < yRange[0] || y > yRange[1] {
         continue
       }
-      for x in 0...depthData.width - 1 {
+      for x in 0...self.depthSize.width - 1 {
         if x < xRange[0] || x > xRange[1] || confidenceData.get(x: x, y: y) == 0 {
           continue
         }
@@ -135,24 +135,17 @@ extension DepthDataProvider {
 }
 
 class DepthData {
-    //var data: Array<Array<Float>>
-    var data = Array(repeating: Array(repeating: Float(-1), count: 192), count: 256)
+    var data: Array<Array<Float>>
 
-    var width: Int
-    var height: Int
-  
-    init (width: Int = 192, height: Int = 256) {
-      self.width = width
-      self.height = height
-      
-     // data = Array(repeating: Array(repeating: Float(-1), count: self.width), count: self.height)
+    init (size: DepthSize) {
+      data = Array(repeating: Array(repeating: Float(-1), count: size.height), count: size.width)
     }
 
     func set(x: Int,y: Int, value: Float) {
          data[x][y] = value
     }
 
-    func get(x:Int,y:Int) -> Float {
+    func get(x: Int,y: Int) -> Float {
         return data[x][y]
     }
 
@@ -162,23 +155,17 @@ class DepthData {
 }
 
 class DepthConfidenceData {
-    var data = Array(repeating: Array(repeating: UInt8(0), count: 192), count: 256)
-
-    var width: Int
-    var height: Int
+    var data: Array<Array<UInt8>>
   
-    init (width: Int = 192, height: Int = 256) {
-      self.width = width
-      self.height = height
-      
-     // data = Array(repeating: Array(repeating: Float(-1), count: self.width), count: self.height)
+    init (size: DepthSize) {
+      data = Array(repeating: Array(repeating: UInt8(0), count: size.height), count: size.width)
     }
 
     func set(x: Int,y: Int, value: UInt8) {
          data[x][y] = value
     }
 
-    func get(x:Int,y:Int) -> UInt8 {
+    func get(x: Int,y: Int) -> UInt8 {
         return data[x][y]
     }
 

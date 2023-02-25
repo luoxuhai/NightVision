@@ -10,7 +10,7 @@ import Shake from 'react-native-shake';
 import { TopButton } from './components/TopButton';
 import { BottomButton } from './components/BottomButton';
 import config from '@/config';
-import { HapticFeedback, Overlay } from '@/utils';
+import { Device, HapticFeedback, Overlay } from '@/utils';
 import { DepthCamera } from '@/components';
 import { DepthCameraViewRef } from '@/components/DepthCamera/DepthCameraView';
 import { AppStackParamList } from '@/navigators';
@@ -129,7 +129,7 @@ const $topContainer: ViewStyle = {
   position: 'absolute',
   zIndex: 1,
   width: '100%',
-  paddingTop: 10,
+  paddingTop: Device.isPad ? 40 : 10,
   paddingHorizontal: 26,
   flexDirection: 'row',
   alignItems: 'center',
@@ -140,9 +140,9 @@ const $bottomContainer: ViewStyle = {
   position: 'absolute',
   zIndex: 1,
   width: '100%',
-  paddingBottom: 20,
+  paddingBottom: Device.isPad ? 50 : 20,
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  columnGap: 36,
+  columnGap: Device.isPad ? 54 : 36,
 };

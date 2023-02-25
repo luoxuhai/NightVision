@@ -23,7 +23,7 @@
 
 ## System Requirements
 
-This app requires iOS / iPadOS 15.0+. Supported Devices: iPhone 12 Pro (Max), iPhone 13 Pro (Max), iPhone 14 Pro (Max).
+This app requires iOS / iPadOS 15.0+. Supported Devices: iPhone 12 Pro (Max), iPhone 13 Pro (Max), iPhone 14 Pro (Max), iPad Pro.
 
 ## Features
 

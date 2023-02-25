@@ -17,9 +17,15 @@ import { useStore } from '@/store';
 import { observer } from 'mobx-react-lite';
 import { alertInAvailable } from './helpers';
 import { useAppState } from '@/hooks';
+import {
+  DEPTH_CAMERA_VIEW_MAX_WIDTH,
+  DEFAULT_DEPTH_CAMERA_WIDTH,
+  DEFAULT_DEPTH_CAMERA_HEIGHT,
+} from './constants';
 
 const windowWidth = Dimensions.get('window').width;
-const cameraViewWidth = windowWidth > 500 ? 500 : windowWidth;
+const cameraViewWidth =
+  windowWidth > DEPTH_CAMERA_VIEW_MAX_WIDTH ? DEPTH_CAMERA_VIEW_MAX_WIDTH : windowWidth;
 
 interface DepthCameraProps {
   distanceRectVisible: boolean;
@@ -27,7 +33,7 @@ interface DepthCameraProps {
 
 export const DepthCamera = observer<DepthCameraProps, DepthCameraViewRef>(
   (props, ref) => {
-    const [ratio, setRatio] = useState(192 / 256);
+    const [ratio, setRatio] = useState(DEFAULT_DEPTH_CAMERA_WIDTH / DEFAULT_DEPTH_CAMERA_HEIGHT);
     const minDistanceTextRef = useRef<DistanceRectRef>(null);
     const store = useStore();
     const isDark = useColorScheme() === 'dark';
