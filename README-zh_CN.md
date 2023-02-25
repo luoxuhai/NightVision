@@ -24,7 +24,7 @@
 
 ## 系统要求
 
-此应用需要 iOS / iPadOS 15.0+。 支持的设备：iPhone 12 Pro (Max)、iPhone 13 Pro (Max)、iPhone 14 Pro (Max)。
+此应用需要 iOS / iPadOS 15.0+。 支持的设备：iPhone 12 Pro (Max)、iPhone 13 Pro (Max)、iPhone 14 Pro (Max)、iPad Pro。
 
 ## 功能
 

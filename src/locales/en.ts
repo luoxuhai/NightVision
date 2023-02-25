@@ -24,7 +24,7 @@ const en: Translations = {
     unavailable: {
       title: 'Cannot run on this device',
       message:
-        'Only supports devices with lidar scanners, supported models: iPhone 12 Pro(Max), iPhone 13 Pro (Max), iPhone 14 Pro (Max)',
+        'Only supports devices with lidar scanners, supported models: iPhone 12 Pro(Max), iPhone 13 Pro (Max), iPhone 14 Pro (Max)、iPad Pro',
     },
     maskTip: 'Quickly tap the screen 3 times in a row to exit the screen mode',
     rectTip: 'Pinch the detection frame with two fingers to adjust the size',

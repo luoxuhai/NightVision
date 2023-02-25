@@ -2,7 +2,7 @@
   "name": "night-vision",
   "version": "1.4.0",
   "scripts": {
-    "ios": "react-native run-ios --simulator 'iPhone 14 Pro Max'",
+    "ios": "react-native run-ios --simulator 'iPad Pro (11-inch) (3rd generation)'",
     "lint": "eslint .",
     "start": "react-native start",
     "start:cache": "react-native start --reset-cache",
