@@ -1,6 +1,6 @@
 {
   "name": "night-vision",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "scripts": {
     "ios": "react-native run-ios --simulator 'iPad Pro (11-inch) (3rd generation)'",
     "lint": "eslint .",
