@@ -11,6 +11,8 @@
   <a href="README-zh_CN.md">简体中文</a>
 </p>
 
+**Powered by [react-native-boilerplate](https://github.com/luoxuhai/react-native-boilerplate).**
+
 ## Installation
 
 [![Available on the App Store](http://cl.ly/WouG/Download_on_the_App_Store_Badge_US-UK_135x40.svg)](https://apps.apple.com/app/id1668629667)
