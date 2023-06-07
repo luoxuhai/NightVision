@@ -13,6 +13,12 @@
 
 **Powered by [react-native-boilerplate](https://github.com/luoxuhai/react-native-boilerplate).**
 
+
+<div align="center">
+  <img src="./screenshot1.png" width="280px" />
+  <img src="./screenshot2.png" width="280px" />
+</div>
+
 ## Installation
 
 [![Available on the App Store](http://cl.ly/WouG/Download_on_the_App_Store_Badge_US-UK_135x40.svg)](https://apps.apple.com/app/id1668629667)
