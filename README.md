@@ -13,10 +13,10 @@
 
 **Powered by [react-native-boilerplate](https://github.com/luoxuhai/react-native-boilerplate).**
 
-
 <div align="center">
-  <img src="./screenshot1.png" width="280px" />
-  <img src="./screenshot2.png" width="280px" />
+  <img src="./screenshot1.png" width="200px" />
+  <img src="./screenshot2.png" width="200px" />
+  <img src="./screenshot3.jpg" width="200px" />
 </div>
 
 ## Installation

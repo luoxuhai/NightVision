@@ -14,6 +14,12 @@
 
 **由 [react-native-boilerplate](https://github.com/luoxuhai/react-native-boilerplate) 提供支持。**
 
+<div align="center">
+  <img src="./screenshot1.png" width="200px" />
+  <img src="./screenshot2.png" width="200px" />
+  <img src="./screenshot3.jpg" width="200px" />
+</div>
+
 ## 安装
 
 [![在 App Store 上可用](http://cl.ly/WouG/Download_on_the_App_Store_Badge_US-UK_135x40.svg)](https://apps.apple.com/cn/app/id1668629667)
