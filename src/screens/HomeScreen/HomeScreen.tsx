@@ -88,7 +88,7 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
             }}
           />
           <BottomButton
-            iconName="ruler"
+            iconName={distanceRectVisible ? 'ruler.fill' : 'ruler'}
             text={t('homeScreen.distance')}
             onPress={() => {
               setDistanceRectVisible((prev) => !prev);
@@ -108,7 +108,7 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
             }}
           />
           <BottomButton
-            iconName="moon.fill"
+            iconName="moon"
             text={t('homeScreen.offLight')}
             onPress={() => {
               props.navigation.navigate('AppMask');

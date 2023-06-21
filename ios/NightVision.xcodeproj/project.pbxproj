@@ -13,13 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3563453C299C5AE200742442 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3563453B299C5AE200742442 /* PhotoLibrary.swift */; };
-		3563455529A1224E00742442 /* RNConfetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3563455429A1224E00742442 /* RNConfetti.swift */; };
-		3563455729A1226300742442 /* RNConfetti.m in Sources */ = {isa = PBXBuildFile; fileRef = 3563455629A1226300742442 /* RNConfetti.m */; };
-		3563455B29A1231E00742442 /* RNAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3563455A29A1231E00742442 /* RNAlert.swift */; };
-		3563455D29A1232700742442 /* RNAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 3563455C29A1232700742442 /* RNAlert.m */; };
 		35745D6F2989559C00208D03 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35745D712989559C00208D03 /* InfoPlist.strings */; };
-		35745D9D298FE28E00208D03 /* RNToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745D9C298FE28E00208D03 /* RNToast.swift */; };
-		35745D9F298FE29D00208D03 /* RNToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745D9E298FE29D00208D03 /* RNToast.m */; };
 		35745DA529913E7F00208D03 /* DepthCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA129913E7B00208D03 /* DepthCameraView.swift */; };
 		35745DA629913E7F00208D03 /* DepthCameraViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA229913E7C00208D03 /* DepthCameraViewManager.m */; };
 		35745DA729913E7F00208D03 /* DepthCameraViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745DA329913E7D00208D03 /* DepthCameraViewManager.swift */; };
@@ -54,15 +48,9 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NightVision/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-NightVision-NightVisionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NightVision-NightVisionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3563453B299C5AE200742442 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
-		3563455429A1224E00742442 /* RNConfetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNConfetti.swift; sourceTree = "<group>"; };
-		3563455629A1226300742442 /* RNConfetti.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNConfetti.m; sourceTree = "<group>"; };
-		3563455A29A1231E00742442 /* RNAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNAlert.swift; sourceTree = "<group>"; };
-		3563455C29A1232700742442 /* RNAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNAlert.m; sourceTree = "<group>"; };
 		35745D702989559C00208D03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35745D72298955A000208D03 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		35745D75298C01C400208D03 /* NightVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NightVision-Bridging-Header.h"; sourceTree = "<group>"; };
-		35745D9C298FE28E00208D03 /* RNToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNToast.swift; sourceTree = "<group>"; };
-		35745D9E298FE29D00208D03 /* RNToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNToast.m; sourceTree = "<group>"; };
 		35745DA129913E7B00208D03 /* DepthCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthCameraView.swift; sourceTree = "<group>"; };
 		35745DA229913E7C00208D03 /* DepthCameraViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepthCameraViewManager.m; sourceTree = "<group>"; };
 		35745DA329913E7D00208D03 /* DepthCameraViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthCameraViewManager.swift; sourceTree = "<group>"; };
@@ -143,39 +131,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3563455329A1222700742442 /* RNConfetti */ = {
-			isa = PBXGroup;
-			children = (
-				3563455429A1224E00742442 /* RNConfetti.swift */,
-				3563455629A1226300742442 /* RNConfetti.m */,
-			);
-			path = RNConfetti;
-			sourceTree = "<group>";
-		};
-		3563455829A122FA00742442 /* RNToast */ = {
-			isa = PBXGroup;
-			children = (
-				35745D9C298FE28E00208D03 /* RNToast.swift */,
-				35745D9E298FE29D00208D03 /* RNToast.m */,
-			);
-			path = RNToast;
-			sourceTree = "<group>";
-		};
-		3563455929A1231100742442 /* RNAlert */ = {
-			isa = PBXGroup;
-			children = (
-				3563455A29A1231E00742442 /* RNAlert.swift */,
-				3563455C29A1232700742442 /* RNAlert.m */,
-			);
-			path = RNAlert;
-			sourceTree = "<group>";
-		};
 		35745D9B298FE27800208D03 /* RNModules */ = {
 			isa = PBXGroup;
 			children = (
-				3563455929A1231100742442 /* RNAlert */,
-				3563455829A122FA00742442 /* RNToast */,
-				3563455329A1222700742442 /* RNConfetti */,
 				35745DA02990000900208D03 /* RNDepthCamera */,
 			);
 			path = RNModules;
@@ -505,19 +463,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3563455D29A1232700742442 /* RNAlert.m in Sources */,
-				3563455B29A1231E00742442 /* RNAlert.swift in Sources */,
 				35745DAA2993328600208D03 /* Extension.swift in Sources */,
 				3563453C299C5AE200742442 /* PhotoLibrary.swift in Sources */,
 				35745DA829913E7F00208D03 /* DepthDataProvider.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				35745DAC2993EBB200208D03 /* EnvironmentVariables.swift in Sources */,
-				3563455529A1224E00742442 /* RNConfetti.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				35745D9D298FE28E00208D03 /* RNToast.swift in Sources */,
-				3563455729A1226300742442 /* RNConfetti.m in Sources */,
 				35745DA529913E7F00208D03 /* DepthCameraView.swift in Sources */,
-				35745D9F298FE29D00208D03 /* RNToast.m in Sources */,
 				35745DA629913E7F00208D03 /* DepthCameraViewManager.m in Sources */,
 				35745DA729913E7F00208D03 /* DepthCameraViewManager.swift in Sources */,
 				35745DAE2993F1CB00208D03 /* shaders.metal in Sources */,
@@ -607,16 +559,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NightVision/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.6.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -641,15 +594,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
 				INFOPLIST_FILE = NightVision/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.6.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

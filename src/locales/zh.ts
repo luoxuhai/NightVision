@@ -47,10 +47,10 @@ const zh = {
     userAgreement: '用户协议',
     advanced: {
       title: '高级设置',
-      smoothed: '平滑处理',
-      distance: '最小距离：',
+      smoothed: '平滑处理图像',
+      distance: '最小报警距离：',
       shake: '摇一摇息屏',
-      vibrationEnabled: '开启震动',
+      vibrationEnabled: '开启震动报警',
     },
     donate: {
       purchasing: '支付中',

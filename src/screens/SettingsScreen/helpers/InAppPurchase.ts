@@ -11,9 +11,8 @@ import {
   purchaseErrorListener,
   PurchaseError,
 } from 'react-native-iap';
-import { Overlay } from '@/utils';
-import * as RNAlert from '@/lib/RNAlert';
-import * as RNConfetti from '@/lib/RNConfetti';
+import * as Overlay from '@react-native-library/overlay';
+
 import { t } from '@/locales';
 import Config from '@/config';
 
@@ -49,7 +48,7 @@ export class InAppPurchase {
   }
 
   public async requestPurchase() {
-    RNAlert.show({
+    Overlay.Alert.show({
       preset: 'spinner',
       title: t('settingsScreen.donate.purchasing'),
       duration: 0,
@@ -90,7 +89,7 @@ export class InAppPurchase {
     if (!this.purchaseUpdateSubscription) {
       this.purchaseUpdateSubscription = purchaseUpdatedListener(
         async (purchase: SubscriptionPurchase | ProductPurchase) => {
-          RNAlert.dismissAll();
+          Overlay.Alert.dismissAll();
 
           if (purchase.productId !== this.productId) {
             return;
@@ -98,8 +97,8 @@ export class InAppPurchase {
 
           try {
             await finishTransaction({ purchase, isConsumable: false });
-            RNConfetti.start({ duration: 2 });
-            Overlay.toast({ preset: 'done', title: t('settingsScreen.donate.success') });
+            Overlay.Confetti.start({ duration: 2 });
+            Overlay.Toast.show({ preset: 'done', title: t('settingsScreen.donate.success') });
           } catch (error) {
             this.purchaseErrorHandler(error as unknown as PurchaseError);
           }
@@ -120,9 +119,9 @@ export class InAppPurchase {
   }
 
   public purchaseErrorHandler(error?: PurchaseError) {
-    RNAlert.dismissAll();
+    Overlay.Alert.dismissAll();
 
-    Overlay.toast({
+    Overlay.Toast.show({
       preset: 'error',
       title: t('settingsScreen.donate.fail'),
       message: error?.message ?? '',

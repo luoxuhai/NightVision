@@ -37,6 +37,7 @@ export const DistanceCell = observer(() => {
       <ListCell
         text={t('settingsScreen.advanced.vibrationEnabled')}
         rightIcon={null}
+        bottomSeparator={false}
         RightAccessory={
           <Switch
             value={store.vibrationEnabled}

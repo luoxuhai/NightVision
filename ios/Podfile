@@ -28,14 +28,7 @@ target 'NightVision' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  # See: https://github.com/zoontek/react-native-permissions#ios
-  permissions_path = '../node_modules/react-native-permissions/ios'
-  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
-  pod 'Permission-PhotoLibraryAddOnly', :path => "#{permissions_path}/PhotoLibraryAddOnly"
-
-  pod 'SPIndicator'
-  pod 'SPConfetti'
-  pod 'SPAlert'
+  pod 'SPIndicator', :git => 'https://github.com/luoxuhai/SPIndicator.git'
 
   target 'NightVisionTests' do
     inherit! :complete

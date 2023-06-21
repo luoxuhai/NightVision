@@ -49,10 +49,10 @@ const en: Translations = {
     userAgreement: 'User Agreement',
     advanced: {
       title: 'Advanced Settings',
-      smoothed: 'Smoothing',
-      distance: 'Minimum Distance: ',
+      smoothed: 'Smooth Image',
+      distance: 'Min Alarm Distance: ',
       shake: 'Shake the Screen',
-      vibrationEnabled: 'Vibration',
+      vibrationEnabled: 'Vibration Alarm',
     },
     donate: {
       purchasing: 'Paying',

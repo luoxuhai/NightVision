@@ -16,7 +16,7 @@ if (["darwin", "linux"].includes(process.platform)) {
 
 // On iOS, make sure CocoaPods are installed
 if (process.platform === "darwin") {
-  run('if [ -d "ios" ]; then cd ios && pod install && cd -; fi')
+  run('if [ -d "ios" ]; then npx react-native setup-ios-permissions && cd ios && pod update hermes-engine --no-repo-update && pod install && cd -; fi')
 }
 
 // Run baby run
