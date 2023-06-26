@@ -4,7 +4,6 @@ interface IBaseConfig {
   appId: string;
   email: string;
   productId: string;
-  productId2: string;
 
   appStoreUrl: {
     cn: string;
@@ -27,8 +26,7 @@ const BaseConfig: IBaseConfig = {
   appId,
   email: 'darkce97@gmail.com',
 
-  productId: 'net.darkce.nvd.premium.8',
-  productId2: 'net.darkce.nvd.donate_2',
+  productId: 'net.darkce.nvd.premium_8',
 
   appStoreUrl: {
     cn: `https://apps.apple.com/cn/app/id${appId}`,
