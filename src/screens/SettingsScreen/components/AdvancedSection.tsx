@@ -12,6 +12,18 @@ export const AdvancedSection = observer(() => {
   return (
     <ListSection headerText={t('settingsScreen.advanced.title')}>
       <ListCell
+        text={t('settingsScreen.advanced.saveCameraImage')}
+        rightIcon={null}
+        RightAccessory={
+          <Switch
+            value={store.isTakeCameraPhoto}
+            onValueChange={(value) => {
+              store.setIsTakeCameraPhoto(value);
+            }}
+          />
+        }
+      />
+      <ListCell
         text={t('settingsScreen.advanced.smoothed')}
         rightIcon={null}
         RightAccessory={

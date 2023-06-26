@@ -16,6 +16,7 @@ import { DepthCameraViewRef } from '@/components/DepthCamera/DepthCameraView';
 import { AppStackParamList } from '@/navigators';
 import { useStore } from '@/store';
 import { t, i18n, SupportedLanguage } from '@/locales';
+import { appUpdateCheck } from '@/utils/appUpdateCheck';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
@@ -29,6 +30,10 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
         InteractionManager.runAfterInteractions(requestReview);
       }, 3000);
     }
+
+    setTimeout(() => {
+      appUpdateCheck();
+    });
   }, []);
 
   useEffect(() => {
@@ -42,6 +47,20 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
       subscription.remove();
     };
   }, [store.shake]);
+
+  const canUseFeature = () => {
+    if (store.isPremium) {
+      return true;
+    } else {
+      props.navigation.navigate('Settings');
+      Overlay.toast({
+        preset: 'error',
+        title: t('settingsScreen.donate.needPremium'),
+        duration: 4000,
+      });
+      return false;
+    }
+  };
 
   return (
     <>
@@ -99,8 +118,14 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
             iconName="record.circle"
             text={t('homeScreen.take')}
             onPress={async () => {
+              if (!canUseFeature()) {
+                return;
+              }
+
               HapticFeedback.impact.medium();
-              await depthCameraRef.current?.takePicture();
+              await depthCameraRef.current?.takePicture({
+                original: store.isTakeCameraPhoto,
+              });
               Overlay.toast({
                 preset: 'done',
                 title: t('homeScreen.saveToPhotos'),
@@ -111,6 +136,10 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
             iconName="moon"
             text={t('homeScreen.offLight')}
             onPress={() => {
+              if (!canUseFeature()) {
+                return;
+              }
+
               props.navigation.navigate('AppMask');
               HapticFeedback.impact.medium();
             }}

@@ -41,8 +41,8 @@ const AppStack = observer(function AppStack() {
         name="Settings"
         component={SettingsScreen}
         options={{
-          presentation: 'modal',
           title: t('settingsScreen.title'),
+          animation: 'fade_from_bottom',
         }}
       />
       <Stack.Screen

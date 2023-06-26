@@ -1,26 +1,27 @@
 import {
   Text,
   Button,
-  Image,
   View,
   TextStyle,
   ImageStyle,
   ViewStyle,
   PlatformColor,
   ActivityIndicator,
-  Linking,
 } from 'react-native';
 
 import { ListSection, ListCell } from '@/components';
 import { InAppPurchase } from '../helpers/InAppPurchase';
 import { useCallback } from 'react';
 import { human } from 'react-native-typography';
+
 import { useAsyncMemo } from '@/hooks';
 import { t } from '@/locales';
+import { LottieView } from '@/components/LottieView';
+import { useStore } from '@/store';
+import { observer } from 'mobx-react-lite';
 
-const iconCoffee = require('@/assets/coffee.png');
-
-export function DonateSection() {
+const DonateSection = observer(() => {
+  const store = useStore();
   const product = useAsyncMemo(async () => {
     await InAppPurchase.shared.init();
     return await InAppPurchase.shared.getProduct();
@@ -31,14 +32,15 @@ export function DonateSection() {
     await InAppPurchase.shared.requestPurchase();
   }, []);
 
-  const handleToGithub = useCallback(() => {
-    Linking.openURL('https://github.com/luoxuhai/NightVision');
-  }, []);
-
   return (
-    <ListSection>
-      <ListCell style={$container} bottomSeparator={false} onPress={handlePurchase}>
-        <Image style={$icon} source={iconCoffee} />
+    <ListSection footerText={store.isPremium ? undefined : t('settingsScreen.donate.footer')}>
+      <ListCell
+        style={$container}
+        disabled={store.isPremium || !product}
+        bottomSeparator={false}
+        onPress={handlePurchase}
+      >
+        <LottieView style={$icon} source="Pro" autoPlay loop speed={0.8} />
 
         <View style={$textContainer}>
           <Text style={$title} adjustsFontSizeToFit numberOfLines={1}>
@@ -49,22 +51,23 @@ export function DonateSection() {
           </Text>
         </View>
 
-        <View>
-          {product?.localizedPrice ? (
-            <Button title={product?.localizedPrice} onPress={handlePurchase} />
-          ) : (
-            <ActivityIndicator />
-          )}
-        </View>
+        {store.isPremium ? (
+          <Text style={$purchased}>{t('settingsScreen.donate.purchased')}</Text>
+        ) : (
+          <View>
+            {product?.localizedPrice ? (
+              <Button title={product?.localizedPrice} onPress={handlePurchase} />
+            ) : (
+              <ActivityIndicator />
+            )}
+          </View>
+        )}
       </ListCell>
-      <ListCell
-        text={t('settingsScreen.openSource.title')}
-        bottomSeparator={false}
-        onPress={handleToGithub}
-      />
     </ListSection>
   );
-}
+});
+
+export { DonateSection };
 
 const $container: ViewStyle = {
   paddingHorizontal: 16,
@@ -82,13 +85,19 @@ const $title: TextStyle = {
   color: PlatformColor('label'),
 };
 
+const $purchased: TextStyle = {
+  ...human.headlineObject,
+  color: PlatformColor('label'),
+};
+
 const $subtitle: TextStyle = {
   ...human.footnoteObject,
   color: PlatformColor('secondaryLabel'),
+  lineHeight: 14,
   marginTop: 4,
 };
 
 const $icon: ImageStyle = {
   width: 50,
-  height: 50,
+  alignItems: 'center',
 };

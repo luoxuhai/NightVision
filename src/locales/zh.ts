@@ -48,19 +48,24 @@ const zh = {
     advanced: {
       title: '高级设置',
       smoothed: '平滑处理图像',
+      saveCameraImage: '拍摄普通相机图片',
       distance: '最小报警距离：',
       shake: '摇一摇息屏',
       vibrationEnabled: '开启震动报警',
     },
     donate: {
-      purchasing: '支付中',
-      success: '感谢您的捐助',
-      fail: '捐助失败',
-      title: '请我喝咖啡（捐助）',
-      subtitle: '支持我们开发更多免费好用的 App',
-    },
-    openSource: {
-      title: '该 APP 已开源，欢迎 Star 和 PR 👉',
+      needPremium: '需要购买高级版',
+      purchasing: '开通中',
+      purchased: '已开通',
+      success: '已开通高级版',
+      fail: '支付失败',
+      title: '夜视仪 高级版',
+      restore: '恢复购买',
+      restoring: '恢复购买中',
+      restoreSuccess: '恢复购买成功',
+      restoreFail: '恢复购买失败',
+      subtitle: '永久解锁所有高级功能：息屏 + 拍摄',
+      footer: '用户确认购买并付款后将记入 Apple 账户。如果您有任何疑问，请联系我们。',
     },
   },
   permissionManager: {
@@ -69,6 +74,14 @@ const zh = {
     unavailable: '{{permission}}功能不可用',
     blocked: '请前往设置授予{{permissions}}权限，才能正常使用该功能',
     openSettings: '打开设置',
+  },
+  appUpdate: {
+    alert: {
+      title: '发现新版本(V{{version}})',
+      ok: '更新',
+      next: '下一次',
+      ignore: '忽略',
+    },
   },
 };
 

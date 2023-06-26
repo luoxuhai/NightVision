@@ -12,6 +12,7 @@ export class GlobalStore {
   @observable minDistance = 1;
   @observable colorMode = 1;
   @observable smoothed = true;
+  @observable isTakeCameraPhoto = false;
   @observable vibrationEnabled = true;
   @observable distanceRect: DistanceRect = {
     position: { x: 0, y: 0 },
@@ -24,6 +25,7 @@ export class GlobalStore {
   // 可用的
   @observable isAvailable = false;
   @observable shake = false;
+  @observable isPremium = false;
 
   constructor() {
     makeObservable(this);
@@ -38,6 +40,8 @@ export class GlobalStore {
         'ignoreAppMask',
         'ignoreRectTip',
         'vibrationEnabled',
+        'isPremium',
+        'isTakeCameraPhoto'
       ],
     });
   }
@@ -80,6 +84,14 @@ export class GlobalStore {
 
   @action setVibrationEnabled(value: boolean): void {
     this.vibrationEnabled = value;
+  }
+
+  @action setIsTakeCameraPhoto(value: boolean): void {
+    this.isTakeCameraPhoto = value;
+  }
+
+  @action setIsPremium(value: boolean): void {
+    this.isPremium = value;
   }
 
   async hydrate() {

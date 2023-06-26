@@ -74,9 +74,26 @@ class DepthCameraView: UIView {
     }
   
     func takePicture(options: NSDictionary, resolve: @escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock) {
-        // let quality = options["quality"] as? CGFloat ?? 1
+        let original = options["original"] as? Bool ?? false
         let image = mtkView.currentDrawable!.texture.toUIImage()
+      
+      if original {
+        let capturedImage = depthDataProvider.session.currentFrame?.capturedImage
+        if (capturedImage == nil) {
+          return
+        }
+      
+        let ciImage = CIImage(cvPixelBuffer: capturedImage!)
+        let context = CIContext(options: nil)
+        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
+          return
+        }
+        let capturedUIImage = UIImage(cgImage: cgImage, scale: 0.0, orientation: UIImage.Orientation.right)
+        PhotoLibrary.shared.saveToPhotoLibrary(image: image, resolve: nil, reject: nil)
+        PhotoLibrary.shared.saveToPhotoLibrary(image: capturedUIImage, resolve: resolve, reject: reject)
+      } else {
         PhotoLibrary.shared.saveToPhotoLibrary(image: image, resolve: resolve, reject: reject)
+      }
     }
     
     @objc

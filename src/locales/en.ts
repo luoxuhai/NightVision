@@ -50,19 +50,25 @@ const en: Translations = {
     advanced: {
       title: 'Advanced Settings',
       smoothed: 'Smooth Image',
+      saveCameraImage: 'Take Normal Camera Photo',
       distance: 'Min Alarm Distance: ',
       shake: 'Shake the Screen',
       vibrationEnabled: 'Vibration Alarm',
     },
     donate: {
-      purchasing: 'Paying',
-      success: 'Thank you for your donation',
-      fail: 'Donation failed',
-      title: 'Buy Me a Coffee (Donation)',
-      subtitle: 'Support us to develop more free and easy-to-use apps',
-    },
-    openSource: {
-      title: 'The APP is open source, welcome to Star and PR 👉',
+      needPremium: 'Requires Purchase',
+      purchasing: 'Purchasing',
+      purchased: 'Purchased',
+      success: 'Purchase Successful',
+      fail: 'Purchase Failed',
+      title: 'Night Vision Premium',
+      subtitle: 'Permanently unlock all premium features: Screen Off + Capture Image',
+      restore: 'Restore Purchase',
+      restoring: 'Restoring Purchase',
+      restoreSuccess: 'Restore Purchase Successful',
+      restoreFail: 'Failed to Restore Purchases',
+      footer:
+        'The Apple account will be credited after the user confirms the purchase and pays. If you have any questions, please contact us.',
     },
   },
   permissionManager: {
@@ -72,6 +78,14 @@ const en: Translations = {
     blocked:
       'Please go to settings to grant {{permissions}} permission to use this function normally',
     openSettings: 'Open Settings',
+  },
+  appUpdate: {
+    alert: {
+      title: 'New Version Found (V{{version}})',
+      ok: 'Update',
+      next: 'Next',
+      ignore: 'Ignore',
+    },
   },
 };
 

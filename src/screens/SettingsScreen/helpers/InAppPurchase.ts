@@ -10,11 +10,13 @@ import {
   ProductPurchase,
   purchaseErrorListener,
   PurchaseError,
+  getAvailablePurchases,
 } from 'react-native-iap';
 import * as Overlay from '@react-native-library/overlay';
 
 import { t } from '@/locales';
 import Config from '@/config';
+import { globalStore } from '@/store/global';
 
 export class InAppPurchase {
   static shared = new InAppPurchase();
@@ -64,6 +66,25 @@ export class InAppPurchase {
     }
   }
 
+  public async restorePurchase() {
+    const result = (await getAvailablePurchases()).find(
+      (purchase) => purchase.productId === this.productId,
+    );
+
+    const isPurchased = !!result?.transactionReceipt;
+    if (result?.transactionReceipt) {
+      this.setPurchasedState(true);
+    } else {
+      this.setPurchasedState(false);
+    }
+
+    return isPurchased;
+  }
+
+  public setPurchasedState(isPurchased: boolean) {
+    globalStore.setIsPremium(isPurchased);
+  }
+
   private removeAllListener() {
     this.purchaseUpdateSubscription?.remove();
     this.purchaseErrorSubscription?.remove();
@@ -97,6 +118,7 @@ export class InAppPurchase {
 
           try {
             await finishTransaction({ purchase, isConsumable: false });
+            this.setPurchasedState(true);
             Overlay.Confetti.start({ duration: 2 });
             Overlay.Toast.show({ preset: 'done', title: t('settingsScreen.donate.success') });
           } catch (error) {

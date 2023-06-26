@@ -23,7 +23,7 @@ export interface DepthCameraViewProps {
 }
 
 interface NativeMethods {
-  takePicture: () => Promise<void>;
+  takePicture: ({ original }: { original?: boolean }) => Promise<void>;
 }
 
 export type DepthCameraViewRef = PureComponent<DepthCameraViewProps> & NativeMethods;
@@ -42,7 +42,7 @@ export class DepthCameraView extends PureComponent<DepthCameraViewProps> {
   public takePicture = async (options?: TakePictureOptions) => {
     return await DepthCameraModule.takePicture(
       findNodeHandle(this.ref.current),
-      options ?? { quality: 1 },
+      options ?? { original: false },
     );
   };
 
