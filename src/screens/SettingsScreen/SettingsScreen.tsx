@@ -39,6 +39,7 @@ export const SettingsScreen = observer<NativeStackScreenProps<AppStackParamList,
           Alert.show({
             preset: 'done',
             title: t('settingsScreen.donate.restoreSuccess'),
+            haptic: 'success',
           });
         } else {
           throw Error('No purchase history');
@@ -51,6 +52,7 @@ export const SettingsScreen = observer<NativeStackScreenProps<AppStackParamList,
           preset: 'error',
           title: t('settingsScreen.donate.restoreFail'),
           message: (error as any).message || '',
+          haptic: 'error'
         });
       }
     }, []);
@@ -83,6 +85,7 @@ export const SettingsScreen = observer<NativeStackScreenProps<AppStackParamList,
             <ListCell
               text={t('settingsScreen.version')}
               rightIcon={null}
+              disabled
               RightAccessory={`${Application.version}(${Application.buildNumber})`}
             />
             <ListCell

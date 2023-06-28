@@ -55,8 +55,8 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
     }
 
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-      let sceneDepth = session.currentFrame?.sceneDepth
-      let smoothedSceneDepth = session.currentFrame?.smoothedSceneDepth
+      let sceneDepth = frame.sceneDepth
+      let smoothedSceneDepth = frame.smoothedSceneDepth
       let depth = config.frameSemantics.contains(.smoothedSceneDepth) ? smoothedSceneDepth : sceneDepth
       
       if let depthMap = depth?.depthMap {
@@ -72,7 +72,9 @@ class DepthDataProvider: NSObject, ARSessionDelegate {
         }
         
         if textureCache != nil {
-          depthContent.texture = depthMap.texture(withFormat: .r32Float, planeIndex: 0, addToCache: textureCache)
+          DispatchQueue.global().async {
+            self.depthContent.texture = depthMap.texture(withFormat: .r32Float, planeIndex: 0, addToCache: self.textureCache)
+          }
         } else {
           print("Not textureCache")
         }

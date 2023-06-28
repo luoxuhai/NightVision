@@ -26,6 +26,7 @@ import {
 const windowWidth = Dimensions.get('window').width;
 const cameraViewWidth =
   windowWidth > DEPTH_CAMERA_VIEW_MAX_WIDTH ? DEPTH_CAMERA_VIEW_MAX_WIDTH : windowWidth;
+const cameraViewHeight = Dimensions.get('window').height;
 
 interface DepthCameraProps {
   distanceRectVisible: boolean;
@@ -85,8 +86,8 @@ export const DepthCamera = observer<DepthCameraProps, DepthCameraViewRef>(
       >
         <View
           style={{
-            width: cameraViewWidth,
-            height: cameraViewWidth / ratio,
+            width: store.isFullscreen ? cameraViewHeight * ratio : cameraViewWidth,
+            height: store.isFullscreen ? cameraViewHeight : cameraViewWidth / ratio,
             backgroundColor: '#000',
             position: 'relative',
           }}

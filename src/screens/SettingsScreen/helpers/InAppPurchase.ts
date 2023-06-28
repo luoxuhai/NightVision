@@ -17,6 +17,8 @@ import * as Overlay from '@react-native-library/overlay';
 import { t } from '@/locales';
 import Config from '@/config';
 import { globalStore } from '@/store/global';
+import { EventTracking } from '@/utils/EventTracking';
+import { Device } from '@/utils';
 
 export class InAppPurchase {
   static shared = new InAppPurchase();
@@ -120,7 +122,12 @@ export class InAppPurchase {
             await finishTransaction({ purchase, isConsumable: false });
             this.setPurchasedState(true);
             Overlay.Confetti.start({ duration: 2 });
-            Overlay.Toast.show({ preset: 'done', title: t('settingsScreen.donate.success') });
+            Overlay.Toast.show({
+              preset: 'done',
+              title: t('settingsScreen.donate.success'),
+              haptic: 'success',
+            });
+            EventTracking.shared.track('purchase');
           } catch (error) {
             this.purchaseErrorHandler(error as unknown as PurchaseError);
           }
@@ -147,6 +154,7 @@ export class InAppPurchase {
       preset: 'error',
       title: t('settingsScreen.donate.fail'),
       message: error?.message ?? '',
+      haptic: 'error',
     });
   }
 }

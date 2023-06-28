@@ -26,6 +26,7 @@ export class GlobalStore {
   @observable isAvailable = false;
   @observable shake = false;
   @observable isPremium = false;
+  @observable isFullscreen = false;
 
   constructor() {
     makeObservable(this);
@@ -41,7 +42,8 @@ export class GlobalStore {
         'ignoreRectTip',
         'vibrationEnabled',
         'isPremium',
-        'isTakeCameraPhoto'
+        'isTakeCameraPhoto',
+        'isFullscreen'
       ],
     });
   }
@@ -92,6 +94,10 @@ export class GlobalStore {
 
   @action setIsPremium(value: boolean): void {
     this.isPremium = value;
+  }
+
+  @action setIsFullscreen(value: boolean): void {
+    this.isFullscreen = value;
   }
 
   async hydrate() {

@@ -1,6 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle, View, PlatformColor, Share, InteractionManager } from 'react-native';
+import {
+  ViewStyle,
+  View,
+  PlatformColor,
+  Share,
+  InteractionManager,
+  TouchableOpacity,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import KeepAwake from '@sayem314/react-native-keep-awake';
@@ -17,6 +24,8 @@ import { AppStackParamList } from '@/navigators';
 import { useStore } from '@/store';
 import { t, i18n, SupportedLanguage } from '@/locales';
 import { appUpdateCheck } from '@/utils/appUpdateCheck';
+import { EventTracking } from '@/utils/EventTracking';
+import { SFSymbol } from 'react-native-sfsymbols';
 
 export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Home'>>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
@@ -96,54 +105,81 @@ export const HomeScreen = observer<NativeStackScreenProps<AppStackParamList, 'Ho
         <DepthCamera ref={depthCameraRef} distanceRectVisible={distanceRectVisible} />
 
         <View style={[$bottomContainer, { bottom: safeAreaInsets.bottom }]}>
-          <BottomButton
-            iconName="camera.filters"
-            text={t('homeScreen.color')}
-            color={PlatformColor(store.colorMode === 1 ? 'systemPurple' : 'systemGray')}
+          <TouchableOpacity
+            style={$fullscreen}
+            activeOpacity={0.5}
             onPress={() => {
-              const prev = store.colorMode;
-              store.setColorMode(prev === 1 ? 2 : 1);
+              store.setIsFullscreen(!store.isFullscreen);
               HapticFeedback.impact.medium();
+              EventTracking.shared.track('fullscreen');
             }}
-          />
-          <BottomButton
-            iconName={distanceRectVisible ? 'ruler.fill' : 'ruler'}
-            text={t('homeScreen.distance')}
-            onPress={() => {
-              setDistanceRectVisible((prev) => !prev);
-              HapticFeedback.impact.heavy();
-            }}
-          />
-          <BottomButton
-            iconName="record.circle"
-            text={t('homeScreen.take')}
-            onPress={async () => {
-              if (!canUseFeature()) {
-                return;
+          >
+            <SFSymbol
+              name={
+                store.isFullscreen
+                  ? 'rectangle.and.arrow.up.right.and.arrow.down.left.slash'
+                  : 'rectangle.and.arrow.up.right.and.arrow.down.left'
               }
+              color={PlatformColor('systemGray')}
+              style={$fullscreenIcon}
+            />
+          </TouchableOpacity>
+          <View style={$bottomButtonGroup}>
+            <BottomButton
+              iconName="camera.filters"
+              text={t('homeScreen.color')}
+              color={PlatformColor(store.colorMode === 1 ? 'systemPurple' : 'systemGray')}
+              onPress={() => {
+                const prev = store.colorMode;
+                store.setColorMode(prev === 1 ? 2 : 1);
+                HapticFeedback.impact.medium();
+              }}
+            />
+            <BottomButton
+              iconName={distanceRectVisible ? 'ruler.fill' : 'ruler'}
+              text={t('homeScreen.distance')}
+              onPress={() => {
+                setDistanceRectVisible((prev) => !prev);
+                HapticFeedback.impact.heavy();
+                EventTracking.shared.track('distance_detection');
+              }}
+            />
+            <BottomButton
+              iconName="record.circle"
+              text={t('homeScreen.take')}
+              style={{
+                marginLeft: 10,
+              }}
+              onPress={async () => {
+                if (!canUseFeature()) {
+                  return;
+                }
 
-              HapticFeedback.impact.medium();
-              await depthCameraRef.current?.takePicture({
-                original: store.isTakeCameraPhoto,
-              });
-              Overlay.toast({
-                preset: 'done',
-                title: t('homeScreen.saveToPhotos'),
-              });
-            }}
-          />
-          <BottomButton
-            iconName="moon"
-            text={t('homeScreen.offLight')}
-            onPress={() => {
-              if (!canUseFeature()) {
-                return;
-              }
+                HapticFeedback.impact.medium();
+                await depthCameraRef.current?.takePicture({
+                  original: store.isTakeCameraPhoto,
+                });
+                Overlay.toast({
+                  preset: 'done',
+                  title: t('homeScreen.saveToPhotos'),
+                });
+                EventTracking.shared.track('take_picture');
+              }}
+            />
+            <BottomButton
+              iconName="moon"
+              text={t('homeScreen.offLight')}
+              onPress={() => {
+                if (!canUseFeature()) {
+                  return;
+                }
 
-              props.navigation.navigate('AppMask');
-              HapticFeedback.impact.medium();
-            }}
-          />
+                props.navigation.navigate('AppMask');
+                HapticFeedback.impact.medium();
+                EventTracking.shared.track('screen_off');
+              }}
+            />
+          </View>
         </View>
       </View>
     </>
@@ -165,11 +201,25 @@ const $topContainer: ViewStyle = {
   justifyContent: 'space-between',
 };
 
+const $fullscreen: ViewStyle = {
+  marginBottom: 2,
+};
+
+const $fullscreenIcon: ViewStyle = {
+  width: 32,
+  height: 32,
+};
+
 const $bottomContainer: ViewStyle = {
   position: 'absolute',
   zIndex: 1,
   width: '100%',
   paddingBottom: Device.isPad ? 50 : 20,
+  alignItems: 'center',
+};
+
+const $bottomButtonGroup: ViewStyle = {
+  width: '100%',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
