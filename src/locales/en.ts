@@ -39,11 +39,6 @@ const en: Translations = {
     version: 'Version',
     connect: 'Contact Developer',
     goodReview: 'Good Review',
-    recommend: {
-      title: 'More Apps',
-      appName: 'Privacy Box',
-      desc: 'Hide private pictures, videos and files',
-    },
     agreement: 'Agreement',
     privacyPolicy: 'Privacy Policy',
     userAgreement: 'User Agreement',
@@ -85,6 +80,14 @@ const en: Translations = {
       ok: 'Update',
       next: 'Next',
       ignore: 'Ignore',
+    },
+  },
+  appPromote: {
+    title: 'My More Apps',
+    privateBox: {
+      id: '1597534147',
+      name: 'Privacy Box',
+      description: 'Hide private pictures, videos and files',
     },
   },
 };

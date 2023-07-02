@@ -37,11 +37,6 @@ const zh = {
     version: '版本',
     connect: '联系开发者',
     goodReview: '给个5星好评',
-    recommend: {
-      title: '我的更多 App',
-      appName: '隐私盒子',
-      desc: '隐藏私密图片、视频和文件',
-    },
     agreement: '协议',
     privacyPolicy: '隐私政策',
     userAgreement: '用户协议',
@@ -81,6 +76,19 @@ const zh = {
       ok: '更新',
       next: '下一次',
       ignore: '忽略',
+    },
+  },
+  appPromote: {
+    title: '我们的其他作品',
+    privateBox: {
+      id: '1597534147',
+      name: '隐私盒子',
+      description: '隐藏私密图片、视频和文件',
+    },
+    iGrammar: {
+      id: '6447102989',
+      name: '爱语法',
+      description: '智能分析英语语法，从未如此热爱英语',
     },
   },
 };
