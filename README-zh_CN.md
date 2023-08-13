@@ -12,6 +12,8 @@
    <a href="README-zh_CN.md">简体中文</a>
 </p>
 
+**⚠️ 从 v1.8.1 开始闭源**
+
 **由 [react-native-boilerplate](https://github.com/luoxuhai/react-native-boilerplate) 提供支持。**
 
 <div align="center">
