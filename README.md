@@ -11,6 +11,8 @@
   <a href="README-zh_CN.md">简体中文</a>
 </p>
 
+**⚠️ Closed-source since v1.8.1**
+
 **Powered by [react-native-boilerplate](https://github.com/luoxuhai/react-native-boilerplate).**
 
 <div align="center">
